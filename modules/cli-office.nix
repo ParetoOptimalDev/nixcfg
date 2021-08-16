@@ -10,6 +10,7 @@
     services = {
 
       offlineimap-oneshot = {
+        enable = false;
         description = "Offlineimap Service (oneshot)";
         documentation = [ "man:offlineimap(1)" ];
         wantedBy = [ "mail.target" ];
@@ -21,6 +22,7 @@
       };
 
       vdirsyncer-oneshot = {
+        enable = true;
         description = "Synchronize calendars and contacts (oneshot)";
         documentation = [ "https://vdirsyncer.readthedocs.org/" ];
         serviceConfig = {
@@ -33,6 +35,7 @@
     timers = {
 
       offlineimap-oneshot = {
+        enable = false;
         description = "Offlineimap Query Timer";
         wantedBy = [ "timers.target" ];
         timerConfig = {
@@ -42,6 +45,7 @@
       };
 
       vdirsyncer-oneshot = {
+        enable = true;
         description = "Synchronize vdirs";
         wantedBy = [ "timers.target" ];
         timerConfig = {
