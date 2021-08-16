@@ -104,6 +104,7 @@ in
     extra = with pkgs; [
       freerdp
       lutris
+      robo3t
       slack
       teams
       zoom-us
