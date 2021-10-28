@@ -30,9 +30,4 @@
       extraBackends = [ pkgs.hplipWithPlugin ];
     };
   };
-
-  environment.systemPackages = [
-    pkgs.unpaper
-  ];
-
 }
