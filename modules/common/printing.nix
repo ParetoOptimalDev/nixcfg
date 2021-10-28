@@ -18,7 +18,7 @@
         "PageSize" = "A4";
         "Duplex" = "DuplexNoTumble";
         "InputSlot" = "Tray2";
-        "ColorModel" = "RGB";
+        "ColorModel" = "KGray";
         "MediaType" = "Plain";
         "OutputMode" = "Normal";
         "OptionDuplex" = "True";
