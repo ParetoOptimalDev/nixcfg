@@ -2,7 +2,8 @@
 
 let
 
-  nextcloud = pkgs.nextcloud-client;
+  v = import ../../nixversions.nix {};
+  nextcloud = v.pkgsUnstable.nextcloud-client;
 
 in
 
