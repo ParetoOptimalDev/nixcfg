@@ -349,7 +349,6 @@ in
         ascii
         jetbrains.idea-ultimate
         lnav
-        nixops
         tmuxinator tmux
         vscode
 
