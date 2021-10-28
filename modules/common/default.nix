@@ -6,6 +6,7 @@
 
     ./accounts.nix
     ./desktop.nix
+    ./direnv.nix
     ./id.nix
     ./input.nix
     ./network.nix

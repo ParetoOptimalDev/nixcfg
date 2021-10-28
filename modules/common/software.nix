@@ -36,7 +36,6 @@ in
         bind
         broot
         convmv
-        direnv
         eva
         fd # ultra-fast find
         file
