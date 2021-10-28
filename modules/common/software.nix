@@ -347,7 +347,7 @@ in
       type = types.listOf types.package;
       default = with pkgs; [
         ascii
-        v.pkgsUnstable.jetbrains.idea-ultimate
+        jetbrains.idea-ultimate
         lnav
         nixops
         tmuxinator tmux
