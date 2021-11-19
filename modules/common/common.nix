@@ -26,10 +26,16 @@ in
 
   time.timeZone = "Europe/Zurich";
 
-  nix.gc = {
-    automatic = true;
-    dates = "04:00";
-    options = "--delete-older-than 7d";
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+    gc = {
+      automatic = true;
+      dates = "04:00";
+      options = "--delete-older-than 7d";
+    };
   };
 
   nixpkgs.config.allowUnfree = true;
