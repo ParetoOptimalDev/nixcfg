@@ -32,7 +32,7 @@ with pkgs.lib;
       let
         ff = p: ! builtins.elem p config.software.blacklist;
       in
-        builtins.filter ff config.software.gaming;
+      builtins.filter ff config.software.gaming;
   };
 }
 

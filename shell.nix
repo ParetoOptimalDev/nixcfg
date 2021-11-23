@@ -18,6 +18,9 @@ pkgs.mkShell {
 
   shellHook = ''
     figlet $name | lolcat --freq 0.5
+
+    echo "Running nix file autoformat..."
+    nixpkgs-fmt **/*.nix
   '';
 }
 

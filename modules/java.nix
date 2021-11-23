@@ -6,7 +6,7 @@ let
   java8 = pkgs.jdk8;
   java11 = pkgs.jdk11;
   jfx11 = pkgs.openjfx11;
-  
+
 in
 
 {
@@ -27,7 +27,7 @@ in
       JDK11_HOME = "${java11}/lib/openjdk";
 
       # IntelliJ IDEA Code with me
-      INTELLIJCLIENT_JDK =  "${java11}/lib/openjdk";
+      INTELLIJCLIENT_JDK = "${java11}/lib/openjdk";
     };
   };
 }

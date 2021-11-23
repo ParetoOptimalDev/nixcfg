@@ -5,13 +5,13 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-      # Include role configuration
-      ../modules/container.nix
-    ];
+    # Include role configuration
+    ../modules/container.nix
+  ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub = {
@@ -25,8 +25,8 @@
 
   # Select internationalisation properties.
   i18n = {
-  #   consoleFont = "Lat2-Terminus16";
-  #   consoleKeyMap = "en";
+    #   consoleFont = "Lat2-Terminus16";
+    #   consoleKeyMap = "en";
     defaultLocale = "de_CH.UTF-8";
   };
 

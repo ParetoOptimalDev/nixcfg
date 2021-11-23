@@ -2,8 +2,16 @@
 
 {
   environment.systemPackages = with pkgs; [
-    khal khard vdirsyncer
-    mutt-with-sidebar offlineimap urlview w3m
+    # calendar
+    khal
+    khard
+    vdirsyncer
+
+    # e-mail
+    mutt-with-sidebar
+    offlineimap
+    urlview
+    w3m
   ];
 
   systemd.user = {

@@ -9,11 +9,15 @@
 with lib;
 
 let
+
   cfg = config.services.roundcubedev;
   fpm = config.services.phpfpm.pools.roundcubedev;
-in {
 
-### interface
+in
+
+{
+
+  ### interface
 
   options = {
     services.roundcubedev = {
@@ -56,7 +60,7 @@ in {
   };
 
 
-### implementation
+  ### implementation
 
   config = mkIf config.services.roundcubedev.enable {
     services.nginx = {
