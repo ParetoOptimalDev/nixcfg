@@ -19,17 +19,17 @@
   };
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/477982f0-ec23-423a-a8c4-b0cde79988ed";
+    { device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/0E24-ED7A";
+    { device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/c5edd3ca-043c-4eaa-8c74-e1fb9947b382"; }
+    [ { device = "/dev/disk/by-label/swap"; }
     ];
 
   nix.maxJobs = lib.mkDefault 8;
