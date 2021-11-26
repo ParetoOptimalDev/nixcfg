@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware
       ../../modules/common
       ../../modules/gaming.nix
@@ -14,13 +15,7 @@
 
   networking.hostName = "altair";
 
-  software.dev = [];
+  software.dev = [ ];
 
-  services.xserver = {
-    displayManager.lightdm.greeters.mini = {
-      enable = true;
-      user = "christian";
-    };
-    xkbOptions = "caps:escape";
-  };
+  services.xserver.xkbOptions = "caps:escape";
 }

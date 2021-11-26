@@ -2,7 +2,7 @@
 
 let
 
-   acc = config.accounts."bluecare/hin-id";
+  acc = config.accounts."bluecare/hin-id";
 
 in
 

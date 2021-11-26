@@ -10,7 +10,8 @@
   environment.systemPackages = with pkgs; [
     acpi
     dmenu
-    dunst libnotify
+    dunst
+    libnotify
     feh
     i3lock-pixeled
     lm_sensors
@@ -82,10 +83,10 @@
       '';
 
       serverFlagsSection = ''
-          Option "BlankTime" "15"
-          Option "StandbyTime" "15"
-          Option "SuspendTime" "15"
-          Option "OffTime" "15"
+        Option "BlankTime" "15"
+        Option "StandbyTime" "15"
+        Option "SuspendTime" "15"
+        Option "OffTime" "15"
       '';
     };
   };

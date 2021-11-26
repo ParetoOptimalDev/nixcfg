@@ -2,7 +2,7 @@
 
 let
 
-  v = import ../../../nixversions.nix {};
+  v = import ../../../nixversions.nix { };
 
 in
 

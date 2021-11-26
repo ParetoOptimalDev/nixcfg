@@ -49,7 +49,8 @@ in
         killall
         lazygit
         neofetch
-        parted exfat
+        parted
+        exfat
         ranger
         samba
         starship
@@ -72,7 +73,8 @@ in
                 vim-fugitive
                 vim-startify
                 vim-surround
-                vimwiki mattn-calendar-vim
+                vimwiki
+                mattn-calendar-vim
               ];
               # load plugin when necessary
               opt = [
@@ -302,7 +304,8 @@ in
       default = with pkgs; [
         alacritty
         mupdf
-        peek gifski
+        peek
+        gifski
         scrot
         xclip
         xzoom
@@ -313,7 +316,8 @@ in
       type = types.listOf types.package;
       default = with pkgs; [
         gimp
-        plantuml graphviz
+        plantuml
+        graphviz
         sxiv
       ];
     };
@@ -349,7 +353,8 @@ in
         ascii
         jetbrains.idea-ultimate
         lnav
-        tmuxinator tmux
+        tmuxinator
+        tmux
         vscode
 
         # REPLs
@@ -369,12 +374,12 @@ in
 
     extra = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
     };
 
     blacklist = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
     };
 
   };
@@ -384,14 +389,14 @@ in
       let
         ff = p: ! builtins.elem p config.software.blacklist;
         all = config.software.common ++
-              config.software.x ++
-              config.software.image ++
-              config.software.multimedia ++
-              config.software.web ++
-              config.software.dev ++
-              config.software.office ++
-              config.software.extra;
+          config.software.x ++
+          config.software.image ++
+          config.software.multimedia ++
+          config.software.web ++
+          config.software.dev ++
+          config.software.office ++
+          config.software.extra;
       in
-        builtins.filter ff all;
+      builtins.filter ff all;
   };
 }

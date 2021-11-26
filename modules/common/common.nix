@@ -50,15 +50,17 @@ in
     Defaults insults
   '';
 
-  environment = let
-    terminal = "alacritty";
-  in {
-    homeBinInPath = true;
-    variables = {
-      TERMINAL = terminal;
-      TERMCMD = terminal;
+  environment =
+    let
+      terminal = "alacritty";
+    in
+    {
+      homeBinInPath = true;
+      variables = {
+        TERMINAL = terminal;
+        TERMCMD = terminal;
+      };
     };
-  };
 
   fonts = {
     fonts = with pkgs; [
@@ -69,52 +71,52 @@ in
   };
 
   fileSystems =
-  let
-    target = "/mnt/home";
-    fileserver = "sv-syno-01";
-    fsType = "cifs";
-    credentials = "/home/christian/.accounts/home/smbcredentials";
-    automount_opts = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s" ];
-    auth_opts = [ "uid=1000" "gid=100" "credentials=${credentials}" ];
-    options = automount_opts ++ auth_opts;
-  in
-  {
-    "${target}/backup" = {
-      device = "//${fileserver}/backup";
-      fsType = fsType;
-      options = options;
-    };
+    let
+      target = "/mnt/home";
+      fileserver = "sv-syno-01";
+      fsType = "cifs";
+      credentials = "/home/christian/.accounts/home/smbcredentials";
+      automount_opts = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s" ];
+      auth_opts = [ "uid=1000" "gid=100" "credentials=${credentials}" ];
+      options = automount_opts ++ auth_opts;
+    in
+    {
+      "${target}/backup" = {
+        device = "//${fileserver}/backup";
+        fsType = fsType;
+        options = options;
+      };
 
-    "${target}/home" = {
-      device = "//${fileserver}/home";
-      fsType = fsType;
-      options = options;
-    };
+      "${target}/home" = {
+        device = "//${fileserver}/home";
+        fsType = fsType;
+        options = options;
+      };
 
-    "${target}/music" = {
-      device = "//${fileserver}/music";
-      fsType = fsType;
-      options = options;
-    };
+      "${target}/music" = {
+        device = "//${fileserver}/music";
+        fsType = fsType;
+        options = options;
+      };
 
-    "${target}/photo" = {
-      device = "//${fileserver}/photo";
-      fsType = fsType;
-      options = options;
-    };
+      "${target}/photo" = {
+        device = "//${fileserver}/photo";
+        fsType = fsType;
+        options = options;
+      };
 
-    "${target}/public" = {
-      device = "//${fileserver}/public";
-      fsType = fsType;
-      options = options;
-    };
+      "${target}/public" = {
+        device = "//${fileserver}/public";
+        fsType = fsType;
+        options = options;
+      };
 
-    "${target}/video" = {
-      device = "//${fileserver}/video";
-      fsType = fsType;
-      options = options;
+      "${target}/video" = {
+        device = "//${fileserver}/video";
+        fsType = fsType;
+        options = options;
+      };
     };
-  };
 
   system = {
     autoUpgrade = {

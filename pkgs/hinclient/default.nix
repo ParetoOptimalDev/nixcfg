@@ -3,7 +3,7 @@
 stdenv.mkDerivation rec {
 
   version = "1.5.6-81";
-  packageVersion = builtins.replaceStrings ["."] ["_"] version;
+  packageVersion = builtins.replaceStrings [ "." ] [ "_" ] version;
   name = "hinclient-${version}";
 
   src = fetchurl {
