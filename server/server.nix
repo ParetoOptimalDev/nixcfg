@@ -4,6 +4,12 @@
 
 { config, pkgs, ... }:
 
+let
+
+  username = import ../username.nix;
+
+in
+
 {
   imports = [
     # Include the results of the hardware scan.
@@ -51,15 +57,12 @@
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.christian = {
+  users.users.${username} = {
     isNormalUser = true;
     uid = 1000;
     initialPassword = "changeme";
     extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxWxGVejEPm83DEMaNxuhGTCsHAV3Peoa/kkp+/89ufZ/jYIwPhIZsOz6DG+1k42BE0N8gMKO1Bg5AYt/jEDpFxlchYkKOKCGkzFA3pjYHB6Saser9Jd9wVK5n+Dx1c+Pyfpr7pDZbHtq1WcNsUMw3FZxbg4W/CXoR/4dILEW3LiJVsZ16SB3qV5qg27xVts2ux7lbE9VjYg4XPQhmPRWWHZ0SwIb2JvUw+jTFnUJEPzinwV0EMH8tw7rQYKn6GP8ZtWqR6BJZH5gPJgJXFzdGztZ1rTQXZJeEb++KoBxVAXujsRaGSswJiGXd8dagxMarYqrzu4kFlUXjEbsxm+wTyq1LO2S8AcYG/xWP3YpoqDJMbbkvbOdXApQk0KM1BShZQxliRl3lTGV6GZQEIdXGJl5qQgDZHtbjL9pYBZGaXjnFi/aLl7r5H6ygEj0mjvscJqiJkw4xwrOvMj4I11pRttnyRzofx5995GtdTHQzwYcEqsz1Jf2+cZxKe2rjqHwOixwD3QIvJpUzX2Z5e9gmHU2Dbkcbtb6YyJUvwVH4gzz8SBbnSMZtP03nI3lUVtLgwxUobNOaGrpOOqdnB3nFec2eXFXPnJRzn8GiXEuQm8viApDdxi2GR6kqxblRFr9tIK+uefrJbaMZPGONCO/6DPmf7ZlJ8pgZ+0r/DV6bww==
-ch.harke@gmail.com"
-    ];
+    openssh.authorizedKeys.keyFiles = [ ../modules/common/user/id_rsa.pub ];
   };
 
   # This value determines the NixOS release with which your system is to be

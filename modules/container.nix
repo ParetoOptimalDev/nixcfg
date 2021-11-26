@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
 
+let
+
+  username = import ../username.nix;
+
+in
+
 {
   environment.systemPackages = with pkgs; [
     docker-compose
@@ -12,5 +18,5 @@
     enableOnBoot = false;
   };
 
-  users.users.christian.extraGroups = [ "docker" ];
+  users.users.${username}.extraGroups = [ "docker" ];
 }

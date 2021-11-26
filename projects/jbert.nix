@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
 
+let
+
+  username = import ../username.nix;
+
+in
+
 {
   imports =
     [
@@ -12,7 +18,7 @@
     group = "audio";
   };
 
-  users.users.christian.extraGroups = [
+  users.users.${username}.extraGroups = [
     "audio"
   ];
 }

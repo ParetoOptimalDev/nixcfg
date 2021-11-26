@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
 
+let
+
+  username = import ../username.nix;
+
+in
+
 {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -10,5 +16,5 @@
 
   virtualisation.docker.enable = true;
 
-  users.users.christian.extraGroups = [ "docker" ];
+  users.users.${username}.extraGroups = [ "docker" ];
 }

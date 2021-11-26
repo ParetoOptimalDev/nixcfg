@@ -2,6 +2,7 @@
 
 let
 
+  username = import ../../username.nix;
   localeLang = "en_US.UTF-8";
   localeFormats = "de_CH.UTF-8";
 
@@ -75,7 +76,7 @@ in
       target = "/mnt/home";
       fileserver = "sv-syno-01";
       fsType = "cifs";
-      credentials = "/home/christian/.accounts/home/smbcredentials";
+      credentials = "/home/${username}/.accounts/home/smbcredentials";
       automount_opts = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s" ];
       auth_opts = [ "uid=1000" "gid=100" "credentials=${credentials}" ];
       options = automount_opts ++ auth_opts;

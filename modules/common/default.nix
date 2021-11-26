@@ -4,7 +4,7 @@
   imports = [
     ./common.nix
 
-    ./accounts.nix
+    #./accounts.nix # FIXME: cannot discover gitignored files
     ./desktop.nix
     ./direnv.nix
     ./id.nix
@@ -16,7 +16,7 @@
     ./redshift.nix
     ./software.nix
     ./sound.nix
-    ./user.nix
+    ./user
     ./virtualbox.nix
     ./vpn.nix
   ];

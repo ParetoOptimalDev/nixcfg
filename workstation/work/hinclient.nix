@@ -3,6 +3,7 @@
 let
 
   acc = config.accounts."bluecare/hin-id";
+  username = import ../../username.nix;
 
 in
 
@@ -11,7 +12,7 @@ in
     enable = false;
     identities = acc.username;
     passphrase = acc.password;
-    keystore = /home/christian/.accounts/bluecare/hin + "/${acc.username}.hin";
+    keystore = /home + "/${username}/" + .accounts/bluecare/hin + "/${acc.username}.hin";
     httpProxyPort = 5016;
     clientapiPort = 5017;
     smtpProxyPort = 5018;

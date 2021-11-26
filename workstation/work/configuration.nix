@@ -3,6 +3,7 @@
 let
 
   acc = config.accounts."bluecare/ad";
+  username = import ../../username.nix;
 
 in
 
@@ -29,7 +30,7 @@ in
       target = "/mnt/bluecare";
       fileserver = "bluecare-s54";
       fsType = "cifs";
-      credentials = "/home/christian/.accounts/bluecare/smbcredentials";
+      credentials = "/home/${username}/.accounts/bluecare/smbcredentials";
       automount_opts = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s" ];
       auth_opts = [ "uid=1000" "gid=100" "credentials=${credentials}" ];
       options = automount_opts ++ auth_opts;
@@ -133,7 +134,7 @@ in
 
     openvpn.servers.bluecare = {
       autoStart = false;
-      config = "config /home/christian/.accounts/bluecare/ovpn/chr@vpfwblue.bluecare.ch.ovpn";
+      config = "config /home/${username}/.accounts/bluecare/ovpn/chr@vpfwblue.bluecare.ch.ovpn";
       updateResolvConf = true;
     };
 
@@ -142,7 +143,7 @@ in
     xserver = {
       displayManager.lightdm.greeters.mini = {
         enable = true;
-        user = "christian";
+        user = username;
       };
       xkbOptions = "caps:swapescape";
     };
