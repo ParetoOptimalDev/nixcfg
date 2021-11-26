@@ -1,7 +1,7 @@
 pkgs:
 let
   callPackage = pkgs.lib.callPackageWith (custom // pkgs);
-  p = import ../nixversions.nix { };
+  p = import ../nix/sources.nix { };
   custom = p // {
     hinclient = callPackage ./hinclient { };
 

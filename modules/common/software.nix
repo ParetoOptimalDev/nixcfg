@@ -2,12 +2,6 @@
 
 with pkgs.lib;
 
-let
-
-  v = import ../../nixversions.nix {};
-
-in
-
 {
   imports = import ../../pkgs/modules.nix;
 
@@ -31,7 +25,7 @@ in
         exa
         ripgrep
 
-        v.pkgsUnstable._1password
+        _1password
         _1password-gui
         bind
         broot

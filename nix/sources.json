@@ -1,4 +1,23 @@
 {
+    "_1password": {
+        "sha256": "1449n3v72ilbylrxg3vm2s1qld4r2xif23ymzar1c6sgjwvg6zcl",
+        "type": "file",
+        "url": "https://cache.agilebits.com/dist/1P/op/pkg/v1.12.3/op_linux_amd64_v1.12.3.zip",
+        "url_template": "https://cache.agilebits.com/dist/1P/op/pkg/v<version>/op_linux_amd64_v<version>.zip",
+        "version": "1.12.3"
+    },
+    "nextcloud-client": {
+        "branch": "master",
+        "description": "💻 Desktop sync client for Nextcloud",
+        "homepage": "https://nextcloud.com/install/#install-clients",
+        "owner": "nextcloud",
+        "repo": "desktop",
+        "rev": "v3.3.6",
+        "sha256": "1cjg8zs6xyb1y5jj0rq2yvb1zn73wdbadivb89waa39cnbr6c48y",
+        "type": "tarball",
+        "url": "https://github.com/nextcloud/desktop/archive/v3.3.6.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
