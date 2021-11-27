@@ -7,7 +7,12 @@ let
 in
 
 {
+  programs = {
+      zsh.enable = true;
+  };
+
   users.users.${username} = {
+    shell = pkgs.zsh;
     name = username;
     isNormalUser = true;
     uid = 1000;
