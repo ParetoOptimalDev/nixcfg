@@ -8,6 +8,7 @@ in
 
 {
   programs = {
+      vim.defaultEditor = true;
       zsh.enable = true;
   };
 
