@@ -25,6 +25,11 @@
       enableSyntaxHighlighting = true;
       autocd = true;
       dotDir = ".config/zsh";
+      dirHashes = {
+        docs = "$HOME/Documents";
+        vids = "$HOME/Videos";
+        dl = "$HOME/Downloads";
+      };
       history =
         let
           historySize = 1000000;
