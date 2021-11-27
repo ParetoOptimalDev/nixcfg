@@ -8,8 +8,8 @@ in
 
 {
   programs = {
-      vim.defaultEditor = true;
-      zsh.enable = true;
+    vim.defaultEditor = true;
+    zsh.enable = true;
   };
 
   users.users.${username} = {
