@@ -98,13 +98,12 @@
 
   programs = {
 
-    alacritty = import ./home/alacritty.nix;
-    direnv = import ./home/direnv.nix;
-    git = import ./home/git.nix;
-    ssh = import ./home/ssh.nix;
-    tmux = import ./home/tmux.nix;
-    vim = import ./home/vim.nix { inherit pkgs; };
-    zsh = import ./home/zsh.nix;
+    alacritty = import ./alacritty.nix;
+    direnv = import ./direnv.nix;
+    ssh = import ./ssh.nix;
+    tmux = import ./tmux.nix;
+    vim = import ./vim.nix { inherit pkgs; };
+    zsh = import ./zsh.nix;
 
     bat.enable = true;
     exa.enable = true;

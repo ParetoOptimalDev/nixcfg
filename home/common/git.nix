@@ -1,8 +1,10 @@
+{ userEmail }:
+
 {
   enable = true;
   userName = "Christian Harke";
-  userEmail = "christian@harke.ch";
-  signing.key = "6309666F4";
+  userEmail = userEmail;
+  signing.key = "630966F4";
   aliases = {
     co = "checkout";
     cp = "cherry-pick";

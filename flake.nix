@@ -13,10 +13,12 @@
     let
       username = import ./username.nix;
       system = "x86_64-linux";
+
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
       };
+
       mkComputer = configurationNix: extraModules: nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         specialArgs = { inherit system inputs; };
@@ -27,26 +29,42 @@
 
             # Common configuration
             ./modules/common
-
-            # home-manager configuration
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} = import ./home.nix
-                {
-                  inherit inputs system pkgs;
-                };
-            }
           ] ++ extraModules
         );
       };
+
     in
     {
       nixosConfigurations = {
         altair = mkComputer
           ./workstation/altair
-          [ ];
+          [
+            # home-manager configuration
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${username} = import ./home/home.nix
+                {
+                  inherit inputs system pkgs;
+                };
+            }
+          ];
+
+        n75 = mkComputer
+          ./workstation/n75
+          [
+            # home-manager configuration
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${username} = import ./home/work.nix
+                {
+                  inherit inputs system pkgs;
+                };
+            }
+          ];
       };
 
       # Non-NixOS Systems
