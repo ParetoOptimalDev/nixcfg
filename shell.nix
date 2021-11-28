@@ -13,6 +13,7 @@ pkgs.mkShell {
     figlet
     lolcat # banner printing on enter
 
+    niv
     nixpkgs-fmt
   ];
 
