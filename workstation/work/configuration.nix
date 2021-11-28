@@ -17,7 +17,7 @@ in
       ../../modules/java.nix
       ../../modules/mobile.nix
       ./hinclient.nix
-    ] ++ import ./projects;
+    ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

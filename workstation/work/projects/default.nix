@@ -1,3 +1,0 @@
-[
-  ./blueconnect.nix
-]
