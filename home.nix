@@ -11,6 +11,7 @@
 
   programs = {
 
+    alacritty = import ./home/alacritty.nix;
     direnv = import ./home/direnv.nix;
     git = import ./home/git.nix;
     ssh = import ./home/ssh.nix;
