@@ -2,21 +2,27 @@
   description = "NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-21.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, home-manager, nixpkgs }:
+  outputs = inputs@{ self, home-manager, nixpkgs, nixpkgs-unstable, ... }:
     let
       username = import ./username.nix;
       system = "x86_64-linux";
 
+      overlay-unstable = final: prev: {
+        unstable = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
+      };
+
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [ overlay-unstable ];
       };
 
       mkComputer = configurationNix: extraModules: nixpkgs.lib.nixosSystem {
