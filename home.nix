@@ -11,39 +11,16 @@
 
   programs = {
 
-    ssh.enable = true;
+    direnv = import ./home/direnv.nix;
     git = import ./home/git.nix;
-
-    tmux = {
-      enable = true;
-      tmuxinator.enable = true;
-    };
-
+    ssh = import ./home/ssh.nix;
+    tmux = import ./home/tmux.nix;
     zsh = import ./home/zsh.nix;
-
-    direnv = {
-      enable = true;
-      enableZshIntegration = true;
-      nix-direnv.enable = true;
-      stdlib = ''
-        direnv reload
-
-        : ''${XDG_CACHE_HOME:=$HOME/.cache}
-        declare -A direnv_layout_dirs
-        direnv_layout_dir() {
-            echo "''${direnv_layout_dirs[$PWD]:=$(
-                echo -n "$XDG_CACHE_HOME"/direnv/layouts/
-                echo -n "$PWD" | shasum | cut -d ' ' -f 1
-            )}"
-        }
-      '';
-    };
-
-    starship.enable = true;
 
     bat.enable = true;
     fzf.enable = true;
     jq.enable = true;
+    starship.enable = true;
   };
 }
 
