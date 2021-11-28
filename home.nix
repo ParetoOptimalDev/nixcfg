@@ -12,6 +12,7 @@
   programs = {
 
     ssh.enable = true;
+    git = import ./home/git.nix;
 
     tmux = {
       enable = true;
