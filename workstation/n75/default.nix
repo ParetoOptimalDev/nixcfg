@@ -141,10 +141,6 @@ in
     #    printing.drivers = [ pkgs.cups-kyodialog3 ];
 
     xserver = {
-      displayManager.lightdm.greeters.mini = {
-        enable = true;
-        user = username;
-      };
       xkbOptions = "caps:swapescape";
     };
   };
