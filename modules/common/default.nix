@@ -13,7 +13,6 @@
     ./nextcloud.nix
     ./packages.nix
     ./printing.nix
-    ./redshift.nix
     ./software.nix
     ./sound.nix
     ./user

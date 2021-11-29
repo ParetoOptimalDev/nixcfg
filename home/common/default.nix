@@ -160,5 +160,9 @@
     # Multimedia
     mpv.enable = true;
   };
+
+  services = {
+    redshift = import ./redshift.nix;
+  };
 }
 
