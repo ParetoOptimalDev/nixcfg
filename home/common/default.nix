@@ -43,6 +43,9 @@
           unzip
         ];
         x = with pkgs; [
+          # Desktop dependencies
+          libnotify
+
           mupdf
           peek
           gifski
@@ -162,7 +165,7 @@
   };
 
   services = {
+    dunst = import ./dunst.nix { inherit pkgs; };
     redshift = import ./redshift.nix;
   };
 }
-

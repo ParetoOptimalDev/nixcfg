@@ -10,9 +10,6 @@
   environment.systemPackages = with pkgs; [
     acpi
     dmenu
-    dunst
-    libnotify
-    feh
     i3lock-pixeled
     lm_sensors
     lxappearance
@@ -22,17 +19,6 @@
   programs.xss-lock = {
     enable = true;
     lockerCommand = "${pkgs.i3lock-pixeled}/bin/i3lock-pixeled";
-  };
-
-  systemd.user.services.dunst = {
-    description = "Dunst notification daemon";
-    documentation = [ "man:dunst(1)" ];
-    partOf = [ "graphical-session.target" ];
-    serviceConfig = {
-      Type = "dbus";
-      BusName = "org.freedesktop.Notifications";
-      ExecStart = "${pkgs.dunst}/bin/dunst";
-    };
   };
 
   services = {
