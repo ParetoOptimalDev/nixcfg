@@ -47,9 +47,9 @@ in
     #extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
   };
 
-  security.sudo.extraConfig = ''
-    Defaults insults
-  '';
+  security.sudo.package = pkgs.sudo.override {
+    withInsults = true;
+  };
 
   environment =
     let
