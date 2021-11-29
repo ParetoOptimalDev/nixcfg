@@ -91,6 +91,7 @@
       web ++
       dev ++
       office;
+
     shellAliases = {
       # List the last ten directories we've been to this session, no duplicates
       d = "dirs -v | head -10";
@@ -131,9 +132,12 @@
       # Password manager
       pass = "source pass";
     };
+
     sessionVariables = {
       EDITOR = "vim";
     };
+
+    stateVersion = import ../../version.nix;
   };
 
   programs = {
