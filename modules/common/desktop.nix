@@ -2,8 +2,6 @@
 
 {
   services = {
-    autorandr.enable = true;
-
     xserver = {
       enable = true;
       desktopManager.xterm.enable = true;

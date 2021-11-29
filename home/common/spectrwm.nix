@@ -27,6 +27,7 @@
   };
 
   programs = {
+    autorandr = import ./autorandr.nix;
     feh.enable = true;
   };
 
