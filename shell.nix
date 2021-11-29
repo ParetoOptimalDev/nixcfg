@@ -1,27 +1,35 @@
 let
 
+  moz_overlay = import (builtins.fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz);
   sources = import ./nix/sources.nix;
-  pkgs = import sources.nixpkgs { };
+  pkgs = import sources.nixpkgs {
+    overlays = [ moz_overlay ];
+  };
 
 in
 
-pkgs.mkShell {
+with pkgs;
+
+mkShell {
 
   name = "nixos-config";
 
-  buildInputs = with pkgs; [
+  buildInputs = [
     figlet
     lolcat # banner printing on enter
 
     niv
     nixpkgs-fmt
+    pre-commit
+    latest.rustChannels.nightly.rust
+    latest.rustChannels.nightly.rust-src
+    rustup
   ];
 
   shellHook = ''
     figlet $name | lolcat --freq 0.5
 
-    echo "Running nix file autoformat..."
-    nixpkgs-fmt **/*.nix
+    pre-commit install-hooks
   '';
 }
 
