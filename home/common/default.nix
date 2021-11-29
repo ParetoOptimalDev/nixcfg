@@ -166,6 +166,7 @@
 
   services = {
     dunst = import ./dunst.nix { inherit pkgs; };
+    picom = import ./picom.nix;
     redshift = import ./redshift.nix;
   };
 }
