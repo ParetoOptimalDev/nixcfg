@@ -171,6 +171,8 @@
   };
 
   services = {
+    nextcloud-client = import ./nextcloud-client.nix;
+
     # Hardware
     udiskie.enable = true;
   };

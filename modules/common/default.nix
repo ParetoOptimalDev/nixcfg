@@ -9,7 +9,6 @@
     ./direnv.nix
     ./input.nix
     ./network.nix
-    ./nextcloud.nix
     ./packages.nix
     ./printing.nix
     ./software.nix
