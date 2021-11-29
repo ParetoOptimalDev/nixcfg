@@ -1,6 +1,7 @@
 { pkgs, inputs, system, ... }:
 
 {
+  imports = [ ./spectrwm.nix ];
 
   home = {
     packages =
@@ -43,13 +44,9 @@
           unzip
         ];
         x = with pkgs; [
-          # Desktop dependencies
-          libnotify
-
           mupdf
           peek
           gifski
-          scrot
           xclip
           xzoom
         ];
@@ -150,7 +147,6 @@
 
     bat.enable = true;
     exa.enable = true;
-    feh.enable = true;
     fzf.enable = true;
     jq.enable = true;
     starship.enable = true;
@@ -164,9 +160,9 @@
     mpv.enable = true;
   };
 
-  services = {
-    dunst = import ./dunst.nix { inherit pkgs; };
-    picom = import ./picom.nix;
-    redshift = import ./redshift.nix;
+  xsession = {
+    profileExtra = ''
+      feh --no-fehbg --bg-fill --randomize ~/Pictures/wallpapers
+    '';
   };
 }
