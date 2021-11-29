@@ -51,18 +51,6 @@ in
     withInsults = true;
   };
 
-  environment =
-    let
-      terminal = "alacritty";
-    in
-    {
-      homeBinInPath = true;
-      variables = {
-        TERMINAL = terminal;
-        TERMCMD = terminal;
-      };
-    };
-
   fonts = {
     fonts = with pkgs; [
       corefonts

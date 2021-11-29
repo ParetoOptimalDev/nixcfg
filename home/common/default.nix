@@ -1,7 +1,11 @@
 { pkgs, inputs, system, ... }:
 
 {
-  imports = [ ./spectrwm.nix ];
+  imports = [
+    ./alacritty.nix
+    ./spectrwm.nix
+    ./vim.nix
+  ];
 
   home = {
     keyboard.options = [ "caps:escape" ];
@@ -135,20 +139,18 @@
       pass = "source pass";
     };
 
-    sessionVariables = {
-      EDITOR = "vim";
-    };
+    sessionPath = [
+      "$HOME/bin"
+    ];
 
     stateVersion = import ../../version.nix;
   };
 
   programs = {
 
-    alacritty = import ./alacritty.nix;
     direnv = import ./direnv.nix;
     ssh = import ./ssh.nix;
     tmux = import ./tmux.nix;
-    vim = import ./vim.nix { inherit pkgs; };
     zsh = import ./zsh.nix;
 
     bat.enable = true;
