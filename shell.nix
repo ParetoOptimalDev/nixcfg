@@ -18,6 +18,7 @@ mkShell {
     figlet
     lolcat # banner printing on enter
 
+    git
     niv
     nixpkgs-fmt
     pre-commit
