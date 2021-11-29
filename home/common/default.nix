@@ -47,6 +47,7 @@
           samba
           stow
           trash-cli
+          udiskie
           unzip
         ];
         x = with pkgs; [
@@ -166,6 +167,11 @@
 
     # Multimedia
     mpv.enable = true;
+  };
+
+  services = {
+    # Hardware
+    udiskie.enable = true;
   };
 
   xsession = {
