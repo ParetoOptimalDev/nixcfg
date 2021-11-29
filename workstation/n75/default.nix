@@ -139,10 +139,6 @@ in
     };
 
     #    printing.drivers = [ pkgs.cups-kyodialog3 ];
-
-    xserver = {
-      xkbOptions = "caps:swapescape";
-    };
   };
 
   containers.devmail =

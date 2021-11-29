@@ -4,6 +4,8 @@
   imports = [ ./spectrwm.nix ];
 
   home = {
+    keyboard.options = [ "caps:escape" ];
+
     packages =
       let
         common = with pkgs; [

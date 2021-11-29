@@ -14,8 +14,4 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "altair";
-
-  software.dev = [ ];
-
-  services.xserver.xkbOptions = "caps:escape";
 }
