@@ -51,14 +51,6 @@ in
     withInsults = true;
   };
 
-  fonts = {
-    fonts = with pkgs; [
-      corefonts
-      google-fonts
-    ];
-    fontDir.enable = true;
-  };
-
   fileSystems =
     let
       target = "/mnt/home";

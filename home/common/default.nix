@@ -3,6 +3,7 @@
 {
   imports = [
     ./alacritty.nix
+    ./fonts.nix
     ./spectrwm.nix
     ./vim.nix
   ];

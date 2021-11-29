@@ -1,15 +1,27 @@
 { pkgs, inputs, system, ... }:
 
 {
+  imports = [
+    ./dunst.nix
+  ];
+
   home = {
     packages = with pkgs; [
-      # Desktop dependencies
+      # Baraction dependencies
       acpi
-      dmenu
-      i3lock-pixeled
-      libnotify
       lm_sensors
       scrot
+
+      # Menu
+      dmenu
+
+      # Locker
+      i3lock-pixeled
+
+      # Fonts
+      nerdfonts
+
+      # The window manager
       spectrwm
     ];
   };
@@ -19,7 +31,6 @@
   };
 
   services = {
-    dunst = import ./dunst.nix { inherit pkgs; };
     picom = import ./picom.nix;
     redshift = import ./redshift.nix;
     screen-locker = {
