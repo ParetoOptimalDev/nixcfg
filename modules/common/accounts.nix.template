@@ -6,10 +6,10 @@ let
 
   accounts = {
 
-#    accountX = {
-#      username = "user";
-#      password = "secret";
-#    };
+    #    accountX = {
+    #      username = "user";
+    #      password = "secret";
+    #    };
 
   };
 
@@ -19,7 +19,7 @@ in
   options = {
     accounts = mkOption {
       type = types.attrsOf (types.attrsOf types.str);
-      default = {};
+      default = { };
       example = { account1 = { username = "johndoe"; password = "x123"; }; };
     };
   };
