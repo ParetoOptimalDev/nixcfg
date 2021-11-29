@@ -19,6 +19,7 @@ mkShell {
     lolcat # banner printing on enter
 
     git
+    home-manager
     niv
     nixpkgs-fmt
     pre-commit
