@@ -3,6 +3,8 @@
 {
   imports = [
     ./common
+    ./common/intellij.nix
+    ./common/java.nix
   ];
 
   programs = {

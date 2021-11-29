@@ -14,7 +14,6 @@ in
       ../../modules/cli-office.nix
       ../../modules/common
       ../../modules/container.nix
-      ../../modules/java.nix
       ../../modules/mobile.nix
       ./hinclient.nix
     ];

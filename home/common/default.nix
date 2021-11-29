@@ -79,7 +79,6 @@
         ];
         dev = with pkgs; [
           ascii
-          jetbrains.idea-ultimate
           lnav
 
           # REPLs

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let
 
@@ -10,15 +10,15 @@ let
 in
 
 {
-  environment = {
-    systemPackages = [
+  home = {
+    packages = [
       java
       java8
       java11
       jfx11
     ];
 
-    variables = {
+    sessionVariables = {
       JAVA_HOME = "${java}/lib/openjdk";
       JAVA8_HOME = "${java8}/lib/openjdk";
       JAVA11_HOME = "${java11}/lib/openjdk";
