@@ -7,7 +7,6 @@
     #./accounts.nix # FIXME: cannot discover gitignored files
     ./desktop.nix
     ./direnv.nix
-    ./id.nix
     ./input.nix
     ./network.nix
     ./nextcloud.nix

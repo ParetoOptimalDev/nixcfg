@@ -171,8 +171,6 @@
   };
 
   services = {
-    gpg-agent = import ./gpg-agent.nix;
-
     # Hardware
     udiskie.enable = true;
   };
