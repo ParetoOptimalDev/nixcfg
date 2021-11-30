@@ -3,8 +3,8 @@
 {
   imports = [
     ./alacritty.nix
+    ./desktop.nix
     ./fonts.nix
-    ./spectrwm
     ./vim.nix
   ];
 
@@ -144,6 +144,7 @@
       "$HOME/bin"
     ];
 
+    enableNixpkgsReleaseCheck = true;
     stateVersion = import ../../version.nix;
   };
 

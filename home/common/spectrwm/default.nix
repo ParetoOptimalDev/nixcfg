@@ -27,18 +27,11 @@
   };
 
   programs = {
-    autorandr = import ../autorandr.nix;
     feh.enable = true;
   };
 
   services = {
     picom = import ../picom.nix;
-    redshift = import ../redshift.nix;
-    screen-locker = {
-      enable = true;
-      xautolock.enable = false;
-      lockCmd = "${pkgs.i3lock-pixeled}/bin/i3lock-pixeled";
-    };
   };
 
   xdg.configFile =
@@ -104,11 +97,6 @@
 
   xsession = {
     enable = true;
-    numlock.enable = true;
-    pointerCursor = {
-      package = pkgs.bibata-extra-cursors;
-      name = "Bibata DarkRed";
-    };
     windowManager.command = "${pkgs.spectrwm}/bin/spectrwm";
   };
 }
