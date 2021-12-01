@@ -6,6 +6,7 @@
     ./bin
     ./desktop.nix
     ./fonts.nix
+    ./ranger
     ./tmux.nix
     ./vim
   ];
