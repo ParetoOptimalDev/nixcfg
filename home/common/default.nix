@@ -178,7 +178,7 @@
   };
 
   xsession = {
-    profileExtra = ''
+    initExtra = ''
       feh --no-fehbg --bg-fill --randomize ~/Pictures/wallpapers
     '';
   };
