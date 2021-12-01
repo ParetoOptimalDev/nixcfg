@@ -8,6 +8,13 @@
     ./work
   ];
 
+  home.packages = with pkgs; [
+    robo3t
+    slack
+    teams
+    zoom-us
+  ];
+
   programs = {
     git = import ./common/git.nix {
       userEmail = "christian.harke@bluecare.ch";

@@ -100,16 +100,6 @@ in
   #    ensureDefaultPrinter = "FollowMe";
   #  };
 
-  software = {
-    extra = with pkgs; [
-      lutris
-      robo3t
-      slack
-      teams
-      zoom-us
-    ];
-  };
-
   services = {
     davmail = {
       enable = true;
