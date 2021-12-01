@@ -5,6 +5,7 @@
     ./alacritty.nix
     ./desktop.nix
     ./fonts.nix
+    ./tmux.nix
     ./vim.nix
   ];
 
@@ -114,9 +115,6 @@
       # File manager
       rr = "ranger";
 
-      # Tmuxinator
-      mux = "tmuxinator";
-
       # Calendar shortcuts
       cal = "khal -v ERROR calendar 2>/dev/null";
       yesterday = "cal yesterday 24h --format '{start-end-time-style} {title}'";
@@ -152,7 +150,6 @@
 
     direnv = import ./direnv.nix;
     ssh = import ./ssh.nix;
-    tmux = import ./tmux.nix;
     zsh = import ./zsh.nix;
 
     bat.enable = true;

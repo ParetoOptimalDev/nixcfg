@@ -5,6 +5,7 @@
     ./common
     ./common/intellij.nix
     ./common/java.nix
+    ./work
   ];
 
   programs = {
