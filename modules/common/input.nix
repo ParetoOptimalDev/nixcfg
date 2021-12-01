@@ -1,17 +1,5 @@
-{ config, pkgs, ... }:
-
 {
-  environment.systemPackages = with pkgs; [
-    xbindkeys
-  ];
-
   services.xserver = {
-    displayManager = {
-      sessionCommands = ''
-        xbindkeys
-      '';
-    };
-
     layout = "ch";
 
     # Touchpad settings

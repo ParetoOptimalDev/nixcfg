@@ -3,6 +3,7 @@
 {
   imports = [
     ./common
+    ./home
   ];
 
   programs = {
