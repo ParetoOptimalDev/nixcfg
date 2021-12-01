@@ -10,11 +10,15 @@
 
   programs.vim =
     let
-      vimConfigDir = config.home.homeDirectory + "/.vim";
+      vimConfigDir = config.xdg.configHome + "/vim";
     in
     {
       enable = true;
       extraConfig = ''
+        " Move the config directory
+        set runtimepath^=${vimConfigDir} runtimepath+=${vimConfigDir}/after
+        let &packpath = &runtimepath
+
         " Show the line and column number of the cursor position
         set ruler
 
