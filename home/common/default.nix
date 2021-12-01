@@ -106,16 +106,18 @@
       office;
 
     shellAliases = {
-      # List the last ten directories we've been to this session, no duplicates
+      # Navigating
       d = "dirs -v | head -10";
-      cat = "bat";
-      grep = "rg";
       l = "exa -hl --git --icons";
       la = "exa -ahl --git --icons";
       ll = "l";
       ls = "ls -sh --color='auto'";
       lsa = "ls -a";
       tree = "l --tree";
+
+      # File reading
+      cat = "bat";
+      grep = "rg";
 
       # File manager
       rr = "ranger";
