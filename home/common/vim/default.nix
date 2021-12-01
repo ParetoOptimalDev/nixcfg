@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home = {
@@ -40,6 +40,9 @@
 
       " Enable smart tabs
       set smarttab
+
+      " Set spell check to British English
+      autocmd FileType text setlocal spell spelllang=en_gb
 
 
       "
@@ -101,7 +104,7 @@
       "
       if has("autocmd")
         augroup templates
-          autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh
+          autocmd BufNewFile *.sh 0r ~/.config/vim/templates/skeleton.sh
         augroup END
       endif
 
@@ -160,8 +163,11 @@
 
       " vimwiki
       set nocompatible
+
       filetype plugin on
+      let g:vimwiki_global_ext = 0
       syntax on
+
       let nextcloud_notes = {}
       let nextcloud_notes.path = '~/Nextcloud/Notes/'
       let nextcloud_notes.syntax = 'markdown'
@@ -169,6 +175,8 @@
       let nextcloud_notes.list_margin = 0
       let g:vimwiki_list = [nextcloud_notes]
       let g:vimwiki_dir_link = 'index'
+
+      autocmd FileType vimwiki setlocal spell spelllang=de_ch
 
       function! VimwikiFindIncompleteTasks()
         lvimgrep /- \[ \]/ %:p
@@ -198,7 +206,7 @@
       endfunction
       :autocmd FileType vimwiki map <leader>c :call ToggleCalendar()<CR>
 
-      au BufNewFile ~/Nextcloud/Notes/diary/*.txt :silent 0r !~/.vim/bin/generate-vimwiki-diary-template.py '%'
+      au BufNewFile ~/Nextcloud/Notes/diary/*.txt :silent 0r !${config.xdg.configFile."vim/bin/generate-vimwiki-diary-template.py".target} '%'
     '';
     plugins = with pkgs.vimPlugins; [
       direnv-vim
@@ -242,4 +250,35 @@
       smartcase = true;
     };
   };
+
+  xdg.configFile =
+    let
+      vimConfigDir = config.home.homeDirectory + "/.vim";
+    in
+    {
+      "vim/bin/generate-vimwiki-diary-template.py" = {
+        source = ./config/bin/generate-vimwiki-diary-template.py;
+        target = vimConfigDir + "/bin/generate-vimwiki-diary-template.py";
+      };
+      "vim/spell/de.utf-8.add" = {
+        source = ./config/spell/words.utf-8.add;
+        target = vimConfigDir + "/spell/de.utf-8.add";
+      };
+      "vim/spell/de.utf-8.spl" = {
+        source = ./config/spell/de.utf-8.spl;
+        target = vimConfigDir + "/spell/de.utf-8.spl";
+      };
+      "vim/spell/en.utf-8.add" = {
+        source = ./config/spell/words.utf-8.add;
+        target = vimConfigDir + "/spell/en.utf-8.add";
+      };
+      "vim/spell/en.utf-8.spl" = {
+        source = ./config/spell/en.utf-8.spl;
+        target = vimConfigDir + "/spell/en.utf-8.spl";
+      };
+      "vim/templates/skeleton.sh" = {
+        source = ./config/templates/skeleton.sh;
+        target = vimConfigDir + "/templates/skeleton.sh";
+      };
+    };
 }

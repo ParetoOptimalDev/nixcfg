@@ -1,4 +1,4 @@
-{ pkgs, inputs, system, ... }:
+{ config, pkgs, inputs, system, ... }:
 
 {
   imports = [
@@ -6,10 +6,13 @@
     ./desktop.nix
     ./fonts.nix
     ./tmux.nix
-    ./vim.nix
+    ./vim
   ];
 
   home = {
+    username = "christian";
+    homeDirectory = "/home/${config.home.username}";
+
     keyboard.options = [ "caps:escape" ];
 
     packages =
