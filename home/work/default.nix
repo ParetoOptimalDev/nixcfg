@@ -1,5 +1,6 @@
 {
   imports = [
+    ./bin
     ./tmux
     ./xorg
   ];

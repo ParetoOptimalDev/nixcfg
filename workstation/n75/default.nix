@@ -102,7 +102,6 @@ in
 
   software = {
     extra = with pkgs; [
-      freerdp
       lutris
       robo3t
       slack

@@ -3,6 +3,7 @@
 {
   imports = [
     ./alacritty.nix
+    ./bin
     ./desktop.nix
     ./fonts.nix
     ./tmux.nix
