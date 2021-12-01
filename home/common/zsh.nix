@@ -19,6 +19,7 @@
       extended = true;
       ignoreDups = true;
       ignoreSpace = true;
+      path = "$ZDOTDIR/.zsh_history";
       save = historySize;
       share = true;
       size = historySize;
