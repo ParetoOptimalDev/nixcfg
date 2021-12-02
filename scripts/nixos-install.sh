@@ -12,28 +12,31 @@ readonly HOSTNAME="${1}"
 readonly DISK="${2}"
 
 test "${HOSTNAME}" || echo '$HOSTNAME is not given!' && exit 1
-[[ $(echo "${DISK}" | grep -P "^/dev/(sd[a-z]|nvme[0-9]n[1-9])" | wc -l) > 0 ]] || echo '$DISK is not of format "/dev/sda" or "/dev/nvme0n1"!' && exit 1
+[[ $(echo "${DISK}" | grep -P "^/dev/(sd[a-z]|nvme[0-9]n[1-9])" -c) -gt 0 ]] || echo '$DISK is not of format "/dev/sda" or "/dev/nvme0n1"!' && exit 1
 
 is_nvme_disk() {
-    [[ $(echo "${DISK}" | grep "^/dev/nvme" | wc -l) > 0 ]]
+    [[ $(echo "${DISK}" | grep "^/dev/nvme" -c) -gt 0 ]]
 }
 
 get_partition() {
     if is_nvme_disk; then
-        return "${DISK}p${1}"
+        echo "${DISK}p${1}"
     else
-        return "${DISK}${1}"
+        echo "${DISK}${1}"
     fi
 }
 
-readonly BOOT_PARTITION="$(get_partition 1)"
-readonly LVM_PARTITION="$(get_partition 2)"
+BOOT_PARTITION="$(get_partition 1)"
+readonly BOOT_PARTITION
+LVM_PARTITION="$(get_partition 2)"
+readonly LVM_PARTITION
 
 get_ram_size() {
     lsmem --summary=only | grep "Total online memory:" | grep -Po "[0-9]+[kKmMgGtTpPeE]"
 }
 
-readonly RAM_SIZE="${get_ram_size}"
+RAM_SIZE="$(get_ram_size)"
+readonly RAM_SIZE
 
 
 ### Declare functions
@@ -48,17 +51,13 @@ partition() {
     dd if=/dev/zero of="${DISK}" bs=512 count=1 conv=notrunc status=progress
 
     echo "[partition] Creating partition table..."
-    parted -a opt --script "${DISK}" \
-        mklabel gpt \
-        mkpart primary fat32 0% 1GiB \
-        mkpart primary 1GiB 100% \
-        set 1 esp on \
-        name 1 boot \
-        set 2 lvm on \
-        name 2 root
+    parted "${DISK}" mklabel gpt
+    parted "${DISK}" mkpart "boot" fat32 0% 1GiB
+    parted "${DISK}" set 1 esp on
+    parted "${DISK}" mkpart "root" ext4 1GiB 100%
 
     echo "[partition] Result of partitioning:"
-    fdisk ${DISK} -l
+    fdisk "${DISK}" -l
 }
 
 create_volumes() {
@@ -74,6 +73,7 @@ create_volumes() {
 }
 
 create_filesystems() {
+    # TODO: Switch to btrfs (https://github.com/wiltaylor/dotfiles/blob/master/tools/makefs-nixos)
     echo "[create_filesystems] Creating filesystems..."
     mkfs.vfat -n boot "${BOOT_PARTITION}"
     mkfs.ext4 -L nixos "${LVM_LV_ROOT}"
@@ -121,17 +121,17 @@ read -p "Do you want to DELETE ALL PARTITIONS?" -n 1 -r
 echo # move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    partition()
-    create_volumes()
-    create_filesystems()
+    partition
+    create_volumes
+    create_filesystems
 else
-    decrypt_lvm()
+    decrypt_lvm
 fi
 
 read -p "Do you want to INSTALL NixOS now? " -n 1 -r
 echo # move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    install()
+    install
 fi
 

@@ -26,6 +26,7 @@ mkShell {
     latest.rustChannels.nightly.rust
     latest.rustChannels.nightly.rust-src
     rustup
+    shellcheck
   ];
 
   shellHook = ''

@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+set -e
 set -x
 
-cd $(dirname "$0")
-VERSION=$(cat ../version.nix | tr -d '"')
+cd "$(dirname "$0")" || exit
+VERSION=$(tr -d '"' < ../version.nix)
 
-cd ..
-niv update nixpkgs -v $VERSION
+pushd ..
+niv update nixpkgs -v "$VERSION"
+popd
