@@ -10,7 +10,6 @@
     ./network.nix
     ./packages.nix
     ./printing.nix
-    ./software.nix
     ./sound.nix
     ./user
     ./virtualbox.nix
