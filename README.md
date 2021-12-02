@@ -5,8 +5,12 @@
 To install NixOS on a fresh machine, run:
 
 ```bash
-$ wget https://raw.githubusercontent.com/christianharke/nixos-config/master/scripts/nixos-install.sh \
-  | sudo bash -s -- <hostname> <disk>
+$ curl -s https://raw.githubusercontent.com/christianharke/nixos-config/master/scripts/nixos-install.sh > nixos-install.sh
+
+$ # If nix version < 2.4, run:
+$ nix-shell -p nixFlakes
+
+$ sudo bash nixos-install.sh <hostname> <disk>
 ```
 
 Where:

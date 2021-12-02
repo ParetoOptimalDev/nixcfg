@@ -11,8 +11,8 @@ set -x
 readonly HOSTNAME="${1}"
 readonly DISK="${2}"
 
-test "${HOSTNAME}" || echo '$HOSTNAME is not given!' && exit 1
-[[ $(echo "${DISK}" | grep -P "^/dev/(sd[a-z]|nvme[0-9]n[1-9])" -c) -gt 0 ]] || echo '$DISK is not of format "/dev/sda" or "/dev/nvme0n1"!' && exit 1
+test "${HOSTNAME}" || { echo '$HOSTNAME is not given!'; exit 1; }
+[[ $(echo "${DISK}" | grep -P "^/dev/(sd[a-z]|nvme[0-9]n[1-9])" -c) -gt 0 ]] || { echo '$DISK is not of format "/dev/sda" or "/dev/nvme0n1"!'; exit 1; }
 
 is_nvme_disk() {
     [[ $(echo "${DISK}" | grep "^/dev/nvme" -c) -gt 0 ]]
@@ -98,40 +98,40 @@ install() {
     local mount_boot="${mount_root}/boot"
 
     echo "[install] Enabling swap..."
-    swapon -v "${LVM_LV_SWAP}"
+    if [[ $(swapon --noheadings | wc -l) -lt 1 ]]; then
+        swapon -v "${LVM_LV_SWAP}"
+    fi
 
     echo "[install] Mounting volumes..."
     mount "${LVM_LV_ROOT}" "${mount_root}"
-    mkdir "${mount_boot}"
+    mkdir -p "${mount_boot}"
     mount "${BOOT_PARTITION}" "${mount_boot}"
 
     echo "[install] Installing NixOS..."
-    nixos-install --root "${mount_root}" --flake "github:christianharke/nixos-config/master#${HOSTNAME}"
+    nixos-install --root "${mount_root}" --flake "github:christianharke/nixos-config/master#${HOSTNAME}" --impure
     echo "[install] Installing NixOS... finished!"
 
-    echo "[install] Going to reboot in 5s..."
-    sleep 5
-    reboot
+    echo "[install] Installation finished, please reboot and remove installation media..."
 }
 
 
 ### Pull the trigger
 
-read -p "Do you want to DELETE ALL PARTITIONS?" -n 1 -r
+read -p "Do you want to DELETE ALL PARTITIONS? " -n 1 -r REPLY_PARTITION
 echo # move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
+if [[ "${REPLY_PARTITION}" =~ ^[Yy]$ ]]; then
     partition
     create_volumes
     create_filesystems
-else
+fi
+
+if [[ $(cryptsetup -q status "${LVM_PV}" | grep "^/dev/mapper/${LVM_PV} is active and is in use.$" -c) -lt 1 ]]; then
     decrypt_lvm
 fi
 
-read -p "Do you want to INSTALL NixOS now? " -n 1 -r
+read -p "Do you want to INSTALL NixOS now? " -n 1 -r REPLY_INSTALL
 echo # move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
+if [[ "${REPLY_INSTALL}" =~ ^[Yy]$ ]]; then
     install
 fi
 
