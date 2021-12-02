@@ -13,7 +13,6 @@ with pkgs;
     enable = true;
     pointerCursor = {
       package = bibata-extra-cursors;
-      name = "Bibata_Dodger_Blue";
       size = 0;
     };
   };

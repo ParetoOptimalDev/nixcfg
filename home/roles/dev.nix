@@ -6,7 +6,7 @@
     ../common/java.nix
     ../common/js.nix
     ../common/python.nix
-    ../common/scala.nix
+    ../common/scala
   ];
 
   home.packages = [

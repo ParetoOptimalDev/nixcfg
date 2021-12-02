@@ -7,7 +7,7 @@
     playerctl
 
     # Backlight control
-    xbacklight
+    xorg.xbacklight
     kbdlight
 
     # Terminal
