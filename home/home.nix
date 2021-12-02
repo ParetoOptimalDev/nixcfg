@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./common
+    ./default.nix
     ./env/home
     ./roles/gaming.nix
     ./roles/office.nix
