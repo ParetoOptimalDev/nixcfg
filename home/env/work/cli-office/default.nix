@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    khard
-  ];
-
   xdg.configFile = {
     "khal/config".text = ''
       [calendars]
@@ -16,30 +12,7 @@
       [default]
       default_calendar = work
     '';
-    "khard/khard.conf".source = ./config/khard/khard.conf;
     "vdirsyncer/config".text = ''
-      # CARDDAV
-
-      [pair bc_contacts]
-      a = "bc_contacts_local"
-      b = "bc_contacts_remote"
-      collections = ["from a", "from b"]
-      #metadata = ["displayname", "color"]
-      conflict_resolution = "b wins"
-
-      [storage bc_contacts_local]
-      type = "filesystem"
-      path = "~/.contacts/bluecare"
-      fileext = ".vcf"
-
-      [storage bc_contacts_remote]
-      type = "carddav"
-      read_only = true
-      url = "http://localhost:1080/users/christian.harke@bluecare.ch/contacts/"
-      username.fetch = ["command", "~/.accounts/bluecare/get_user.sh"]
-      password.fetch = ["command", "~/.accounts/bluecare/get_pass.sh"]
-
-
       # CALDAV
 
       [pair bc_calendar]
