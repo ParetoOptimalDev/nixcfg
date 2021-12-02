@@ -33,6 +33,9 @@ with pkgs;
           OnUnitActiveSec = "5m";
           AccuracySec = "5m";
         };
+        Install = {
+          WantedBy = [ "timers.target" ];
+        };
       };
     };
   };
