@@ -2,7 +2,6 @@
 
 let
 
-  acc = config.accounts."bluecare/ad";
   username = import ../../username.nix;
 
 in
@@ -13,7 +12,6 @@ in
       ./hardware
       ../../modules/common
       ../../modules/container.nix
-      ./hinclient.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

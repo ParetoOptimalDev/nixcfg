@@ -4,7 +4,6 @@
   imports = [
     ./common.nix
 
-    #./accounts.nix # FIXME: cannot discover gitignored files
     ./desktop.nix
     ./direnv.nix
     ./input.nix
