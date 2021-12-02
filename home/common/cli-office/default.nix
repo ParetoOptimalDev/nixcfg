@@ -42,15 +42,6 @@ with pkgs;
 
   xdg.configFile = {
     "khal/config".text = ''
-      [calendars]
-
-      [[private]]
-      path = ~/.calendars/nextcloud/personal
-      color = dark red
-
-      [default]
-      highlight_event_days = True
-
       [locale]
       local_timezone = Europe/Zurich
       default_timezone = Europe/Zurich
@@ -62,7 +53,7 @@ with pkgs;
     '';
     "vdirsyncer/config".text = ''
       [general]
-      status_path = "~/.vdirsyncer/status/"
+      status_path = "${config.xdg.dataHome}/vdirsyncer/status/"
 
       [pair nextcloud_calendar]
       a = "nextcloud_calendar_local"
@@ -72,7 +63,7 @@ with pkgs;
 
       [storage nextcloud_calendar_local]
       type = "filesystem"
-      path = "~/.calendars/nextcloud"
+      path = "${config.xdg.dataHome}/calendars/nextcloud"
       fileext = ".ics"
 
       [storage nextcloud_calendar_remote]

@@ -1,15 +1,20 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
   xdg.configFile = {
     "khal/config".text = ''
       [calendars]
 
+      [[private]]
+      path = ${config.xdg.dataHome}/calendars/nextcloud/personal
+      color = dark red
+
       [[work]]
-      path = ${config.xdg.configHome}/calendars/bluecare/calendar
+      path = ${config.xdg.dataHome}/calendars/bluecare/calendar
       color = dark blue
 
       [default]
+      highlight_event_days = True
       default_calendar = work
     '';
     "vdirsyncer/config".text = ''
@@ -24,7 +29,7 @@
 
       [storage bc_calendar_local]
       type = "filesystem"
-      path = "~/.calendars/bluecare"
+      path = "${config.xdg.dataHome}/calendars/bluecare"
       fileext = ".ics"
 
       [storage bc_calendar_remote]
