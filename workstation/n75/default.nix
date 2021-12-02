@@ -13,7 +13,6 @@ in
       ./hardware
       ../../modules/common
       ../../modules/container.nix
-      ../../modules/mobile.nix
       ./hinclient.nix
     ];
 

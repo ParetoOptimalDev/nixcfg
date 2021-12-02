@@ -5,6 +5,7 @@
     ./common
     ./env/work
     ./roles/dev.nix
+    ./roles/mobile.nix
     ./roles/office.nix
     ./roles/ops.nix
   ];
