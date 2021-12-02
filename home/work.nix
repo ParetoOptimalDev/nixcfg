@@ -3,9 +3,10 @@
 {
   imports = [
     ./common
-    ./common/intellij.nix
-    ./common/java.nix
-    ./work
+    ./env/work
+    ./roles/dev.nix
+    ./roles/office.nix
+    ./roles/ops.nix
   ];
 
   home.packages = with pkgs; [

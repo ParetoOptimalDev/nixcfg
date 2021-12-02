@@ -83,27 +83,12 @@
           signal-desktop
           tdesktop # Telegram
         ];
-        dev = with pkgs; [
-          ascii
-          lnav
-
-          # REPLs
-          ammonite # Scala
-          python3
-          spidermonkey # JS
-        ];
-        office = with pkgs; [
-          libreoffice
-          sent # plaintext presentations
-        ];
       in
       common ++
       x ++
       image ++
       multimedia ++
-      web ++
-      dev ++
-      office;
+      web;
 
     shellAliases = {
       # Navigating

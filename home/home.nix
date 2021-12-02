@@ -3,7 +3,9 @@
 {
   imports = [
     ./common
-    ./home
+    ./env/home
+    ./roles/gaming.nix
+    ./roles/office.nix
   ];
 
   programs = {

@@ -11,7 +11,6 @@ in
   imports =
     [
       ./hardware
-      ../../modules/cli-office.nix
       ../../modules/common
       ../../modules/container.nix
       ../../modules/mobile.nix
