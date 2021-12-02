@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     khard
-    offlineimap
   ];
 
   xdg.configFile = {
@@ -18,9 +17,6 @@
       default_calendar = work
     '';
     "khard/khard.conf".source = ./config/khard/khard.conf;
-    "mutt/muttrc".source = ./config/mutt/muttrc;
-    "offlineimap/config".source = ./config/offlineimap/config;
-    "offlineimap/offlineimap.py".source = ./config/offlineimap/offlineimap.py;
     "vdirsyncer/config".text = ''
       # CARDDAV
 
