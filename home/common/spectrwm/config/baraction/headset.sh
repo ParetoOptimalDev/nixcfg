@@ -4,6 +4,7 @@
 has_headset() {
     if command -v bluetoothctl &> /dev/null; then
         false
+        return
     fi
     [[ $(bluetoothctl -- list | grep -Po "Controller [0-9A-F]{2}(:[0-9A-f]{2}){5} .+ \[default\]" | wc -l) > 0 ]]
 }
