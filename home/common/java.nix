@@ -3,7 +3,7 @@
 let
 
   java = pkgs.jdk;
-  jfx= pkgs.openjfx11;
+  jfx = pkgs.openjfx11;
 
 in
 
