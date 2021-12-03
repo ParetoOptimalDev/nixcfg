@@ -7,6 +7,25 @@ let
 
   cfg = config.services.kmonad;
 
+  mkService = kbd-dev: kbd-path:
+    {
+      name = "kmonad-${kbd-dev}";
+      value = {
+        Unit = {
+          Description = "KMonad Instance for: ${kbd-dev}";
+        };
+        Service = {
+          Type = "simple";
+          Restart = "always";
+          RestartSec = 10;
+          ExecStart = "${cfg.package}/bin/kmonad ${kbd-path}";
+        };
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
+      };
+    };
+
 in
 
 {
@@ -19,14 +38,14 @@ in
       '';
     };
 
-    configFile = mkOption {
-      type = types.path;
-      default = null;
+    configFiles = mkOption {
+      type = types.attrsOf types.path;
+      default = { };
       example = ''
-        ./my-config.kbd;
+        { G512 = ./my-config.kbd };
       '';
       description = ''
-        The kmonad configuration file.
+        Input devices mapped to their respective configuration file.
       '';
     };
 
@@ -34,28 +53,13 @@ in
       type = types.package;
       default = pkgs.kmonad;
       description = ''
-        The kmonad package.
+        The KMonad package.
       '';
     };
   };
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    systemd.user.services = {
-      kmonad = {
-        Unit = {
-          Description = "KMonad";
-        };
-        Service = {
-          Type = "simple";
-          Restart = "always";
-          RestartSec = 10;
-          ExecStart = "${cfg.package}/bin/kmonad ${cfg.configFile}";
-        };
-        Install = {
-          WantedBy = [ "default.target" ];
-        };
-      };
-    };
+    systemd.user.services = listToAttrs (mapAttrsToList mkService cfg.configFiles);
   };
 }

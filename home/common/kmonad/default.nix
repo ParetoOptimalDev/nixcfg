@@ -1,6 +1,8 @@
 {
   services.kmonad = {
     enable = true;
-    configFile = ./logitech-g512.kbd;
+    configFiles = {
+      G512 = ./logitech-g512.kbd;
+    };
   };
 }
