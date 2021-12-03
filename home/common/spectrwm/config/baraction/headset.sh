@@ -2,7 +2,7 @@
 # Bluetooth info
 
 has_headset() {
-    if command -v bluetoothctl &> /dev/null; then
+    if ! command -v bluetoothctl &> /dev/null; then
         false
         return
     fi

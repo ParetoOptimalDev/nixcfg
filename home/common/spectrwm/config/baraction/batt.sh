@@ -2,11 +2,11 @@
 # Battery power indicator
 
 has_batt() {
-    if command -v acpi &> /dev/null; then
+    if ! command -v acpi &> /dev/null; then
         false
         return
     fi
-    if [ -e /sys/class/power_supply ]; then
+    if [ ! -e /sys/class/power_supply ]; then
         false
         return
     fi
