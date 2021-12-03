@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1631561581,
+        "narHash": "sha256-3VQMV5zvxaVLvqqUrNz3iJelLw30mIVSfZmAaauM3dA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7e5bf3925f6fbdfaf50a2a7ca0be2879c4261d19",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -18,6 +33,29 @@
         "owner": "nix-community",
         "ref": "release-21.11",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "kmonad": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "nix",
+        "lastModified": 1637155594,
+        "narHash": "sha256-IoY4RPZfFp/BbQvKt/8D4GFV1KTUP5/LLEyk4bf5LdE=",
+        "owner": "kmonad",
+        "repo": "kmonad",
+        "rev": "a782710585cbeeadfd82d85e7fa93694993cc9b7",
+        "type": "github"
+      },
+      "original": {
+        "dir": "nix",
+        "owner": "kmonad",
+        "repo": "kmonad",
         "type": "github"
       }
     },
@@ -56,6 +94,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "kmonad": "kmonad",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }

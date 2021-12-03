@@ -4,13 +4,19 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-21.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    kmonad = {
+      url = "github:kmonad/kmonad?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, home-manager, nixpkgs, nixpkgs-unstable, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, kmonad, ... }:
     let
       username = import ./username.nix;
       system = "x86_64-linux";
@@ -22,7 +28,10 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ overlay-unstable ];
+        overlays = [
+          overlay-unstable
+          kmonad.overlay
+        ];
       };
 
       mkComputer = configurationNix: extraModules: nixpkgs.lib.nixosSystem {
@@ -35,6 +44,8 @@
 
             # Common configuration
             ./modules/common
+
+            kmonad.nixosModule
           ] ++ extraModules
         );
       };

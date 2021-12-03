@@ -1,5 +1,6 @@
 {
   imports = [
     ./davmail
+    ./kmonad
   ];
 }

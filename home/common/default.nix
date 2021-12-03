@@ -6,6 +6,7 @@
     ./bin
     ./desktop.nix
     ./fonts.nix
+    ./kmonad
     ./ranger
     ./tmux.nix
     ./vim
@@ -14,8 +15,6 @@
   home = {
     username = "christian";
     homeDirectory = "/home/${config.home.username}";
-
-    keyboard.options = [ "caps:escape" ];
 
     packages =
       let

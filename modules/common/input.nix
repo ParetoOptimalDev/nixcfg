@@ -1,3 +1,9 @@
+let
+
+  username = import ../../username.nix;
+
+in
+
 {
   services.xserver = {
     layout = "ch";
@@ -14,4 +20,6 @@
   };
 
   console.useXkbConfig = true;
+
+  users.users.${username}.extraGroups = [ "input" ];
 }
