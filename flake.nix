@@ -71,6 +71,21 @@
                 };
             }
           ];
+
+        nixos-vm = mkComputer
+          ./workstation/nixos-vm
+          [
+            # home-manager configuration
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${username} = import ./home/home.nix
+                {
+                  inherit inputs system pkgs;
+                };
+            }
+          ];
       };
 
       # Non-NixOS Systems

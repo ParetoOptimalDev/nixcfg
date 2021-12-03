@@ -12,7 +12,7 @@ readonly HOSTNAME="${1}"
 readonly DISK="${2}"
 
 test "${HOSTNAME}" || { echo '$HOSTNAME is not given!'; exit 1; }
-[[ $(echo "${DISK}" | grep -P "^/dev/(sd[a-z]|nvme[0-9]n[1-9])" -c) -gt 0 ]] || { echo '$DISK is not of format "/dev/sda" or "/dev/nvme0n1"!'; exit 1; }
+[[ $(echo "${DISK}" | grep -P "^/dev/(sd[a-z]|nvme[0-9]n[1-9])$" -c) -gt 0 ]] || { echo '$DISK is not of format "/dev/sda" or "/dev/nvme0n1"!'; exit 1; }
 
 is_nvme_disk() {
     [[ $(echo "${DISK}" | grep "^/dev/nvme" -c) -gt 0 ]]
