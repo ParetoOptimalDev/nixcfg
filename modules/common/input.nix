@@ -12,4 +12,6 @@
       };
     };
   };
+
+  console.useXkbConfig = true;
 }
