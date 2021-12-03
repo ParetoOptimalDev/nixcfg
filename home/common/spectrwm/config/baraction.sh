@@ -8,12 +8,14 @@ done
 # Loops forever outputting a line every SLEEP_SEC secs
 SLEEP_SEC=1
 
+HAS_TEMP=has_temp
 HAS_WIFI=has_wifi
 HAS_HEADSET=has_headset
 HAS_BATT=has_batt
 
 render() {
-    local template="$(cpu) · $(mem) · $(hdd) · $(temp)"
+    local template="$(cpu) · $(mem) · $(hdd)"
+    if $HAS_TEMP; then template="${template} · $(temp)"; fi
     if $HAS_WIFI; then template="${template} · $(wifi)"; fi
     if $HAS_HEADSET; then template="${template} · $(headset)"; fi
     template="${template} · $(vol) · $(mic)"
