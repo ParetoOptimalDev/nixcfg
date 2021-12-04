@@ -6,4 +6,5 @@
     ./xorg
   ];
 
+  programs.git = import ./git;
 }

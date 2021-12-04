@@ -8,12 +8,6 @@
     ./roles/office.nix
   ];
 
-  programs = {
-    git = import ./common/git.nix {
-      userEmail = "christian@harke.ch";
-    };
-  };
-
   xdg.configFile = {
     "spectrwm/initscreen.sh" = {
       text = ''

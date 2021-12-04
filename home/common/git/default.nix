@@ -1,10 +1,8 @@
-{ userEmail }:
-
 {
   enable = true;
   userName = "Christian Harke";
-  userEmail = userEmail;
   signing.key = "630966F4";
+
   aliases = {
     co = "checkout";
     cp = "cherry-pick";
@@ -22,6 +20,7 @@
     s = "status";
     ss = "status -s";
   };
+
   ignores = [
     ###
     # OS X

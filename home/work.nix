@@ -17,12 +17,6 @@
     zoom-us
   ];
 
-  programs = {
-    git = import ./common/git.nix {
-      userEmail = "christian.harke@bluecare.ch";
-    };
-  };
-
   xdg.configFile = {
     "spectrwm/initscreen.sh" = {
       text = ''

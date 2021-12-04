@@ -140,6 +140,7 @@
   programs = {
 
     direnv = import ./direnv.nix;
+    git = import ./git;
     ssh = import ./ssh.nix;
     zsh = import ./zsh.nix;
 

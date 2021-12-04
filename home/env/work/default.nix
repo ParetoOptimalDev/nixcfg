@@ -12,5 +12,6 @@
     ./xorg
   ];
 
+  programs.git = import ./git;
   services.grobi = import ./grobi { inherit pkgs; };
 }
