@@ -2,7 +2,8 @@
 
 {
   imports = [
-    ./icons.nix
+    ./icons
+    ./terminal
     ./spectrwm
   ];
 
@@ -10,11 +11,18 @@
     packages = with pkgs; [
       # Locker
       i3lock-pixeled
+
+      # Misc
+      mupdf
+      peek
+      gifski
+      xclip
+      xzoom
     ];
   };
 
   services = {
-    redshift = import ./redshift.nix;
+    redshift = import ./redshift;
     screen-locker = {
       enable = true;
       xautolock.enable = false;

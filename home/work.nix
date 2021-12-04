@@ -2,19 +2,16 @@
 
 {
   imports = [
-    ./default.nix
     ./env/work
-    ./roles/dev.nix
-    ./roles/mobile.nix
-    ./roles/office.nix
-    ./roles/ops.nix
-  ];
-
-  home.packages = with pkgs; [
-    robo3t
-    slack
-    teams
-    zoom-us
+    ./modules
+    ./roles/common
+    ./roles/desktop
+    ./roles/dev
+    ./roles/graphics
+    ./roles/mobile
+    ./roles/multimedia
+    ./roles/office
+    ./roles/ops
   ];
 
   xdg.configFile = {

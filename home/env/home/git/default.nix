@@ -1,3 +1,5 @@
 {
-  userEmail = "christian@harke.ch";
+  programs.git = {
+    userEmail = "christian@harke.ch";
+  };
 }

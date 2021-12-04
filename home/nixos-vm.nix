@@ -2,9 +2,11 @@
 
 {
   imports = [
-    ./default.nix
     ./env/home
-    ./roles/office.nix
+    ./modules
+    ./roles/common
+    ./roles/desktop
+    ./roles/office
   ];
 
   xdg.configFile = {

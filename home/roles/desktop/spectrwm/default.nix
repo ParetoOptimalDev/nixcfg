@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../dunst.nix
+    ../dunst
   ];
 
   home = {
@@ -31,7 +31,7 @@
   };
 
   services = {
-    picom = import ../picom.nix;
+    picom = import ../picom;
   };
 
   xdg.configFile =
@@ -98,5 +98,9 @@
   xsession = {
     enable = true;
     windowManager.command = "${pkgs.spectrwm}/bin/spectrwm";
+
+    initExtra = ''
+      feh --no-fehbg --bg-fill --randomize ~/Pictures/wallpapers
+    '';
   };
 }

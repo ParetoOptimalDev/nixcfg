@@ -1,10 +1,9 @@
 {
   imports = [
     ./cli-office
-    ./icons.nix
+    ./git
+    ./icons
     ./ranger
-    ./xorg
+    ./xbindkeys
   ];
-
-  programs.git = import ./git;
 }

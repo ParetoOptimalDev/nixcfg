@@ -4,14 +4,20 @@
   imports = [
     ./bin
     ./cli-office
-    ./davmail.nix
-    ./icons.nix
+    ./davmail
+    ./git
+    ./grobi
+    ./icons
     ./ranger
     ./scala
     ./tmux
-    ./xorg
+    ./xbindkeys
   ];
 
-  programs.git = import ./git;
-  services.grobi = import ./grobi { inherit pkgs; };
+  home.packages = with pkgs; [
+    robo3t
+    slack
+    teams
+    zoom-us
+  ];
 }

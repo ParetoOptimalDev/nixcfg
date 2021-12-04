@@ -2,10 +2,15 @@
 
 {
   imports = [
-    ./default.nix
     ./env/home
-    ./roles/gaming.nix
-    ./roles/office.nix
+    ./modules
+    ./roles/common
+    ./roles/desktop
+    ./roles/gaming
+    ./roles/graphics
+    ./roles/multimedia
+    ./roles/office
+    ./roles/ops
   ];
 
   xdg.configFile = {

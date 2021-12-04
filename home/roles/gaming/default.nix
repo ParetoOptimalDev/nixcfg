@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../common/steam
+    ./steam
   ];
 
   home.packages = with pkgs; [

@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../common/cli-office
+    ./cli
   ];
 
   home.packages = with pkgs; [
