@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   imports = [
     ./bin
@@ -9,4 +11,6 @@
     ./tmux
     ./xorg
   ];
+
+  services.grobi = import ./grobi { inherit pkgs; };
 }

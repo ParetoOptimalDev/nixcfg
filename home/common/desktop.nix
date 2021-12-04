@@ -13,10 +13,6 @@
     ];
   };
 
-  programs = {
-    autorandr = import ./autorandr.nix;
-  };
-
   services = {
     redshift = import ./redshift.nix;
     screen-locker = {

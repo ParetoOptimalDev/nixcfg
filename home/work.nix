@@ -24,7 +24,6 @@
   };
 
   xdg.configFile = {
-    # TODO: configure by autorandr
     "spectrwm/initscreen.sh" = {
       text = ''
         #!/usr/bin/env bash
