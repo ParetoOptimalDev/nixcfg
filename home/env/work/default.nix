@@ -8,6 +8,7 @@
     ./git
     ./grobi
     ./icons
+    ./kmonad
     ./ranger
     ./scala
     ./tmux

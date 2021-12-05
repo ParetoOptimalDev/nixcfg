@@ -2,7 +2,7 @@
   services.kmonad = {
     enable = true;
     configFiles = {
-      G512 = ./logitech-g512.de-ch.kbd;
+      P1 = ./lenovo-p1.de-ch.kbd;
     };
   };
 }
