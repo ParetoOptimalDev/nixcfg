@@ -13,14 +13,4 @@
     ./roles/office
     ./roles/ops
   ];
-
-  xdg.configFile = {
-    "spectrwm/initscreen.sh" = {
-      text = ''
-        #!/usr/bin/env bash
-        # do nothing
-      '';
-      executable = true;
-    };
-  };
 }

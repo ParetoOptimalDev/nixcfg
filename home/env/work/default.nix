@@ -11,6 +11,7 @@
     ./kmonad
     ./ranger
     ./scala
+    ./spectrwm
     ./tmux
     ./xbindkeys
   ];

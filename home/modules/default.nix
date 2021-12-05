@@ -2,5 +2,6 @@
   imports = [
     ./davmail
     ./kmonad
+    ./spectrwm
   ];
 }

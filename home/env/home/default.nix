@@ -4,6 +4,7 @@
     ./git
     ./icons
     ./ranger
+    ./spectrwm
     ./xbindkeys
   ];
 }
