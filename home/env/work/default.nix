@@ -12,6 +12,7 @@
     ./ranger
     ./scala
     ./spectrwm
+    ./ssh
     ./tmux
     ./xbindkeys
   ];
