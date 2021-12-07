@@ -27,7 +27,10 @@
 
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          packageOverrides = import ./pkgs;
+        };
         overlays = [
           overlay-unstable
           kmonad.overlay
