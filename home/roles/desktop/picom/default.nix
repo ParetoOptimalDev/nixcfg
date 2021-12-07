@@ -17,6 +17,7 @@
     # App specifics
     "100:class_g = 'dmenu'"
     "100:class_g *= 'Microsoft Teams'"
+    "100:name ~= 'Zoom Meeting$'"
     "100:name = 'as_toolbar'" # Zoom screen sharing toolbar
     "100:name *= 'i3lock'"
     "100:window_type = 'utility'" # Firefox/Thunderbird dropdowns
