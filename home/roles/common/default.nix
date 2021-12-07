@@ -6,6 +6,7 @@
     ./fonts
     ./git
     ./hardware
+    ./nix
     ./shell
     ./vim
   ];
