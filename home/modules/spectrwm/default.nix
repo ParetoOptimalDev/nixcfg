@@ -43,7 +43,7 @@ in
           "spotify" = 3;
         }
       '';
-    }; 
+    };
 
     initscrScript = mkOption {
       type = types.lines;
@@ -128,7 +128,7 @@ in
         "${binaryName}/spectrwm.conf" = {
           #source = ./config/spectrwm.conf;
           text = ''
-            workspace_limit	        = 10
+            workspace_limit         = 10
             # focus_mode              = default
             # focus_close             = previous
             # focus_close_wrap        = 1
@@ -142,7 +142,7 @@ in
             border_width            = 2
             color_focus             = white
             # color_focus_maximized   = yellow
-            # color_unfocus	          = rgb:88/88/88
+            # color_unfocus           = rgb:88/88/88
             # color_unfocus_maximized = rgb:88/88/00
             region_padding          = 10
             tile_gap                = 10
@@ -220,16 +220,16 @@ in
             # PROGRAMS
             
             # Validated default programs:
-            program[lock]		= i3lock-pixeled
-            program[term]		= alacritty
-            # program[menu]       = dmenu_run $dmenu_bottom -fn $bar_font -nb $bar_color -nf $bar_font_color -sb $bar_color_selected -sf $bar_font_color_selected
-            # program[search]     = dmenu $dmenu_bottom -i -fn $bar_font -nb $bar_color -nf $bar_font_color -sb $bar_color_selected -sf $bar_font_color_selected
+            program[lock]           = i3lock-pixeled
+            program[term]           = alacritty
+            # program[menu]           = dmenu_run $dmenu_bottom -fn $bar_font -nb $bar_color -nf $bar_font_color -sb $bar_color_selected -sf $bar_font_color_selected
+            # program[search]         = dmenu $dmenu_bottom -i -fn $bar_font -nb $bar_color -nf $bar_font_color -sb $bar_color_selected -sf $bar_font_color_selected
             # program[name_workspace] = dmenu $dmenu_bottom -p Workspace -fn $bar_font -nb $bar_color -nf $bar_font_color -sb $bar_color_selected -sf $bar_font_color_selected
             
             # To disable validation of the above, free the respective binding(s):
-            # bind[]		= MOD+Shift+Delete	# disable lock
-            # bind[]		= MOD+Shift+Return	# disable term
-            # bind[]		= MOD+p			# disable menu
+            # bind[]    = MOD+Shift+Delete  # disable lock
+            # bind[]    = MOD+Shift+Return  # disable term
+            # bind[]    = MOD+p      # disable menu
             
             # Optional default programs that will only be validated if you override:
             program[screenshot_all]     = ${config.xdg.configFile."${screenshotFile}".target} full
