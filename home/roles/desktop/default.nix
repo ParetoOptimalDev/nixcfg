@@ -13,6 +13,7 @@
       i3lock-pixeled
 
       # Misc
+      gnome.pomodoro
       mupdf
       peek
       gifski
