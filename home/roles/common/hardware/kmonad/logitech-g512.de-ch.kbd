@@ -78,12 +78,6 @@
   € (around ralt e)
 )
 
-(defalias ;; Umlauts
-  a (tap-hold 300 a #(] a))
-  o (tap-hold 300 o #(] o))
-  u (tap-hold 300 u #(] u))
-)
-
 (defsrc
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
@@ -96,8 +90,8 @@
 (deflayer base
   _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
-  _    _    _    _    _    _    _    @u   _    @o   _    _    _    _     _    _    _     _    _    _    _
-  @ec  @a   _    _    _    _    _    _    _    _    _    _    _                          _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  @ec  _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _               _          _    _    _    _
   _    _    _              @sym                _    _    _    _          _    _    _     _    _
 )
