@@ -11,5 +11,6 @@
     ./roles/multimedia
     ./roles/office
     ./roles/ops
+    ./roles/web
   ];
 }

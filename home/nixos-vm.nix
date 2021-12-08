@@ -7,5 +7,6 @@
     ./roles/common
     ./roles/desktop
     ./roles/office
+    ./roles/web
   ];
 }
