@@ -5,6 +5,5 @@
     ./icons
     ./ranger
     ./spectrwm
-    ./xbindkeys
   ];
 }

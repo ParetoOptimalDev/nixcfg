@@ -2,31 +2,33 @@
 
 {
   home.packages = with pkgs; [
-    # Audio control
-    alsa-lib
-    playerctl
-
     # Backlight control
     xorg.xbacklight
     kbdlight
 
-    # Terminal
-    alacritty
-
-    # Calculator
-    eva
-
-    # Explorer
-    ranger
-
-    # Browser
-    firefox
+    # Display control
+    grobi
 
     xbindkeys
   ];
 
   xdg.configFile."xbindkeysrc" = {
-    source = ./config/xbindkeysrc;
+    text = ''
+      "xbacklight -10"
+        XF86MonBrightnessDown
+
+      "xbacklight +10"
+        XF86MonBrightnessUp
+
+      "kbdlight down 50"
+        XF86KbdBrightnessDown
+
+      "kbdlight up 50"
+        XF86KbdBrightnessUp
+
+      "grobi update"
+        XF86Display
+    '';
     target = config.home.homeDirectory + "/.xbindkeysrc";
   };
 
