@@ -5,5 +5,5 @@
     pkgs.sbt
   ];
 
-  xdg.configFile."sbt/repositories".source = ./config/repositories;
+  home.file.".sbt/repositories".source = ./config/repositories;
 }
