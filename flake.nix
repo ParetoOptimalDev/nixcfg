@@ -129,5 +129,7 @@
       #programs.git = import ./home/git.nix;
       #};
       #};
+
+      devShell."${system}" = import ./shell.nix { inherit pkgs; };
     };
 }
