@@ -1,6 +1,7 @@
 {
   enable = true;
   nix-direnv.enable = true;
+  nix-direnv.enableFlakes = true;
   stdlib = ''
     direnv reload
 

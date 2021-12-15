@@ -159,6 +159,7 @@
         shellHook = ''
           figlet $name | lolcat --freq 0.5
           ${(self.checks.${system}.pre-commit-check).shellHook}
+          ${pkgs.pre-commit}/bin/pre-commit install
         '';
       };
     };
