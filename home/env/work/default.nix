@@ -21,6 +21,6 @@
     robo3t
     slack
     teams
-    zoom-us
+    pkgs.unstable.zoom-us
   ];
 }

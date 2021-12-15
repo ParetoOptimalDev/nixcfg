@@ -22,7 +22,13 @@
       system = "x86_64-linux";
 
       overlay-unstable = final: prev: {
-        unstable = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
+        unstable = import inputs.nixpkgs-unstable {
+          inherit system;
+          config = {
+            allowUnfree = true;
+            packageOverrides = import ./pkgs;
+          };
+        };
       };
 
       pkgs = import nixpkgs {
