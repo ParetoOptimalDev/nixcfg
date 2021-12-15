@@ -14,7 +14,11 @@
     # DEVOPS
     Host bcon-*.dev.bluecare.ch
       User beryllium
+      PubkeyAcceptedAlgorithms +ssh-rsa
+      HostkeyAlgorithms +ssh-rsa
     Host *.dev.bluecare.ch
       User ansibleremote
+      PubkeyAcceptedAlgorithms +ssh-rsa
+      HostkeyAlgorithms +ssh-rsa
   '';
 }
