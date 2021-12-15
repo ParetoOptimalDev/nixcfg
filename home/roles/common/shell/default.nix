@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./lorri.nix
     ./ranger.nix
     ./tmux.nix
   ];
@@ -39,7 +40,6 @@
   };
 
   programs = {
-    direnv = import ./direnv.nix;
     ssh = import ./ssh.nix;
     zsh = import ./zsh.nix;
 
