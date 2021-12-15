@@ -14,6 +14,11 @@
       url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, kmonad, ... }:
@@ -130,6 +135,31 @@
       #};
       #};
 
-      devShell."${system}" = import ./shell.nix { inherit pkgs; };
+      checks.${system} = {
+        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            nixpkgs-fmt.enable = true;
+            shellcheck.enable = true;
+          };
+        };
+      };
+
+      devShell.${system} = pkgs.mkShell {
+
+        name = "nixos-config";
+
+        buildInputs = with pkgs; [
+          figlet
+          lolcat # banner printing on enter
+
+          home-manager
+        ];
+
+        shellHook = ''
+          figlet $name | lolcat --freq 0.5
+          ${(self.checks.${system}.pre-commit-check).shellHook}
+        '';
+      };
     };
 }
