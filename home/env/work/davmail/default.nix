@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
   services.davmail = {
     enable = true;
@@ -9,7 +11,7 @@
       davmail.imapPort = 1143;
       davmail.smtpPort = 1025;
       davmail.disableUpdateCheck = true;
-      davmail.logFilePath = "/var/log/davmail/davmail.log";
+      davmail.logFilePath = "${config.xdg.dataHome}/davmail/davmail.log";
       davmail.logFileSize = "1MB";
       log4j.logger.davmail = "WARN";
       log4j.logger.httpclient.wire = "WARN";

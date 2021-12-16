@@ -86,19 +86,19 @@ in
     systemd.user.services.davmail = {
       Unit = {
         Description = "DavMail POP/IMAP/SMTP Exchange Gateway";
+        After = [ "network.target" ];
       };
 
       Service = {
         Type = "simple";
+        Environment = "PATH=${pkgs.davmail}/bin:${pkgs.coreutils}/bin";
         ExecStart = "${pkgs.davmail}/bin/davmail ${configFile}";
         Restart = "on-failure";
-        DynamicUser = "yes";
         LogsDirectory = "davmail";
       };
 
       Install = {
-        After = [ "network.target" ];
-        WantedBy = [ "multi-user.target" ];
+        WantedBy = [ "vdirsyncer-oneshot.timer" ];
       };
     };
 
