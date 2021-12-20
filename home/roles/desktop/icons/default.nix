@@ -13,7 +13,7 @@ with pkgs;
     enable = true;
     pointerCursor = {
       package = bibata-extra-cursors;
-      size = 0;
+      size = 22;
     };
   };
 }

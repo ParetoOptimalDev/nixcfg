@@ -1,3 +1,3 @@
 {
-  xsession.pointerCursor.name = "Bibata_Dodger_Blue";
+  xsession.pointerCursor.name = "Bibata-Modern-DodgerBlue";
 }
