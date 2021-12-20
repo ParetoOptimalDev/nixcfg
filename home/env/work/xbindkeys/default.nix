@@ -31,8 +31,4 @@
     '';
     target = config.home.homeDirectory + "/.xbindkeysrc";
   };
-
-  xsession.initExtra = ''
-    xbindkeys
-  '';
 }
