@@ -4,7 +4,7 @@
   imports = [
     ./icons
     ./terminal
-    ./spectrwm
+    ./xmonad
   ];
 
   home = {

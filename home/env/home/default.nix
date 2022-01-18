@@ -4,6 +4,5 @@
     ./git
     ./icons
     ./ranger
-    ./spectrwm
   ];
 }
