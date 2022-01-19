@@ -10,6 +10,7 @@
   import XMonad.Util.Ungrab
 
   import XMonad.Layout.Magnifier
+  import XMonad.Layout.Renamed
   import XMonad.Layout.ThreeColumns
 
   import XMonad.Hooks.EwmhDesktops
@@ -43,7 +44,9 @@
 
   myLayout = tiled ||| Mirror tiled ||| Full ||| threeCol
     where
-      threeCol = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
+      threeCol = renamed [Replace "ThreeCol"]
+          $ magnifiercz' 1.3
+          $ ThreeColMid nmaster delta ratio
       tiled    = Tall nmaster delta ratio
       nmaster  = 1      -- Default number of windows in the master pane
       ratio    = 1/2    -- Default proportion of screen occupied by master pane
