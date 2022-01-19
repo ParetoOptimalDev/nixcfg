@@ -1,6 +1,17 @@
 { pkgs, ... }:
 
-with pkgs;
+let
+
+  dmenuPatched = pkgs.dmenu.override {
+    patches = builtins.map builtins.fetchurl [
+      {
+        url = "https://tools.suckless.org/dmenu/patches/line-height/dmenu-lineheight-5.0.diff";
+        sha256 = "1dllfy9yznjcq65ivwkd77377ccfry72jmy3m77ms6ns62x891by";
+      }
+    ];
+  };
+
+in
 
 {
   imports = [
@@ -13,7 +24,7 @@ with pkgs;
       scrot
 
       # Menu
-      dmenu
+      dmenuPatched
 
       # Locker
       i3lock-pixeled
@@ -49,7 +60,7 @@ with pkgs;
   xsession.windowManager.xmonad = {
     enable = true;
     enableContribAndExtras = true;
-    config = writeText "xmonad.hs" (import ./conf/xmonad.hs.nix);
+    config = pkgs.writeText "xmonad.hs" (import ./conf/xmonad.hs.nix);
     extraPackages = with pkgs.haskellPackages; haskellPackages: [ xmobar ];
   };
 }

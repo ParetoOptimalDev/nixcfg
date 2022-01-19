@@ -32,9 +32,9 @@
       , handleEventHook = fullscreenEventHook
       }
     `additionalKeysP`
-      [ ("M-S-<Delete>", spawn "i3lock-pixeled")
-      , ("M-S-s", unGrab *> spawn "scrot -s"   )
-      , ("M-]"  , spawn "firefox"              )
+      [ ("M-S-<Delete>", spawn "i3lock-pixeled"                                                                  )
+      , ("M-S-s", unGrab *> spawn "scrot -s"                                                                     )
+      , ("M-p"  , spawn "dmenu_run -fn \"VictorMono Nerd Font:style=SemiBold:pixelsize=14:antialias=true\" -h 22")
       ]
 
   myManageHook :: ManageHook
