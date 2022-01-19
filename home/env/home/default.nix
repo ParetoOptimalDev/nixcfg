@@ -1,8 +1,8 @@
 {
   imports = [
     ./cli-office
+    ./cursors
     ./git
-    ./icons
     ./ranger
   ];
 }

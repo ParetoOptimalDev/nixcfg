@@ -4,10 +4,10 @@
   imports = [
     ./bin
     ./cli-office
+    ./cursors
     ./davmail
     ./git
     ./grobi
-    ./icons
     ./kmonad
     ./ranger
     ./scala
