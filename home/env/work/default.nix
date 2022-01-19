@@ -14,12 +14,12 @@
     ./ssh
     ./tmux
     ./xbindkeys
+    ./zoomus
   ];
 
   home.packages = with pkgs; [
     robo3t
     slack
     teams
-    pkgs.unstable.zoom-us
   ];
 }
