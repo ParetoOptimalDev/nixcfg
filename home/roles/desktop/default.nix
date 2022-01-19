@@ -22,6 +22,16 @@
     ];
   };
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+
   services = {
     redshift = import ./redshift;
     screen-locker = {
