@@ -55,9 +55,9 @@
 
   myXmobarPP :: PP
   myXmobarPP = def
-      { ppSep             = magenta " • "
+      { ppSep             = orange " • "
       , ppTitleSanitize   = xmobarStrip
-      , ppCurrent = wrap (blue "[") (blue "]")
+      , ppCurrent         = wrap (orange "[") (orange "]")
       , ppHidden          = white . wrap " " ""
       , ppHiddenNoWindows = lowWhite . wrap " " ""
       , ppUrgent          = red . wrap (yellow "!") (yellow "!")
@@ -65,9 +65,10 @@
     where
         blue, lowWhite, magenta, red, white, yellow :: String -> String
         magenta  = xmobarColor "#ff79c6" ""
-        blue     = xmobarColor "#bd93f9" ""
+        blue     = xmobarColor "#0080FF" ""
         white    = xmobarColor "#f8f8f2" ""
         yellow   = xmobarColor "#f1fa8c" ""
+        orange   = xmobarColor "#FF7F00" ""
         red      = xmobarColor "#ff5555" ""
         lowWhite = xmobarColor "#bbbbbb" ""
 ''
