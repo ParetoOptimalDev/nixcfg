@@ -9,6 +9,7 @@
   import XMonad.Util.Loggers
   import XMonad.Util.Ungrab
 
+  import XMonad.Layout.Gaps
   import XMonad.Layout.Magnifier
   import XMonad.Layout.Renamed
   import XMonad.Layout.ThreeColumns
@@ -42,7 +43,7 @@
       , isDialog            --> doFloat
       ]
 
-  myLayout = tiled ||| Mirror tiled ||| Full ||| threeCol
+  myLayout = gaps [(U,10), (R,10), (D,10), (L,10)] $ tiled ||| Mirror tiled ||| Full ||| threeCol
     where
       threeCol = renamed [Replace "ThreeCol"]
           $ magnifiercz' 1.3
