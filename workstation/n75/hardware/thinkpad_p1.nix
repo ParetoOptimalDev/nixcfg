@@ -14,15 +14,12 @@
   };
 
   networking.wireless = {
-    enable = true;
     interfaces = [ "wlp82s0" ];
   };
 
   nix.maxJobs = lib.mkOverride 20 6;
 
   services = {
-    logind.lidSwitch = "suspend-then-hibernate";
-    upower.enable = true;
     xserver = {
       dpi = 96;
       videoDrivers = [
@@ -30,5 +27,4 @@
       ];
     };
   };
-
 }

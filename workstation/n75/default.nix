@@ -12,6 +12,7 @@ in
       ./hardware
       ../../modules/common
       ../../modules/container.nix
+      ../../modules/mobile.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
