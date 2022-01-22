@@ -1,10 +1,16 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
+
+let
+
+  hplip = pkgs.hplipWithPlugin;
+
+in
 
 {
 
   services.printing = {
     enable = true;
-    drivers = [ pkgs.hplipWithPlugin ];
+    drivers = [ hplip ];
   };
 
   hardware = {
@@ -27,7 +33,7 @@
 
     sane = {
       enable = true;
-      extraBackends = [ pkgs.hplipWithPlugin ];
+      extraBackends = [ hplip ];
     };
   };
 }

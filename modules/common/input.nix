@@ -1,8 +1,4 @@
-let
-
-  username = import ../../username.nix;
-
-in
+{ username, ... }:
 
 {
   services = {

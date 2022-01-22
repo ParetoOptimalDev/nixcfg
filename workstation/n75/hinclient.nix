@@ -1,9 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, username, ... }:
 
 let
 
   acc = config.accounts."bluecare/hin-id";
-  username = import ../../username.nix;
 
 in
 

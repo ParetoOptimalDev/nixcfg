@@ -1,8 +1,7 @@
-{ config, pkgs, ... }:
+{ pkgs, username, ... }:
 
 let
 
-  username = import ../../username.nix;
   localeLang = "en_US.UTF-8";
   localeFormats = "de_CH.UTF-8";
 

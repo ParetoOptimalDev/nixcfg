@@ -1,10 +1,4 @@
-{ config, pkgs, ... }:
-
-let
-
-  username = import ../username.nix;
-
-in
+{ pkgs, username, ... }:
 
 {
   virtualisation.docker = {

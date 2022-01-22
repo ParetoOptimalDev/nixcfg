@@ -23,7 +23,7 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, kmonad, ... }:
     let
-      username = import ./username.nix;
+      username = "christian";
       system = "x86_64-linux";
 
       overlay-unstable = final: prev: {
@@ -50,14 +50,14 @@
 
       mkComputer = configurationNix: extraModules: nixpkgs.lib.nixosSystem {
         inherit system pkgs;
-        specialArgs = { inherit system inputs; };
+        specialArgs = { inherit self system inputs; };
         modules = (
           [
             # System configuration for this host
-            configurationNix
+            (import configurationNix { inherit pkgs; root = self; })
 
             # Common configuration
-            ./modules/common
+            (import ./modules/common { inherit pkgs username; })
 
             kmonad.nixosModule
           ] ++ extraModules
@@ -70,6 +70,8 @@
         altair = mkComputer
           ./workstation/altair
           [
+            ./modules/gaming.nix
+
             # home-manager configuration
             home-manager.nixosModules.home-manager
             {
@@ -85,6 +87,10 @@
         n75 = mkComputer
           ./workstation/n75
           [
+            (import ./modules/bluecare { inherit pkgs username; root = self; })
+            (import ./modules/container.nix { inherit pkgs username; })
+            ./modules/mobile.nix
+
             # home-manager configuration
             home-manager.nixosModules.home-manager
             {

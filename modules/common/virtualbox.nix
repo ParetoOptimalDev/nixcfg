@@ -1,10 +1,4 @@
-{ pkgs, config, ... }:
-
-let
-
-  username = import ../../username.nix;
-
-in
+{ username, ... }:
 
 {
   virtualisation.virtualbox.host.enable = true;

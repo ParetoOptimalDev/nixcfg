@@ -1,5 +1,3 @@
-{ config, pkgs, ... }:
-
 {
   # Nix options for derivations to persist garbage collection
   nix.extraOptions = ''

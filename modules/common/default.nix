@@ -1,18 +1,18 @@
-{ config, pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   imports = [
-    ./common.nix
+    (import ./common.nix { inherit pkgs username; })
 
     ./desktop.nix
     ./direnv.nix
-    ./input.nix
+    (import ./input.nix { inherit username; })
     ./network.nix
     ./packages.nix
     ./printing.nix
     ./sound.nix
-    ./user
-    ./virtualbox.nix
-    ./vpn.nix
+    (import ./user { inherit pkgs username; })
+    (import ./virtualbox.nix { inherit username; })
+    (import ./vpn.nix { inherit username; })
   ];
 }

@@ -1,10 +1,4 @@
-{ pkgs, config, ... }:
-
-let
-
-  username = import ../../../username.nix;
-
-in
+{ pkgs, username, ... }:
 
 {
   programs = {

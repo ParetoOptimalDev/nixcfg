@@ -1,10 +1,4 @@
-{ config, pkgs, ... }:
-
-let
-
-  username = import ../../username.nix;
-
-in
+{ username, ... }:
 
 {
   services.openvpn.servers.home = {
