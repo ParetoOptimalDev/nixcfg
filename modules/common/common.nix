@@ -42,8 +42,6 @@ in
 
   boot = {
     cleanTmpDir = true;
-    # disabled since broken
-    #extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
   };
 
   security.sudo.package = pkgs.sudo.override {
