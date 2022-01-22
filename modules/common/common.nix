@@ -48,6 +48,12 @@ in
     withInsults = true;
   };
 
+  services = {
+    logind.extraConfig = ''
+      HandlePowerKey=ignore
+    '';
+  };
+
   fileSystems =
     let
       target = "/mnt/home";
