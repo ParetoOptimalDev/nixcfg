@@ -93,9 +93,6 @@ with colorScheme;
                           , Run Memory
                               [ "-t", "  <usedratio>%"
                               ] 10
-                          , Run Swap
-                              [ "-t", "  <usedratio>%"
-                              ] 10
                           , Run DiskU
                               [ ("/", "\xf0a0 <usedp>%")
                               ]
@@ -109,7 +106,7 @@ with colorScheme;
                           ]
              , sepChar  = "%"
              , alignSep = "}{"
-             , template = " <fc=#6586c8></fc>  %StdinReader% }{ %alsa:default:Master% ${sep} %alsa:default:Capture% ${sep} %cpu% ${sep} %memory% (%swap%) ${sep} %disku% ${sep} %multicoretemp% ${sep} %wlp82s0wi% ${sep} %battery% ${sep} %LSZB% ${sep} %date% "
+             , template = " <fc=#6586c8></fc>  %StdinReader% }{ %alsa:default:Master% ${sep} %alsa:default:Capture% ${sep} %cpu% ${sep} %memory% ${sep} %disku% ${sep} %multicoretemp% ${sep} %wlp82s0wi% ${sep} %battery% ${sep} %LSZB% ${sep} %date% "
              }
     '';
 }
