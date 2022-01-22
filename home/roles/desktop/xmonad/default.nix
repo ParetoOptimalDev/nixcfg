@@ -1,6 +1,17 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
+
+  colors = {
+    magenta = "#FF79C6";
+    blue = "#0080FF";
+    white = "#F8F8F2";
+    yellow = "#F1FA8C";
+    orange = "#FF7F00";
+    red = "#FF5555";
+    lowWhite = "#BBBBBB";
+    grey = "#5F5F5F";
+  };
 
   dmenuPatched = pkgs.dmenu.override {
     patches = builtins.map builtins.fetchurl [
@@ -34,9 +45,9 @@ in
     ];
   };
 
-  programs.xmobar = {
-    enable = true;
-    extraConfig = import ./conf/xmobarrc.nix;
+  programs.xmobar = import ./xmobar.nix {
+    inherit pkgs;
+    inherit colors;
   };
 
   services = {
@@ -49,18 +60,17 @@ in
         SetDockType = true;
         SetPartialStrut = true;
         expand = true;
-        width = 10;
+        width = 5;
         transparent = true;
-        tint = "0x5f5f5f";
+        tint = "0x${builtins.substring 1 6 colors.grey}";
         height = 22;
       };
     };
   };
 
-  xsession.windowManager.xmonad = {
-    enable = true;
-    enableContribAndExtras = true;
-    config = pkgs.writeText "xmonad.hs" (import ./conf/xmonad.hs.nix);
-    extraPackages = with pkgs.haskellPackages; haskellPackages: [ xmobar ];
+  xsession.windowManager.xmonad = import ./xmonad.nix {
+    inherit lib;
+    inherit pkgs;
+    inherit colors;
   };
 }
