@@ -26,22 +26,19 @@
       username = "christian";
       system = "x86_64-linux";
 
+      config = {
+        allowUnfree = true;
+        packageOverrides = import ./pkgs;
+      };
+
       overlay-unstable = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
-          inherit system;
-          config = {
-            allowUnfree = true;
-            packageOverrides = import ./pkgs;
-          };
+          inherit config system;
         };
       };
 
       pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          packageOverrides = import ./pkgs;
-        };
+        inherit config system;
         overlays = [
           overlay-unstable
           kmonad.overlay
