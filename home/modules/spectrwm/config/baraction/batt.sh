@@ -15,6 +15,6 @@ has_batt() {
 
 batt() {
   batt="$(acpi -b 2> /dev/null | head -n 1 | grep -Po "[[:digit:]]{1,3}%")"
-  echo -e " $batt"
+  echo -e " $batt"
 }
 

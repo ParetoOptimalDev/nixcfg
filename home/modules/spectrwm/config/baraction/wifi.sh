@@ -14,6 +14,6 @@ wifi() {
         quality='down'
     fi
     quality=$(grep "$INTERFACE" /proc/net/wireless | awk '{ printf "%d%", int($3 * 100 / 70) }')
-    echo -e "  $quality"
+    echo -e "直$quality"
 }
 

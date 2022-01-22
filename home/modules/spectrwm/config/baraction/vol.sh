@@ -3,6 +3,6 @@
 
 vol() {
   vol=`amixer get Master | awk -F'[][]' 'END{ print $4":"$2 }' | sed 's/on://g'`
-  echo -e "  $vol"
+  echo -e "墳$vol"
 }
 

@@ -20,6 +20,6 @@ headset() {
   if [[ "$connected" != 'yes' ]]; then
     name="-"
   fi
-  echo -e "  $name"
+  echo -e " $name"
 }
 
