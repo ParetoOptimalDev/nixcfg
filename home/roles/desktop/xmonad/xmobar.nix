@@ -36,6 +36,7 @@ with colorScheme;
                               , ("partly cloudy", "\xe30c")
                               , ("mostly cloudy", "\xe302")
                               , ("fair", "\xe32b")
+                              , ("obscured","\xe311")
                               , ("overcast","\xe311")
                               , ("cloudy","\xe312")
                               , ("considerable cloudiness", "\xe313")
