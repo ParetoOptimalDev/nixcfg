@@ -2,6 +2,6 @@
 
 {
   home.packages = [
-    pkgs.spidermonkey # REPL
+    pkgs.spidermonkey_91 # REPL
   ];
 }

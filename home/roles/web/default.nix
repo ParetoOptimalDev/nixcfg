@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./nextcloud-client
+  ];
+
   home.packages = with pkgs; [
     _1password
     _1password-gui
@@ -17,9 +21,5 @@
     chromium.enable = true;
     firefox.enable = true;
     qutebrowser.enable = true;
-  };
-
-  services = {
-    nextcloud-client = import ./nextcloud-client;
   };
 }

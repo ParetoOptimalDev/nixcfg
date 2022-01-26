@@ -12,7 +12,6 @@
   ];
 
   home = {
-    username = "christian";
     homeDirectory = "/home/${config.home.username}";
 
     sessionPath = [
@@ -20,6 +19,5 @@
     ];
 
     enableNixpkgsReleaseCheck = true;
-    stateVersion = import ../../../version.nix;
   };
 }

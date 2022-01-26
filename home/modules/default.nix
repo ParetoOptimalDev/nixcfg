@@ -1,7 +1,7 @@
 {
   imports = [
-    ./davmail
-    ./kmonad
-    ./spectrwm
+    #./davmail
+    #./kmonad
+    #./spectrwm
   ];
 }

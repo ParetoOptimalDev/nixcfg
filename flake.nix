@@ -17,125 +17,82 @@
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
+      # Add support for statix
+      #url = "github:maydayv7/pre-commit-hooks.nix/patch-1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, kmonad, ... }:
+  outputs = { self, nixpkgs, ... } @ inputs:
     let
-      username = "christian";
       system = "x86_64-linux";
 
-      config = {
-        allowUnfree = true;
-        packageOverrides = import ./pkgs;
+      flakeLib = import ./flake {
+        inherit inputs;
+        rootPath = ./.;
       };
 
-      overlay-unstable = final: prev: {
-        unstable = import inputs.nixpkgs-unstable {
-          inherit config system;
-        };
-      };
-
-      pkgs = import nixpkgs {
-        inherit config system;
-        overlays = [
-          overlay-unstable
-          kmonad.overlay
-        ];
-      };
-
-      mkComputer = configurationNix: extraModules: nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
-        specialArgs = { inherit self system inputs; };
-        modules = (
-          [
-            # System configuration for this host
-            (import configurationNix { inherit pkgs; root = self; })
-
-            # Common configuration
-            (import ./modules/common { inherit pkgs username; })
-
-            kmonad.nixosModule
-          ] ++ extraModules
-        );
-      };
-
+      inherit (nixpkgs.lib) listToAttrs;
+      inherit (flakeLib) mkNixos;
     in
     {
-      nixosConfigurations = {
-        altair = mkComputer
-          ./workstation/altair
-          [
-            ./modules/gaming.nix
+      homeConfigurations = listToAttrs [ ];
 
-            # home-manager configuration
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} = import ./home/home.nix
-                {
-                  inherit inputs system pkgs;
-                };
-            }
-          ];
+      nixosConfigurations = listToAttrs [
+        (mkNixos "x86_64-linux" "n75")
+      ];
 
-        n75 = mkComputer
-          ./workstation/n75
-          [
-            (import ./modules/bluecare { inherit pkgs username; root = self; })
-            (import ./modules/container.nix { inherit pkgs username; })
-            ./modules/mobile.nix
+      #nixosConfigurations = {
+      #  altair = mkComputer
+      #    ./workstation/altair
+      #    [
+      #      ./modules/gaming.nix
 
-            # home-manager configuration
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} = import ./home/work.nix
-                {
-                  inherit inputs system pkgs;
-                };
-            }
-          ];
+      #      # home-manager configuration
+      #      home-manager.nixosModules.home-manager
+      #      {
+      #        home-manager.useGlobalPkgs = true;
+      #        home-manager.useUserPackages = true;
+      #        home-manager.users.${username} = import ./home/home.nix
+      #          {
+      #            inherit inputs system pkgs;
+      #          };
+      #      }
+      #    ];
 
-        nixos-vm = mkComputer
-          ./workstation/nixos-vm
-          [
-            # home-manager configuration
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} = import ./home/nixos-vm.nix
-                {
-                  inherit inputs system pkgs;
-                };
-            }
-          ];
-      };
+      #  n75 = mkComputer
+      #    ./workstation/n75
+      #    [
+      #      (import ./modules/bluecare { inherit pkgs username; root = self; })
+      #      (import ./modules/container.nix { inherit pkgs username; })
+      #      ./modules/mobile.nix
 
-      # Non-NixOS Systems
-      #homeConfigurations =
-      #let
-      #homeDirectory = "/home/${username}";
-      #baseConfiguration = {
-      #programs.home-manager.enable = true;
-      #home = {
-      #username = username;
-      #homeDirectory = homeDirectory;
-      #};
-      #};
-      #mkHomeConfig = cfg: home-manager.lib.homeManagerConfiguration {
-      #inherit username system homeDirectory;
-      #configuration = baseConfiguration // cfg;
-      #};
-      #in
-      #{
-      #"tbd" = mkHomeConfig {
-      #programs.git = import ./home/git.nix;
-      #};
+      #      # home-manager configuration
+      #      home-manager.nixosModules.home-manager
+      #      {
+      #        home-manager.useGlobalPkgs = true;
+      #        home-manager.useUserPackages = true;
+      #        home-manager.users.${username} = import ./home/work.nix
+      #          {
+      #            inherit inputs system pkgs;
+      #          };
+      #      }
+      #    ];
+
+      #  nixos-vm = mkComputer
+      #    ./workstation/nixos-vm
+      #    [
+      #      # home-manager configuration
+      #      home-manager.nixosModules.home-manager
+      #      {
+      #        home-manager.useGlobalPkgs = true;
+      #        home-manager.useUserPackages = true;
+      #        home-manager.users.${username} = import ./home/nixos-vm.nix
+      #          {
+      #            inherit inputs system pkgs;
+      #          };
+      #      }
+      #    ];
       #};
 
       checks.${system} = {
@@ -144,26 +101,35 @@
           hooks = {
             nixpkgs-fmt.enable = true;
             shellcheck.enable = true;
+            #statix.enable = true;
           };
         };
       };
 
-      devShell.${system} = pkgs.mkShell {
+      devShell.${system} =
+        let
+          config = {
+            allowUnfree = true;
+            packageOverrides = import ./pkgs;
+          };
+          pkgs = import nixpkgs { inherit config system; };
+        in
+        pkgs.mkShell {
 
-        name = "nixcfg";
+          name = "nixcfg";
 
-        buildInputs = with pkgs; [
-          figlet
-          lolcat # banner printing on enter
+          buildInputs = with pkgs; [
+            figlet
+            lolcat # banner printing on enter
 
-          home-manager
-        ];
+            home-manager
+          ];
 
-        shellHook = ''
-          figlet $name | lolcat --freq 0.5
-          ${(self.checks.${system}.pre-commit-check).shellHook}
-          ${pkgs.pre-commit}/bin/pre-commit install
-        '';
-      };
+          shellHook = ''
+            figlet $name | lolcat --freq 0.5
+            ${(self.checks.${system}.pre-commit-check).shellHook}
+            ${pkgs.pre-commit}/bin/pre-commit install
+          '';
+        };
     };
 }
