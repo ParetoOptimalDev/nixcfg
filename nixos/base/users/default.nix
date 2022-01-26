@@ -1,4 +1,4 @@
-{ config, lib, pkgs, homeModules, rootPath, ... }:
+{ config, lib, pkgs, homeModules, rootPath, ... } @ args:
 
 with lib;
 
@@ -7,6 +7,16 @@ let
   cfg = config.custom.base.users;
   baseCfg = config.custom.base;
 
+  availableUsers = [ "christian" ];
+  importUser = u:
+    let
+      isEnabled = any (x: x == u) cfg.usernames;
+      userConfig = ./. + "/${u}.nix";
+      userArgs = args // { inherit isEnabled; };
+    in
+    import userConfig userArgs;
+  importUsers = (map importUser availableUsers);
+
 in
 
 {
@@ -14,9 +24,10 @@ in
   options = {
 
     custom.base.users = {
+
       usernames = mkOption {
-        type = types.listOf (types.enum [ "christian" ]);
-        default = [ "christian" ];
+        type = types.listOf (types.enum availableUsers);
+        default = [ ];
         description = "List of user names.";
       };
     };
@@ -33,5 +44,5 @@ in
 
       users = genAttrs cfg.usernames (u: import (rootPath + "/hosts/${baseCfg.hostname}/home-${u}.nix"));
     };
-  } // (import ./christian.nix { inherit pkgs; });
+  } // mkMerge importUsers;
 }

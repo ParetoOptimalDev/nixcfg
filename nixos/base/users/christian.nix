@@ -1,4 +1,6 @@
-{ pkgs, ... }:
+{ lib, pkgs, isEnabled, ... }:
+
+with lib;
 
 let
 
@@ -6,7 +8,7 @@ let
 
 in
 
-{
+mkIf isEnabled {
   fileSystems =
     let
       target = "/mnt/home";
