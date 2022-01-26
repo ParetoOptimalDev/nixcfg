@@ -2,8 +2,8 @@
 
 {
   imports = [
-    #./network.nix
-    #./printing.nix
-    #./sound.nix
+    ./network.nix
+    ./printing.nix
+    ./sound.nix
   ];
 }

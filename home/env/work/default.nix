@@ -2,20 +2,19 @@
 
 {
   imports = [
-    #./bin
-    #./cli-office
-    #./cursors
-    #./davmail
-    #./git
-    #./grobi
-    #./kmonad
-    #./ranger
-    #./scala
-    ##./xmonad
-    #./ssh
-    #./tmux
-    #./xbindkeys
-    #./zoomus
+    ./bin
+    ./cli-office
+    ./cursors
+    ./davmail
+    ./git
+    ./grobi
+    ./kmonad
+    ./ranger
+    ./scala
+    ./ssh
+    ./tmux
+    ./xbindkeys
+    ./zoomus
   ];
 
   home.packages = with pkgs; [
