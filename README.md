@@ -1,11 +1,11 @@
-# NixOS Configurations
+# Nix Configuration
 
 # Initial NixOS installation
 
 To install NixOS on a fresh machine, run:
 
 ```bash
-$ curl -s https://raw.githubusercontent.com/christianharke/nixos-config/master/scripts/nixos-install.sh > nixos-install.sh
+$ curl -s https://raw.githubusercontent.com/christianharke/nixcfg/master/scripts/nixos-install.sh > nixos-install.sh
 
 $ # If nix version < 2.4, run:
 $ nix-shell -p nixFlakes

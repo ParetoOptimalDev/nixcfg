@@ -150,7 +150,7 @@
 
       devShell.${system} = pkgs.mkShell {
 
-        name = "nixos-config";
+        name = "nixcfg";
 
         buildInputs = with pkgs; [
           figlet
