@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  cfg = config.custom.base.general;
+  cfg = config.custom.base;
 
   localeLang = "en_US.UTF-8";
   localeFormats = "de_CH.UTF-8";
@@ -15,7 +15,7 @@ in
 
   options = {
 
-    custom.base.general = {
+    custom.base = {
       enable = mkEnableOption "basic config" // { default = true; };
 
       hostname = mkOption {
