@@ -52,11 +52,7 @@
 
       devShell.${system} =
         let
-          config = {
-            allowUnfree = true;
-            packageOverrides = import ./pkgs;
-          };
-          pkgs = import nixpkgs { inherit config system; };
+          pkgs = import nixpkgs { inherit system; };
         in
         pkgs.mkShell {
 
