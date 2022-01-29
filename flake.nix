@@ -58,8 +58,9 @@
             name = "nixcfg";
 
             buildInputs = with pkgs; [
+              # banner printing on enter
               figlet
-              lolcat # banner printing on enter
+              lolcat
 
               home-manager
             ];
