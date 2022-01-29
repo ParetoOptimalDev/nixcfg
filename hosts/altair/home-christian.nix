@@ -1,9 +1,9 @@
 { lib, rootPath, ... }:
 
 {
-  imports = builtins.map lib.custom.mkHomePath [
-    /env/home
-    /roles/gaming
+  imports = [
+    (rootPath + "/home/env/home")
+    (rootPath + "/home/roles/gaming")
   ];
 
   home.username = "christian";

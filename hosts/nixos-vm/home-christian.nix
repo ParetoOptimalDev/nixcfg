@@ -1,8 +1,8 @@
-{ lib, rootPath, ... }:
+{ rootPath, ... }:
 
 {
-  imports = builtins.map lib.custom.mkHomePath [
-    /env/home
+  imports = [
+    (rootPath + "/home/env/home")
   ];
 
   home.username = "christian";

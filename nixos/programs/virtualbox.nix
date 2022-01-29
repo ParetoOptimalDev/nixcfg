@@ -4,10 +4,10 @@ with lib;
 
 let
 
-  baseCfg = config.custom.base;
+  usersCfg = config.custom.base.users;
 
 in
 
 {
-  users.extraGroups.vboxusers.members = baseCfg.users;
+  users.extraGroups.vboxusers.members = usersCfg.users;
 }

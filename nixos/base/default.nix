@@ -1,42 +1,29 @@
-{ config, lib, pkgs, rootPath, ... } @ args:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
-  cfg = config.custom.base;
+  cfg = config.custom.base.general;
 
   localeLang = "en_US.UTF-8";
   localeFormats = "de_CH.UTF-8";
 
-  availableUsers = [ "christian" ];
-  importUser = u:
-    let
-      isEnabled = any (x: x == u) cfg.users;
-      userConfig = ./. + "/users/${u}.nix";
-      userArgs = args // { inherit isEnabled; };
-    in
-    import userConfig userArgs;
-  importUsers = (map importUser availableUsers);
-
 in
 
 {
+  imports = [
+    ./users.nix
+  ];
 
   options = {
 
-    custom.base = {
+    custom.base.general = {
       enable = mkEnableOption "basic config" // { default = true; };
 
       hostname = mkOption {
         type = types.enum [ "altair" "n75" "nixos-vm" ];
         description = "Host name.";
-      };
-
-      users = mkOption {
-        type = types.listOf (types.enum availableUsers);
-        default = [ ];
-        description = "List of user names.";
       };
     };
   };
@@ -46,16 +33,6 @@ in
 
       boot = {
         cleanTmpDir = true;
-      };
-
-      home-manager = {
-        backupFileExtension = "hm-bak";
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        extraSpecialArgs = { inherit rootPath; };
-        sharedModules = homeModules;
-
-        users = genAttrs cfg.users (u: import (rootPath + "/hosts/${baseCfg.hostname}/home-${u}.nix"));
       };
 
       i18n = {
@@ -116,5 +93,5 @@ in
       };
 
       time.timeZone = "Europe/Zurich";
-    } // mkMerge importUsers;
+    };
 }

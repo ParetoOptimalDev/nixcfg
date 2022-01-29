@@ -4,7 +4,7 @@ let
 
   homeModulesBuilder = { inputs, rootPath, customLib, ... }:
     [
-      ("${rootPath}/home")
+      (rootPath + "/home")
 
       {
         lib.custom = customLib;

@@ -1,4 +1,6 @@
-{ pkgs, rootPath, ... } @ args:
+{ config, lib, pkgs, rootPath, ... } @ args:
+
+with lib;
 
 let
 
@@ -16,11 +18,10 @@ in
     ./printing
   ];
 
-  custom.base.users = [ username ];
+  custom.base.users.users = [ username ];
+  custom.desktop.mobile.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  custom.desktop.mobile.enable = true;
 }

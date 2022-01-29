@@ -3,7 +3,7 @@
 {
   imports = [ ./hardware ];
 
-  custom.base.users = [ "christian" ];
+  custom.base.users.users = [ "christian" ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
