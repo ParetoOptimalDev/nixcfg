@@ -1,12 +1,18 @@
 { pkgs, ... }:
 
+with pkgs;
+
 {
+  home.packages = [
+    dconf
+  ];
+
   gtk.enable = true;
 
   xsession = {
     enable = true;
     pointerCursor = {
-      package = pkgs.bibata-extra-cursors;
+      package = bibata-extra-cursors;
       size = 22;
     };
   };
