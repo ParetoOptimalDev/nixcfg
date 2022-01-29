@@ -19,5 +19,7 @@
     ];
 
     enableNixpkgsReleaseCheck = true;
+
+    stateVersion = "21.11";
   };
 }
