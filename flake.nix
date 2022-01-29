@@ -37,7 +37,9 @@
       homeConfigurations = listToAttrs [ ];
 
       nixosConfigurations = listToAttrs [
+        (mkNixos "x86_64-linux" "altair")
         (mkNixos "x86_64-linux" "n75")
+        (mkNixos "x86_64-linux" "nixos-vm")
       ];
     }
     // eachSystem (system:
