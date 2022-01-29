@@ -8,16 +8,13 @@ let
     packageOverrides = import "${rootPath}/pkgs";
   };
 
-  nixpkgs-unstable = import inputs.nixpkgs-unstable {
+  unstable = import inputs.nixpkgs-unstable {
     inherit config system;
   };
 
   overlays = [
     (final: prev: {
-      inherit (nixpkgs-unstable)
-        # need bleeding edge version
-        jetbrains
-        ;
+      inherit unstable;
     })
 
     inputs.kmonad.overlay

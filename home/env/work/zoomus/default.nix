@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    pkgs.zoom-us
+    pkgs.unstable.zoom-us
   ];
 
   xdg.configFile."zoomus.conf".source = ./config/zoomus.conf;
