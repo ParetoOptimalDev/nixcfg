@@ -17,8 +17,6 @@
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      # Add support for statix
-      #url = "github:maydayv7/pre-commit-hooks.nix/patch-1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -42,66 +40,12 @@
         (mkNixos "x86_64-linux" "n75")
       ];
 
-      #nixosConfigurations = {
-      #  altair = mkComputer
-      #    ./workstation/altair
-      #    [
-      #      ./modules/gaming.nix
-
-      #      # home-manager configuration
-      #      home-manager.nixosModules.home-manager
-      #      {
-      #        home-manager.useGlobalPkgs = true;
-      #        home-manager.useUserPackages = true;
-      #        home-manager.users.${username} = import ./home/home.nix
-      #          {
-      #            inherit inputs system pkgs;
-      #          };
-      #      }
-      #    ];
-
-      #  n75 = mkComputer
-      #    ./workstation/n75
-      #    [
-      #      (import ./modules/bluecare { inherit pkgs username; root = self; })
-      #      (import ./modules/container.nix { inherit pkgs username; })
-      #      ./modules/mobile.nix
-
-      #      # home-manager configuration
-      #      home-manager.nixosModules.home-manager
-      #      {
-      #        home-manager.useGlobalPkgs = true;
-      #        home-manager.useUserPackages = true;
-      #        home-manager.users.${username} = import ./home/work.nix
-      #          {
-      #            inherit inputs system pkgs;
-      #          };
-      #      }
-      #    ];
-
-      #  nixos-vm = mkComputer
-      #    ./workstation/nixos-vm
-      #    [
-      #      # home-manager configuration
-      #      home-manager.nixosModules.home-manager
-      #      {
-      #        home-manager.useGlobalPkgs = true;
-      #        home-manager.useUserPackages = true;
-      #        home-manager.users.${username} = import ./home/nixos-vm.nix
-      #          {
-      #            inherit inputs system pkgs;
-      #          };
-      #      }
-      #    ];
-      #};
-
       checks.${system} = {
         pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
           src = ./.;
           hooks = {
             nixpkgs-fmt.enable = true;
             shellcheck.enable = true;
-            #statix.enable = true;
           };
         };
       };
