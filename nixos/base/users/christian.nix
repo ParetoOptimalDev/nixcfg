@@ -75,6 +75,6 @@ mkIf isEnabled {
       "scanner"
     ];
     initialPassword = "changeme";
-    openssh.authorizedKeys.keyFiles = [ ./id_rsa.pub ];
+    openssh.authorizedKeys.keyFiles = [ ./christian_id_rsa.pub ];
   };
 }

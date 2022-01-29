@@ -1,4 +1,4 @@
-{ config, lib, pkgs, rootPath, ... }:
+{ config, lib, pkgs, rootPath, ... } @ args:
 
 with lib;
 
@@ -8,6 +8,16 @@ let
 
   localeLang = "en_US.UTF-8";
   localeFormats = "de_CH.UTF-8";
+
+  availableUsers = [ "christian" ];
+  importUser = u:
+    let
+      isEnabled = any (x: x == u) cfg.users;
+      userConfig = ./. + "/users/${u}.nix";
+      userArgs = args // { inherit isEnabled; };
+    in
+    import userConfig userArgs;
+  importUsers = (map importUser availableUsers);
 
 in
 
@@ -22,72 +32,89 @@ in
         type = types.enum [ "altair" "n75" "nixos-vm" ];
         description = "Host name.";
       };
+
+      users = mkOption {
+        type = types.listOf (types.enum availableUsers);
+        default = [ ];
+        description = "List of user names.";
+      };
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable
+    {
 
-    boot = {
-      cleanTmpDir = true;
-    };
-
-    i18n = {
-      defaultLocale = localeLang;
-      extraLocaleSettings = {
-        LC_NUMERIC = localeFormats;
-        LC_TIME = localeFormats;
-        LC_MONETARY = localeFormats;
-        LC_PAPER = localeFormats;
-        LC_MEASUREMENT = localeFormats;
+      boot = {
+        cleanTmpDir = true;
       };
-    };
 
-    location = {
-      latitude = 47.5;
-      longitude = 8.75;
-    };
+      home-manager = {
+        backupFileExtension = "hm-bak";
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        extraSpecialArgs = { inherit rootPath; };
+        sharedModules = homeModules;
 
-    networking = {
-      hostName = cfg.hostname;
-    };
-
-    nix = {
-      package = pkgs.nix_2_4;
-      extraOptions = ''
-        experimental-features = nix-command flakes
-      '';
-      gc = {
-        automatic = true;
-        dates = "04:00";
-        options = "--delete-older-than 7d";
+        users = genAttrs cfg.users (u: import (rootPath + "/hosts/${baseCfg.hostname}/home-${u}.nix"));
       };
-    };
 
-    nixpkgs.config.allowUnfree = true;
+      i18n = {
+        defaultLocale = localeLang;
+        extraLocaleSettings = {
+          LC_NUMERIC = localeFormats;
+          LC_TIME = localeFormats;
+          LC_MONETARY = localeFormats;
+          LC_PAPER = localeFormats;
+          LC_MEASUREMENT = localeFormats;
+        };
+      };
 
-    programs = {
-      vim.defaultEditor = true;
-      zsh.enable = true;
-    };
+      location = {
+        latitude = 47.5;
+        longitude = 8.75;
+      };
 
-    security.sudo.package = pkgs.sudo.override {
-      withInsults = true;
-    };
+      networking = {
+        hostName = cfg.hostname;
+      };
 
-    services = {
-      logind.extraConfig = ''
-        HandlePowerKey=ignore
-      '';
-    };
+      nix = {
+        package = pkgs.nix_2_4;
+        extraOptions = ''
+          experimental-features = nix-command flakes
+        '';
+        gc = {
+          automatic = true;
+          dates = "04:00";
+          options = "--delete-older-than 7d";
+        };
+      };
 
-    system = {
-      # This value determines the NixOS release with which your system is to be
-      # compatible, in order to avoid breaking some software such as database
-      # servers. You should change this only after NixOS release notes say you
-      # should.
-      stateVersion = import (rootPath + "/version.nix");
-    };
+      nixpkgs.config.allowUnfree = true;
 
-    time.timeZone = "Europe/Zurich";
-  };
+      programs = {
+        vim.defaultEditor = true;
+        zsh.enable = true;
+      };
+
+      security.sudo.package = pkgs.sudo.override {
+        withInsults = true;
+      };
+
+      services = {
+        logind.extraConfig = ''
+          HandlePowerKey=ignore
+        '';
+      };
+
+      system = {
+        # This value determines the NixOS release with which your system is to be
+        # compatible, in order to avoid breaking some software such as database
+        # servers. You should change this only after NixOS release notes say you
+        # should.
+        stateVersion = import (rootPath + "/version.nix");
+      };
+
+      time.timeZone = "Europe/Zurich";
+    } // mkMerge importUsers;
 }

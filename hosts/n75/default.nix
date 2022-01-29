@@ -16,7 +16,7 @@ in
     ./printing
   ];
 
-  custom.base.users.usernames = [ username ];
+  custom.base.users = [ username ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
