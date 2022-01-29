@@ -31,6 +31,6 @@ in
 
   customLib = import (rootPath + "/lib") {
     inherit (inputs.nixpkgs) lib;
-    inherit pkgs;
+    inherit pkgs rootPath;
   };
 }

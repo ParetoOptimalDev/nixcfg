@@ -1,7 +1,7 @@
-{ rootPath, ... }:
+{ lib, rootPath, ... }:
 
 {
-  imports = builtins.map (p: rootPath + "/home" + p) [
+  imports = builtins.map lib.custom.mkHomePath [
     /env/work
     /roles/dev
     /roles/mobile

@@ -1,11 +1,11 @@
-{ pkgs, rootPath, ... }:
+{ config, pkgs, ... }:
 
 {
   containers.devmail =
     {
       config = { pkgs, ... }:
         {
-          imports = [ "${rootPath}/nixos/dev/devmail.nix" ];
+          imports = [ (config.lib.custom.mkNixosPath "/dev/devmail.nix") ];
           services.devmail = {
             enable = true;
             primaryHostname = "devmail";
