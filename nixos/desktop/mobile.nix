@@ -16,8 +16,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.wireless.enable = true;
-
     services = {
       logind.lidSwitch = "suspend-then-hibernate";
       upower.enable = true;
