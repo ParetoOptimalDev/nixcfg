@@ -22,5 +22,5 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  #custom.desktop.mobile.enable = true;
+  custom.desktop.mobile.enable = true;
 }
