@@ -17,9 +17,6 @@ let
       inherit (nixpkgs-unstable)
         # need bleeding edge version
         jetbrains
-
-        # need 0.4.2
-        statix
         ;
     })
 

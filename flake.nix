@@ -10,6 +10,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-utils.url = "github:numtide/flake-utils";
+
     kmonad = {
       url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,15 +25,13 @@
 
   outputs = { self, nixpkgs, ... } @ inputs:
     let
-      system = "x86_64-linux";
-
       flakeLib = import ./flake {
         inherit inputs;
         rootPath = ./.;
       };
 
       inherit (nixpkgs.lib) listToAttrs;
-      inherit (flakeLib) mkNixos;
+      inherit (flakeLib) mkNixos eachSystem;
     in
     {
       homeConfigurations = listToAttrs [ ];
@@ -39,37 +39,36 @@
       nixosConfigurations = listToAttrs [
         (mkNixos "x86_64-linux" "n75")
       ];
-
-      checks.${system} = {
-        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            nixpkgs-fmt.enable = true;
-            shellcheck.enable = true;
+    }
+    // eachSystem (system:
+      {
+        checks = {
+          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixpkgs-fmt.enable = true;
+              shellcheck.enable = true;
+            };
           };
         };
-      };
 
-      devShell.${system} =
-        let
-          pkgs = import nixpkgs { inherit system; };
-        in
-        pkgs.mkShell {
+        devShell = let pkgs = nixpkgs.legacyPackages.${system}; in
+          pkgs.mkShell {
 
-          name = "nixcfg";
+            name = "nixcfg";
 
-          buildInputs = with pkgs; [
-            figlet
-            lolcat # banner printing on enter
+            buildInputs = with pkgs; [
+              figlet
+              lolcat # banner printing on enter
 
-            home-manager
-          ];
+              home-manager
+            ];
 
-          shellHook = ''
-            figlet $name | lolcat --freq 0.5
-            ${(self.checks.${system}.pre-commit-check).shellHook}
-            ${pkgs.pre-commit}/bin/pre-commit install
-          '';
-        };
-    };
+            shellHook = ''
+              figlet $name | lolcat --freq 0.5
+              ${(self.checks.${system}.pre-commit-check).shellHook}
+              ${pkgs.pre-commit}/bin/pre-commit install
+            '';
+          };
+      });
 }

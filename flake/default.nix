@@ -28,4 +28,8 @@ in
 
 {
   mkNixos = simpleWrapper ./builders/mkNixos.nix;
+
+  eachSystem =
+    inputs.flake-utils.lib.eachSystem
+      [ "aarch64-linux" "x86_64-linux" ];
 }
