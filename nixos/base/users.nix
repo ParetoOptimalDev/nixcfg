@@ -5,7 +5,7 @@ with lib;
 let
 
   cfg = config.custom.base.users;
-  baseCfg = config.custom.base.general;
+  baseCfg = config.custom.base;
 
   availableUsers = [ "christian" ];
   importUserModule = u:

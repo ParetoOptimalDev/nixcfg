@@ -36,7 +36,7 @@ let
   '';
   checkpasswordScript = pkgs.writeScript "checkpassword-dovecot.sh" checkPassword;
   usersdir = "/var/data/devmail/users";
-  cfg = config.services.devmail;
+  cfg = config.custom.dev.devmail;
 in
 with lib;
 {
@@ -44,7 +44,7 @@ with lib;
   imports = [ ./roundcubedev.nix ];
 
   options = {
-    services.devmail = {
+    custom.dev.devmail = {
       enable = mkOption {
         default = false;
         description = "Enable devmail. This enables exim, dovecot, nginx with roundcube.";
@@ -65,7 +65,7 @@ with lib;
   };
 
 
-  config = mkIf config.services.devmail.enable {
+  config = mkIf cfg.enable {
 
     networking.firewall = {
       allowedTCPPorts = [ 25 143 80 ];
@@ -83,7 +83,7 @@ with lib;
     environment.systemPackages = [ pkgs.telnet pkgs.sqlite ];
 
     services.nginx.enable = true;
-    services.roundcubedev = {
+    custom.dev.roundcubedev = {
       enable = true;
       hostName = cfg.primaryHostname;
     };

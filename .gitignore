@@ -5,5 +5,5 @@ accounts.nix
 
 *.tgz
 *.tar
-*.tar.gz
+*.gz
 *.zip

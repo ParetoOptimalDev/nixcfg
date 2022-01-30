@@ -10,7 +10,7 @@ with lib;
 
 let
 
-  cfg = config.services.roundcubedev;
+  cfg = config.custom.dev.roundcubedev;
   fpm = config.services.phpfpm.pools.roundcubedev;
 
 in
@@ -20,7 +20,7 @@ in
   ### interface
 
   options = {
-    services.roundcubedev = {
+    custom.dev.roundcubedev = {
       enable = mkOption {
         default = false;
         description = "Enable roundcube, by providing it to nginx.";
@@ -62,7 +62,7 @@ in
 
   ### implementation
 
-  config = mkIf config.services.roundcubedev.enable {
+  config = mkIf cfg.enable {
     services.nginx = {
       virtualHosts = {
         ${cfg.hostName} = {

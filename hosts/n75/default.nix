@@ -1,25 +1,31 @@
-{ config, lib, pkgs, rootPath, ... } @ args:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   username = "christian";
-  moduleArgs = args // { inherit username; };
 
 in
 
 {
   imports = [
     ./hardware
-    ./devmail
-    (import ./fileSystems moduleArgs)
-    (import ./openvpn moduleArgs)
-    ./printing
   ];
 
-  custom.base.users.users = [ username ];
-  custom.desktop.mobile.enable = true;
+  custom = {
+    base.users.users = [ username ];
+
+    env.bluecare = {
+      enable = true;
+      username = username;
+    };
+
+    containers.devmail = {
+      enable = true;
+      localDomains = [ "hin.ch" "test.com" ];
+    };
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

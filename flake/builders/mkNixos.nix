@@ -14,7 +14,7 @@ inputs.nixpkgs.lib.nixosSystem {
     inputs.kmonad.nixosModule
 
     {
-      custom.base.general.hostname = name;
+      custom.base.hostname = name;
 
       lib.custom = customLib;
 
