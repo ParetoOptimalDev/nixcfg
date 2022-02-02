@@ -65,7 +65,7 @@ in
       davmail = mapAttrs (name: mkDefault) {
         server = true;
         disableUpdateCheck = true;
-        logFilePath = "/var/log/davmail/davmail.log";
+        logFilePath = config.xdg.dataHome + "/davmail/davmail.log";
         logFileSize = "1MB";
         mode = "auto";
         url = cfg.url;
