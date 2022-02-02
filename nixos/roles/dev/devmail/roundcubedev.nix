@@ -10,7 +10,7 @@ with lib;
 
 let
 
-  cfg = config.custom.dev.roundcubedev;
+  cfg = config.custom.roles.dev.roundcubedev;
   fpm = config.services.phpfpm.pools.roundcubedev;
 
 in
@@ -20,7 +20,7 @@ in
   ### interface
 
   options = {
-    custom.dev.roundcubedev = {
+    custom.roles.dev.roundcubedev = {
       enable = mkOption {
         default = false;
         description = "Enable roundcube, by providing it to nginx.";

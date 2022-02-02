@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  cfg = config.custom.desktop;
+  cfg = config.custom.roles.desktop;
 
   subModules = [
     (import ./direnv.nix)
@@ -19,7 +19,7 @@ in
 
 {
   options = {
-    custom.desktop = {
+    custom.roles.desktop = {
       enable = mkEnableOption "Desktop computer config";
       gaming = mkEnableOption "Gaming computer config";
       mobile = mkEnableOption "Mobile computer config";

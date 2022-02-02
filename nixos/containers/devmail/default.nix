@@ -49,8 +49,8 @@ in
     containers.devmail = {
       inherit (cfg) hostAddress localAddress autoStart;
       config = {
-        imports = [ (config.lib.custom.mkNixosPath "/dev/devmail") ];
-        config.custom.dev.devmail = {
+        imports = [ (config.lib.custom.mkNixosPath "/roles/dev/devmail") ];
+        config.custom.roles.dev.devmail = {
           inherit (cfg) primaryHostname localDomains;
           enable = true;
         };

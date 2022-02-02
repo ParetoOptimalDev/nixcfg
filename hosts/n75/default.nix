@@ -21,6 +21,11 @@ in
       username = username;
     };
 
+    roles.desktop = {
+      enable = true;
+      mobile = true;
+    };
+
     containers.devmail = {
       enable = true;
       localDomains = [ "hin.ch" "test.com" ];
