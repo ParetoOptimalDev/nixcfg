@@ -24,11 +24,11 @@ jobs:
           - nix-command: develop
             system: x86_64
 
-          - nix-command: build .#nixosConfigurations.altair.config.system.build.toplevel
+          - nix-command: build --dry-run .#nixosConfigurations.altair.config.system.build.toplevel
             system: x86_64
-          - nix-command: build .#nixosConfigurations.n75.config.system.build.toplevel
+          - nix-command: build --dry-run .#nixosConfigurations.n75.config.system.build.toplevel
             system: x86_64
-          - nix-command: build .#nixosConfigurations.nixos-vm.config.system.build.toplevel
+          - nix-command: build --dry-run .#nixosConfigurations.nixos-vm.config.system.build.toplevel
             system: x86_64
 
     steps:
