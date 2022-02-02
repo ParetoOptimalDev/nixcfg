@@ -6,6 +6,16 @@ let
 
   cfg = config.custom.users.christian.bin;
 
+  mkUserBinScript = name:
+    {
+      name = "bin/${name}";
+      value = {
+        source = ./scripts + "/${name}";
+        target = config.home.homeDirectory + "/bin/${name}";
+        executable = true;
+      };
+    };
+
 in
 
 {
@@ -28,33 +38,14 @@ in
       feh.enable = true;
     };
 
-    xdg.configFile =
-      let
-        userBin = config.home.homeDirectory + "/bin";
-      in
-      {
-        # Bluetooth headset
-        "bin/lib/btctl" = {
-          source = ./scripts/lib/btctl;
-          target = userBin + "/lib/btctl";
-        };
-        "bin/wh1000xm2-connect" = {
-          source = ./scripts/wh1000xm2-connect;
-          target = userBin + "/wh1000xm2-connect";
-          executable = true;
-        };
-        "bin/wh1000xm2-disconnect" = {
-          source = ./scripts/wh1000xm2-disconnect;
-          target = userBin + "/wh1000xm2-disconnect";
-          executable = true;
-        };
+    xdg.configFile = listToAttrs (map mkUserBinScript [
+      # Bluetooth headset
+      "lib/btctl"
+      "wh1000xm2-connect"
+      "wh1000xm2-disconnect"
 
-        # Password CLI
-        "bin/pass" = {
-          source = ./scripts/pass;
-          target = userBin + "/pass";
-          executable = true;
-        };
-      };
+      # Password CLI
+      "pass"
+    ]);
   };
 }

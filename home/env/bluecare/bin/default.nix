@@ -6,6 +6,16 @@ let
 
   cfg = config.custom.env.bluecare.bin;
 
+  mkUserBinScript = name:
+    {
+      name = "bin/${name}";
+      value = {
+        source = ./scripts + "/${name}";
+        target = config.home.homeDirectory + "/bin/${name}";
+        executable = true;
+      };
+    };
+
 in
 
 {
@@ -22,48 +32,16 @@ in
       xorg.xrandr
     ];
 
-    xdg.configFile =
-      let
-        userBin = config.home.homeDirectory + "/bin";
-      in
-      {
-        # Display setup
-        "bin/display-docked" = {
-          source = ./scripts/display-docked;
-          target = userBin + "/display-docked";
-          executable = true;
-        };
-        "bin/display-extended" = {
-          source = ./scripts/display-extended;
-          target = userBin + "/display-extended";
-          executable = true;
-        };
-        "bin/display-extended-left" = {
-          source = ./scripts/display-extended-left;
-          target = userBin + "/display-extended-left";
-          executable = true;
-        };
-        "bin/display-mirror" = {
-          source = ./scripts/display-mirror;
-          target = userBin + "/display-mirror";
-          executable = true;
-        };
-        "bin/display-single" = {
-          source = ./scripts/display-single;
-          target = userBin + "/display-single";
-          executable = true;
-        };
+    xdg.configFile = listToAttrs (map mkUserBinScript [
+      # Display setup
+      "display-docked"
+      "display-extended"
+      "display-extended-left"
+      "display-mirror"
+      "display-single"
 
-        "bin/dockerrm" = {
-          source = ./scripts/dockerrm;
-          target = userBin + "/dockerrm";
-          executable = true;
-        };
-        "bin/terminalserver" = {
-          source = ./scripts/terminalserver;
-          target = userBin + "/terminalserver";
-          executable = true;
-        };
-      };
+      "dockerrm"
+      "terminalserver"
+    ]);
   };
 }
