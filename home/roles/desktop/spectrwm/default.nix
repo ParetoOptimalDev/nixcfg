@@ -1,50 +1,30 @@
-{ pkgs, inputs, system, ... }:
+{ config, lib, pkgs, ... }:
+
+with lib;
+
+let
+
+  cfg = config.custom.roles.desktop.spectrwm;
+
+in
 
 {
-  imports = [
-    ../dunst
-  ];
-
-  home = {
-    packages = with pkgs; [
-      # Baraction dependencies
-      acpi
-      lm_sensors
-      scrot
-
-      # Menu
-      dmenu
-
-      # Locker
-      i3lock-pixeled
-
-      # Fonts
-      nerdfonts
-
-      # The window manager
-      spectrwm
-    ];
-  };
-
-  programs = {
-    feh.enable = true;
-    spectrwm = {
-      autoruns = {
-        "alacritty" = 1;
-      };
+  options = {
+    custom.roles.desktop.spectrwm = {
+      enable = mkEnableOption "Spectrwm window manager";
     };
   };
 
-  services = {
-    picom = import ../picom;
-  };
-
-  xsession = {
-    enable = true;
-    windowManager.command = "${pkgs.spectrwm}/bin/spectrwm";
-
-    initExtra = ''
-      ${pkgs.feh}/bin/feh --no-fehbg --bg-fill --randomize ~/Pictures/wallpapers
-    '';
+  config = mkIf cfg.enable {
+    custom = {
+      programs.spectrwm.autoruns = {
+        "alacritty" = 1;
+      };
+      roles.desktop = {
+        dunst.enable = true;
+        feh.enable = true;
+        picom.enable = true;
+      };
+    };
   };
 }

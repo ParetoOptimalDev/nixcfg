@@ -4,12 +4,11 @@ let
 
   homeModulesBuilder = { inputs, rootPath, customLib, ... }:
     [
-      (rootPath + "/home")
-
       {
         lib.custom = customLib;
       }
-    ];
+    ]
+    ++ customLib.getRecursiveDefaultNixFileList (rootPath + "/home");
 
   wrapper = builder: system: name: args:
     let

@@ -1,10 +1,22 @@
-{ lib, rootPath, ... }:
-
 {
-  imports = [
-    (rootPath + "/home/env/home")
-    (rootPath + "/home/roles/gaming")
-  ];
+  custom = {
+    users.christian = {
+      enable = true;
+      steam.enable = true;
+    };
 
-  home.username = "christian";
+    env.home.enable = true;
+
+    roles = {
+      desktop.enable = true;
+      gaming.enable = true;
+      graphics.enable = true;
+      multimedia.enable = true;
+      office = {
+        enable = true;
+        cli.enable = true;
+      };
+      web.enable = true;
+    };
+  };
 }

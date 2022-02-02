@@ -1,9 +1,11 @@
-{ rootPath, ... }:
-
 {
-  imports = [
-    (rootPath + "/home/env/home")
-  ];
+  custom = {
+    users.christian.enable = true;
 
-  home.username = "christian";
+    env.home.enable = true;
+
+    roles = {
+      desktop.enable = true;
+    };
+  };
 }

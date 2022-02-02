@@ -1,15 +1,31 @@
-{ config, ... }:
+{ config, lib, ... }:
+
+with lib;
+
+let
+
+  cfg = config.custom.env.home.spectrwm;
+
+in
 
 {
-  programs.spectrwm = {
-    autoruns = {
-      "${config.xdg.configFile."spectrwm/initscreen.sh".target}" = 1;
-      "firefox" = 3;
-      "steam" = 9;
-      "ts3client" = 10;
+  options = {
+    custom.env.home.spectrwm = {
+      enable = mkEnableOption "Spectrwm config";
     };
-    initscrScript = ''
-      xrandr --output DP-4 --rate 144 --mode 1920x1080 --output HDMI-0 --off
-    '';
+  };
+
+  config = mkIf cfg.enable {
+    custom.programs.spectrwm = {
+      autoruns = {
+        "${config.xdg.configFile."spectrwm/initscreen.sh".target}" = 1;
+        "firefox" = 3;
+        "steam" = 9;
+        "ts3client" = 10;
+      };
+      initscrScript = ''
+        xrandr --output DP-4 --rate 144 --mode 1920x1080 --output HDMI-0 --off
+      '';
+    };
   };
 }

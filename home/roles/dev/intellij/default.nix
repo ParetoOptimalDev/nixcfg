@@ -1,17 +1,31 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-with pkgs;
+with lib;
+
+let
+
+  cfg = config.custom.roles.dev.intellij;
+
+in
 
 {
-  home = {
-    packages = [
-      openjfx11
-      jetbrains.idea-ultimate
-    ];
+  options = {
+    custom.roles.dev.intellij = {
+      enable = mkEnableOption "IntelliJ";
+    };
+  };
 
-    sessionVariables = {
-      # IntelliJ IDEA Code with me
-      INTELLIJCLIENT_JDK = "${jdk11}/lib/openjdk";
+  config = mkIf cfg.enable {
+    home = {
+      packages = with pkgs; [
+        openjfx11
+        jetbrains.idea-ultimate
+      ];
+
+      sessionVariables = {
+        # IntelliJ IDEA Code with me
+        INTELLIJCLIENT_JDK = "${pkgs.jdk11}/lib/openjdk";
+      };
     };
   };
 }

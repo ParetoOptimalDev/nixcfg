@@ -1,5 +1,0 @@
-[repositories]
-local
-my-ivy-proxy-releases: https://devops-repo.dev.bluecare.ch/artifactory/ivy-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
-my-maven-proxy-releases: https://devops-repo.dev.bluecare.ch/artifactory/mvn-releases/
-my-snapshots: https://devops-repo.dev.bluecare.ch/artifactory/libs-snapshot/

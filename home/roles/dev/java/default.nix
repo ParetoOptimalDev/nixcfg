@@ -1,6 +1,10 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+with lib;
 
 let
+
+  cfg = config.custom.roles.dev.java;
 
   java = pkgs.jdk;
   jfx = pkgs.openjfx11;
@@ -8,18 +12,26 @@ let
 in
 
 {
-  home = {
-    packages = [
-      java
-      jfx
-    ];
+  options = {
+    custom.roles.dev.java = {
+      enable = mkEnableOption "Java";
+    };
+  };
 
-    sessionVariables = {
-      JAVA_HOME = "${java}/lib/openjdk";
-      JDK_HOME = "${java}/lib/openjdk";
+  config = mkIf cfg.enable {
+    home = {
+      packages = [
+        java
+        jfx
+      ];
 
-      # IntelliJ IDEA Code with me
-      INTELLIJCLIENT_JDK = "${java}/lib/openjdk";
+      sessionVariables = {
+        JAVA_HOME = "${java}/lib/openjdk";
+        JDK_HOME = "${java}/lib/openjdk";
+
+        # IntelliJ IDEA Code with me
+        INTELLIJCLIENT_JDK = "${java}/lib/openjdk";
+      };
     };
   };
 }

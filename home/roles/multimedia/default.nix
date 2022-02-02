@@ -1,10 +1,26 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+with lib;
+
+let
+
+  cfg = config.custom.roles.multimedia;
+
+in
 
 {
-  home.packages = with pkgs; [
-    id3lib
-    spotifywm
-  ];
+  options = {
+    custom.roles.multimedia = {
+      enable = mkEnableOption "Multimedia";
+    };
+  };
 
-  programs.mpv.enable = true;
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      id3lib
+      spotifywm
+    ];
+
+    programs.mpv.enable = true;
+  };
 }

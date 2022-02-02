@@ -1,19 +1,40 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-with pkgs;
+with lib;
+
+let
+
+  cfg = config.custom.roles.desktop.cursors;
+
+in
 
 {
-  home.packages = [
-    dconf
-  ];
+  options = {
+    custom.roles.desktop.cursors = {
+      enable = mkEnableOption "Cursors config";
 
-  gtk.enable = true;
+      pointerCursorName = mkOption {
+        type = types.str;
+        default = "Bibata-Modern-DodgerBlue";
+        description = "Pointer cursors to use from the Bibata cursors package";
+      };
+    };
+  };
 
-  xsession = {
-    enable = true;
-    pointerCursor = {
-      package = bibata-extra-cursors;
-      size = 22;
+  config = mkIf cfg.enable {
+    home.packages = [
+      pkgs.dconf
+    ];
+
+    gtk.enable = true;
+
+    xsession = {
+      enable = true;
+      pointerCursor = {
+        name = cfg.pointerCursorName;
+        package = pkgs.bibata-extra-cursors;
+        size = 22;
+      };
     };
   };
 }
