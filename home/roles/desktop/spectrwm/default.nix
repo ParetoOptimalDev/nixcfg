@@ -28,9 +28,7 @@ in
         };
       };
       roles.desktop = {
-        dunst.enable = true;
-        feh.enable = true;
-        picom.enable = true;
+        locker.enable = true;
       };
     };
   };

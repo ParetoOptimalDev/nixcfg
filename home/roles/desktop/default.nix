@@ -20,8 +20,9 @@ in
     custom.roles.desktop = {
       alacritty.enable = true;
       cursors.enable = true;
+      dunst.enable = true;
       gtk.enable = true;
-      locker.enable = true;
+      picom.enable = true;
       redshift.enable = true;
       xmonad.enable = true;
     };

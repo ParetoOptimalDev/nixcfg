@@ -37,8 +37,7 @@ in
 
   config = mkIf cfg.enable {
     custom.roles.desktop = {
-      dunst.enable = true;
-      picom.enable = true;
+      locker.enable = true;
     };
 
     home = {
@@ -48,9 +47,6 @@ in
 
         # Menu
         dmenuPatched
-
-        # Locker
-        i3lock-pixeled
 
         # Fonts
         nerdfonts
