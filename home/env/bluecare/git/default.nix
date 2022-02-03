@@ -4,7 +4,8 @@ with lib;
 
 let
 
-  cfg = config.custom.env.bluecare.git;
+  bluecareCfg = config.custom.env.bluecare;
+  cfg = bluecareCfg.git;
 
 in
 
@@ -18,7 +19,7 @@ in
   config = mkIf cfg.enable {
     programs = {
       git = {
-        userEmail = "christian.harke@bluecare.ch";
+        inherit (bluecareCfg) userEmail;
       };
       ssh.matchBlocks = {
         "code.bluecare.ch" = {

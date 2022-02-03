@@ -12,6 +12,12 @@ in
   options = {
     custom.env.bluecare = {
       enable = mkEnableOption "BlueCare environment";
+
+      userEmail = mkOption {
+        type = types.str;
+        default = "christian.harke@bluecare.ch";
+        description = "User e-mail address";
+      };
     };
   };
 
@@ -28,7 +34,13 @@ in
         bin.enable = true;
         davmail.enable = true;
         git.enable = true;
-        office.cli.enable = config.custom.roles.office.cli.enable;
+        office.cli = {
+          enable = config.custom.roles.office.cli.enable;
+          caldav = {
+            host = "localhost";
+            port = config.custom.programs.davmail.config.davmail.caldavPort;
+          };
+        };
         ranger.enable = true;
         scala.enable = config.custom.roles.dev.scala.enable;
         ssh.enable = true;

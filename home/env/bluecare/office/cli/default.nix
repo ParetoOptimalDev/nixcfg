@@ -4,7 +4,8 @@ with lib;
 
 let
 
-  cfg = config.custom.env.bluecare.office.cli;
+  bluecareCfg = config.custom.env.bluecare;
+  cfg = bluecareCfg.office.cli;
 
 in
 
@@ -12,6 +13,20 @@ in
   options = {
     custom.env.bluecare.office.cli = {
       enable = mkEnableOption "CLI office config";
+
+      caldav = {
+        host = mkOption {
+          type = types.str;
+          default = "localhost";
+          description = "CalDav server";
+        };
+
+        port = mkOption {
+          type = types.int;
+          default = 1080;
+          description = "CalDav port";
+        };
+      };
     };
   };
 
@@ -50,7 +65,7 @@ in
         [storage bc_calendar_remote]
         type = "caldav"
         read_only = true
-        url = "http://localhost:1080/users/christian.harke@bluecare.ch/calendar/"
+        url = "http://${cfg.caldav.host}:${toString cfg.caldav.port}/users/${bluecareCfg.userEmail}/calendar/"
         username.fetch = ["command", "~/.accounts/bluecare/get_user.sh"]
         password.fetch = ["command", "~/.accounts/bluecare/get_pass.sh"]
       '';
