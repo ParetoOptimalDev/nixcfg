@@ -5,6 +5,7 @@ with lib;
 let
 
   cfg = config.custom.roles.desktop.spectrwm;
+  lockerCfg = config.custom.roles.desktop.locker;
 
 in
 
@@ -17,8 +18,14 @@ in
 
   config = mkIf cfg.enable {
     custom = {
-      programs.spectrwm.autoruns = {
-        "alacritty" = 1;
+      programs.spectrwm = {
+        autoruns = {
+          "alacritty" = 1;
+        };
+
+        locker = {
+          inherit (lockerCfg) package lockCmd;
+        };
       };
       roles.desktop = {
         dunst.enable = true;

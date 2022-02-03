@@ -21,16 +21,13 @@ in
       alacritty.enable = true;
       cursors.enable = true;
       gtk.enable = true;
+      locker.enable = true;
       redshift.enable = true;
       xmonad.enable = true;
     };
 
     home = {
       packages = with pkgs; [
-        # Locker
-        i3lock-pixeled
-
-        # Misc
         gnome.pomodoro
         mupdf
         peek
@@ -38,14 +35,6 @@ in
         xclip
         xzoom
       ];
-    };
-
-    services = {
-      screen-locker = {
-        enable = true;
-        xautolock.enable = false;
-        lockCmd = "${pkgs.i3lock-pixeled}/bin/i3lock-pixeled";
-      };
     };
 
     xsession = {

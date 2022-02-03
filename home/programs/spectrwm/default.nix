@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-with builtins;
 
 let
 
@@ -55,6 +54,18 @@ in
       '';
     };
 
+    locker = {
+      package = mkOption {
+        type = types.package;
+        description = "Locker package";
+      };
+
+      lockCmd = mkOption {
+        type = types.str;
+        description = "Command to activate the locker";
+      };
+    };
+
     extraConfig = mkOption {
       type = types.lines;
       default = "";
@@ -76,7 +87,7 @@ in
         dmenu
 
         # Locker
-        i3lock-pixeled
+        cfg.locker.package
 
         # Fonts
         nerdfonts
@@ -149,7 +160,6 @@ in
           executable = true;
         };
         "${binaryName}/spectrwm.conf" = {
-          #source = ./config/spectrwm.conf;
           text = ''
             workspace_limit         = 10
             # focus_mode              = default
@@ -243,7 +253,7 @@ in
             # PROGRAMS
             
             # Validated default programs:
-            program[lock]           = i3lock-pixeled
+            program[lock]           = ${cfg.locker.lockerCmd}
             program[term]           = alacritty
             # program[menu]           = dmenu_run $dmenu_bottom -fn $bar_font -nb $bar_color -nf $bar_font_color -sb $bar_color_selected -sf $bar_font_color_selected
             # program[search]         = dmenu $dmenu_bottom -i -fn $bar_font -nb $bar_color -nf $bar_font_color -sb $bar_color_selected -sf $bar_font_color_selected

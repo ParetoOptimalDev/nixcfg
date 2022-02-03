@@ -1,7 +1,6 @@
-{ lib, pkgs, colors, ... }:
+{ config, lib, pkgs, colors, ... }:
 
 with lib;
-with builtins;
 
 let
 
@@ -68,7 +67,7 @@ in
         , handleEventHook = fullscreenEventHook
         }
       `additionalKeysP`
-        [ ("M-S-<Delete>", spawn "i3lock-pixeled"                                                                  )
+        [ ("M-S-<Delete>", spawn "${config.custom.roles.desktop.locker.lockCmd}"                                                                  )
         , ("M-S-s", unGrab *> spawn "scrot -s"                                                                     )
         , ("M-p"  , spawn "dmenu_run -fn \"VictorMono Nerd Font:style=SemiBold:pixelsize=14:antialias=true\" -h 22")
         ]

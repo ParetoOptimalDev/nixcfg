@@ -58,8 +58,7 @@ in
     };
 
     programs.xmobar = import ./xmobar.nix {
-      inherit pkgs;
-      inherit colors;
+      inherit pkgs colors;
     };
 
     services = {
@@ -80,9 +79,7 @@ in
     };
 
     xsession.windowManager.xmonad = import ./xmonad.nix {
-      inherit lib;
-      inherit pkgs;
-      inherit colors;
+      inherit config lib pkgs colors;
     };
   };
 }
