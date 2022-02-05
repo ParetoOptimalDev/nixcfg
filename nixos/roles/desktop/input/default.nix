@@ -25,12 +25,15 @@ in
     };
 
     udev.extraRules = ''
-      KERNEL=="event*" , SUBSYSTEM=="input", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+      KERNEL=="event*", SUBSYSTEM=="input", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
       KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
     '';
   };
 
   console.useXkbConfig = true;
 
-  users.users = genAttrs baseCfg.users (u: { extraGroups = [ "input" "uinput" ]; });
+  users.groups = {
+    input.members = baseCfg.users;
+    uinput.members = baseCfg.users;
+  };
 }
