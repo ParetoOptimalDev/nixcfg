@@ -23,7 +23,7 @@ in
 
     roles.desktop = {
       enable = true;
-      mobile = true;
+      mobile.enable = true;
     };
 
     containers.devmail = {

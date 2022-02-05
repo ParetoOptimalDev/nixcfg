@@ -8,7 +8,7 @@
 
     roles.desktop = {
       enable = true;
-      gaming = true;
+      gaming.enable = true;
     };
   };
 
