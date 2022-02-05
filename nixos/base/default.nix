@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, homeModules, rootPath, ... } @ args:
 
 with lib;
 
@@ -6,20 +6,35 @@ let
 
   cfg = config.custom.base;
 
+  availableUsers = [ "christian" ];
+  importUserModule = u:
+    let
+      isEnabled = any (x: x == u) cfg.users;
+      userConfig = ./users + "/${u}.nix";
+    in
+    mkIf isEnabled (import userConfig args);
+  importUserModules = map importUserModule availableUsers;
+
+  importHmUser = with config.lib.custom;
+    u: import (mkHostPath cfg.hostname "/home-${u}.nix");
+  hmUsers = genAttrs cfg.users importHmUser;
+
 in
 
 {
-  imports = [
-    ./locale.nix
-    ./nix.nix
-    ./users.nix
-  ];
+  imports = importUserModules;
 
   options = {
     custom.base = {
       hostname = mkOption {
         type = types.enum [ "altair" "n75" "nixos-vm" ];
         description = "Host name.";
+      };
+
+      users = mkOption {
+        type = types.listOf (types.enum availableUsers);
+        default = [ ];
+        description = "List of user names.";
       };
     };
   };
@@ -28,6 +43,15 @@ in
 
     boot = {
       cleanTmpDir = true;
+    };
+
+    home-manager = {
+      backupFileExtension = "hm-bak";
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      extraSpecialArgs = { inherit rootPath; };
+      sharedModules = homeModules;
+      users = hmUsers;
     };
 
     networking = {

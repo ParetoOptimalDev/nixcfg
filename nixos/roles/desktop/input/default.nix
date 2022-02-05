@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  usersCfg = config.custom.base.users;
+  baseCfg = config.custom.base;
 
 in
 
@@ -32,5 +32,5 @@ in
 
   console.useXkbConfig = true;
 
-  users.users = genAttrs usersCfg.users (u: { extraGroups = [ "input" "uinput" ]; });
+  users.users = genAttrs baseCfg.users (u: { extraGroups = [ "input" "uinput" ]; });
 }

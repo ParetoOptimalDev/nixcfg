@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  usersCfg = config.custom.base.users;
+  baseCfg = config.custom.base;
 
 in
 
@@ -14,5 +14,5 @@ in
     enableOnBoot = false;
   };
 
-  users.users = genAttrs usersCfg.users (u: { extraGroups = [ "docker" ]; });
+  users.users = genAttrs baseCfg.users (u: { extraGroups = [ "docker" ]; });
 }

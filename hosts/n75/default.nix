@@ -14,7 +14,7 @@ in
   ];
 
   custom = {
-    base.users.users = [ username ];
+    base.users = [ username ];
 
     env.bluecare = {
       enable = true;

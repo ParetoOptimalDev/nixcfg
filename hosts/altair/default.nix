@@ -4,7 +4,7 @@
   imports = [ ./hardware ];
 
   custom = {
-    base.users.users = [ "christian" ];
+    base.users = [ "christian" ];
 
     roles.desktop = {
       enable = true;
