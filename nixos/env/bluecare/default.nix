@@ -21,9 +21,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    custom.env.bluecare = {
-      fileserverMounts.enable = true;
-      openvpn.enable = true;
+    custom = {
+      env.bluecare = {
+        fileserverMounts.enable = true;
+        openvpn.enable = true;
+      };
+
+      programs = {
+        docker.enable = true;
+        virtualbox.enable = true;
+      };
     };
   };
 }
