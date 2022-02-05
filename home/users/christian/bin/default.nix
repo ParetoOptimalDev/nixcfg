@@ -34,10 +34,6 @@ in
       pulseaudio
     ];
 
-    programs = {
-      feh.enable = true;
-    };
-
     xdg.configFile = listToAttrs (map mkUserBinScript [
       # Bluetooth headset
       "lib/btctl"
