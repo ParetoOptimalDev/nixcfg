@@ -1,9 +1,6 @@
 {
   custom = {
-    users.christian = {
-      enable = true;
-      steam.enable = true;
-    };
+    users.christian.enable = true;
 
     env.home.enable = true;
 

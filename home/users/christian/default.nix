@@ -28,6 +28,7 @@ in
           xbindkeys.enable = true;
         };
         shell.enable = true;
+        steam.enable = config.custom.roles.gaming.enable;
         vim.enable = true;
       };
     };
