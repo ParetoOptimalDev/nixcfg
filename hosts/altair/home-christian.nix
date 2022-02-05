@@ -12,10 +12,7 @@
       gaming.enable = true;
       graphics.enable = true;
       multimedia.enable = true;
-      office = {
-        enable = true;
-        cli.enable = true;
-      };
+      office.enable = true;
       web.enable = true;
     };
   };

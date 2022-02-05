@@ -16,6 +16,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    custom.roles.office.cli.enable = true;
+
     home.packages = with pkgs; [
       libreoffice
       sent # plaintext presentations
