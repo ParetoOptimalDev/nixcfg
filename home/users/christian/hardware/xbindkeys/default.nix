@@ -59,9 +59,6 @@ in
         "playerctl previous"
           XF86AudioPrev
 
-        "grobi update"
-          XF86Display
-
         # FIXME Only working once?
         "alacritty --command eva"
           XF86Calculator
