@@ -31,10 +31,12 @@
       };
 
       inherit (nixpkgs.lib) listToAttrs;
-      inherit (flakeLib) mkNixos eachSystem;
+      inherit (flakeLib) mkHome mkNixos eachSystem;
     in
     {
-      homeConfigurations = listToAttrs [ ];
+      homeConfigurations = listToAttrs [
+        (mkHome "x86_64-linux" "dev@dev-vm")
+      ];
 
       nixosConfigurations = listToAttrs [
         (mkNixos "x86_64-linux" "altair")

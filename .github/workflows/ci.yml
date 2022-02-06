@@ -24,6 +24,9 @@ jobs:
           - nix-command: develop
             system: x86_64
 
+          - nix-command: build .#homeConfigurations."dev@dev-vm".activationPackage
+            system: x86_64
+
           - nix-command: build --dry-run .#nixosConfigurations.altair.config.system.build.toplevel
             system: x86_64
           - nix-command: build --dry-run .#nixosConfigurations.n75.config.system.build.toplevel
