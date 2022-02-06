@@ -8,9 +8,10 @@
   ];
 
   custom = {
-    users.christian.enable = true;
-
-    env.bluecare.enable = true;
+    users.christian = {
+      enable = true;
+      env.bluecare.enable = true;
+    };
 
     roles = {
       desktop = {
