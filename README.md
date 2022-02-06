@@ -36,6 +36,18 @@ $ # On non-NixOS
 $ ./scripts/nix-setup.sh
 ```
 
-## Rebuilding / Updating / ...
+## Updating
 
-tdb
+```bash
+$ nix flake update
+```
+
+## Rebuilding
+
+```bash
+$ # On NixOS
+$ sudo nixos-rebuild switch
+
+$ # On non-NixOS
+$ hm-switch
+```
