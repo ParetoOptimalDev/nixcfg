@@ -1,5 +1,21 @@
 # Nix Configuration
 
+## Features
+
+* Automation scripts to setup a fresh [NixOS machine from scratch](scripts/nixos-install.sh) or an [arbitrary preinstalled Linux machine](flake/apps/setup.sh) easily
+* Weekly automatic flake input updates committed to master when CI passes
+
+## Supported configurations
+
+* [NixOS][nixos]-managed
+  * `altair` (private desktop)
+  * `n75` (work laptop)
+  * `nixos-vm` (test VM)
+* [home-manager][home-manager]-managed
+  * `dev-vm` with CentOS Stream (work VM)
+
+See [flake.nix](flake.nix) for more information like `system`.
+
 # Initial NixOS installation
 
 To install NixOS on a fresh machine, run:
@@ -26,14 +42,25 @@ working backup from your data of all drives connected to your target machine.
 **Warning:** Even if the script *should* ask you beforehand committing any changes to your machine,
 it can unexpectedly cause great harm!
 
-## Setup on existing OS
+## Initial Setup
+
+### NixOS
 
 ```bash
-$ # On NixOS
-$ sudo ./scripts/nixos-setup.sh
+$ sudo nix run github:christianharke/nixcfg#setup
+```
 
-$ # On non-NixOS
-$ ./scripts/nix-setup.sh
+### Non-NixOS
+
+```bash
+# install nix setup
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+sh <(curl -L https://nixos.org/nix/install) --no-channel-add --no-modify-profile
+. ~/.nix-profile/etc/profile.d/nix.sh
+nix run github:christianharke/nixcfg#setup
+# set login shell
+chsh -s /bin/zsh
 ```
 
 ## Updating
@@ -51,3 +78,6 @@ $ sudo nixos-rebuild switch
 $ # On non-NixOS
 $ hm-switch
 ```
+
+[home-manager]: https://github.com/nix-community/home-manager
+[nixos]: https://nixos.org/
