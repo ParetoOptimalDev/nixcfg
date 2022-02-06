@@ -18,7 +18,10 @@ in
   config = mkIf cfg.enable {
     custom = {
       programs.tmux.enable = true;
-      users.christian.shell.ranger.enable = true;
+      users.christian.shell = {
+        direnv.enable = true;
+        ranger.enable = true;
+      };
     };
 
     home = {
@@ -54,7 +57,6 @@ in
     };
 
     programs = {
-      direnv = import ./direnv.nix;
       ssh = import ./ssh.nix;
       zsh = import ./zsh.nix;
 

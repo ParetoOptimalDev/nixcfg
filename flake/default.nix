@@ -29,7 +29,12 @@ in
   mkHome = simpleWrapper ./builders/mkHome.nix;
   mkNixos = simpleWrapper ./builders/mkNixos.nix;
 
-  eachSystem =
+  eachSystem = builderPerSystem:
     inputs.flake-utils.lib.eachSystem
-      [ "aarch64-linux" "x86_64-linux" ];
+      [ "aarch64-linux" "x86_64-linux" ]
+      (system:
+        builderPerSystem {
+          mkApp = wrapper ./builders/mkApp.nix system;
+        }
+      );
 }

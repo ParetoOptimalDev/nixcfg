@@ -44,35 +44,43 @@
         (mkNixos "x86_64-linux" "nixos-vm")
       ];
     }
-    // eachSystem (system:
-      {
-        checks = {
-          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixpkgs-fmt.enable = true;
-              shellcheck.enable = true;
-            };
+    // eachSystem ({ mkApp }: {
+      apps = listToAttrs [
+        (mkApp "setup" {
+          file = ./flake/apps/setup.sh;
+          envs = {
+            _doNotClearPath = true;
+            flakePath = "/home/\$(logname)/.nix-config";
           };
-        };
+          path = pkgs: with pkgs; [ git gnugrep hostname jq nix_2_4 ];
+        })
+      ];
 
-        devShell = let pkgs = nixpkgs.legacyPackages.${system}; in
-          pkgs.mkShell {
+      #checks = {
+      #pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+      #src = ./.;
+      #hooks = {
+      #nixpkgs-fmt.enable = true;
+      #shellcheck.enable = true;
+      #};
+      #};
+      #};
 
-            name = "nixcfg";
+      #devShell = let pkgs = nixpkgs.legacyPackages.${system}; in
+      #pkgs.mkShell {
 
-            buildInputs = with pkgs; [
-              # banner printing on enter
-              figlet
-              lolcat
+      #name = "nixcfg";
 
-              home-manager
-            ];
+      #buildInputs = with pkgs; [
+      ## banner printing on enter
+      #figlet
+      #lolcat
+      #];
 
-            shellHook = ''
-              figlet $name | lolcat --freq 0.5
-              ${(self.checks.${system}.pre-commit-check).shellHook}
-            '';
-          };
-      });
+      #shellHook = ''
+      #figlet $name | lolcat --freq 0.5
+      #${(self.checks.${system}.pre-commit-check).shellHook}
+      #'';
+      #};
+    });
 }
