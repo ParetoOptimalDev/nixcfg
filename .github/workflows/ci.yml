@@ -19,12 +19,14 @@ jobs:
           - x86_64
         nix-command:
           - flake check --keep-going --print-build-logs
+          - eval .#apps.$_system.nixos-install.program
+          - eval .#apps.$_system.setup.program
 
         include:
           - nix-command: develop
             system: x86_64
 
-          - nix-command: build .#homeConfigurations."dev@dev-vm".activationPackage
+          - nix-command: build --dry-run .#homeConfigurations."dev@dev-vm".activationPackage
             system: x86_64
 
           - nix-command: build --dry-run .#nixosConfigurations.altair.config.system.build.toplevel
