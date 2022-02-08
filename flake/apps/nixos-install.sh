@@ -1,6 +1,4 @@
-# shellcheck shell=bash
-
-# shellcheck source=/dev/null
+# shellcheck disable=SC1091
 source @bashLib@
 
 _log() {

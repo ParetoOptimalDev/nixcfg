@@ -1,5 +1,3 @@
-# shellcheck shell=bash
-
 RESET="\033[0m"
 BOLD="\033[1m"
 # shellcheck disable=SC2034
