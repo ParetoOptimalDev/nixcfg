@@ -2,7 +2,7 @@
 
 ## Features
 
-* Automation scripts to setup a fresh [NixOS machine from scratch](scripts/nixos-install.sh) or an [arbitrary preinstalled Linux machine](flake/apps/setup.sh) easily
+* Automation scripts to setup a fresh [NixOS machine from scratch](flake/apps/nixos-install.sh) or an [arbitrary preinstalled Linux machine](flake/apps/setup.sh) easily
 * Weekly automatic flake input updates committed to master when CI passes
 
 ## Supported configurations
@@ -18,15 +18,17 @@ See [flake.nix](flake.nix) for more information like `system`.
 
 # Initial NixOS installation
 
-To install NixOS on a fresh machine, run:
+To install NixOS from the ISO from [nixos.org][nixos] on a fresh machine, run:
 
 ```bash
-$ curl -s https://raw.githubusercontent.com/christianharke/nixcfg/master/scripts/nixos-install.sh > nixos-install.sh
+# If nix version < 2.4, run:
+nix-shell -p nixFlakes
 
-$ # If nix version < 2.4, run:
-$ nix-shell -p nixFlakes
+sudo su # become root
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 
-$ sudo bash nixos-install.sh <hostname> <disk>
+nix run github:christianharke/nixcfg#nixos-install -- <hostname> <disk>
 ```
 
 Where:
@@ -39,7 +41,7 @@ Where:
 This will completely *nuke* all the data on your `<disk>` device provided. Make sure to have a
 working backup from your data of all drives connected to your target machine.
 
-**Warning:** Even if the script *should* ask you beforehand committing any changes to your machine,
+**Warning:** Even if the script *should* ask you before committing any changes to your machine,
 it can unexpectedly cause great harm!
 
 ## Initial Setup
@@ -53,12 +55,15 @@ $ sudo nix run github:christianharke/nixcfg#setup
 ### Non-NixOS
 
 ```bash
-# install nix setup
+# install Nix
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 sh <(curl -L https://nixos.org/nix/install) --no-channel-add --no-modify-profile
 . ~/.nix-profile/etc/profile.d/nix.sh
+
+# Set up this Nix config
 nix run github:christianharke/nixcfg#setup
+
 # set login shell
 chsh -s /bin/zsh
 ```

@@ -52,7 +52,26 @@
             _doNotClearPath = true;
             flakePath = "/home/\$(logname)/.nix-config";
           };
-          path = pkgs: with pkgs; [ git gnugrep hostname jq nix_2_4 ];
+          path = pkgs: with pkgs; [
+            git
+            hostname
+            jq
+          ];
+        })
+
+        (mkApp "nixos-install" {
+          file = "nixos-install.sh";
+          envs = {
+            _doNotClearPath = true;
+          };
+          path = pkgs: with pkgs; [
+            git
+            hostname
+            util-linux
+            parted
+            cryptsetup
+            lvm2
+          ];
         })
       ];
 
