@@ -3,6 +3,6 @@
 
 mic() {
   mic=$(amixer get Capture | awk -F'[][]' 'END{ print $4":"$2 }' | sed 's/on://g')
-  echo -e " $mic"
+  echo -e " ${mic}"
 }
 

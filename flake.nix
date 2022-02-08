@@ -87,7 +87,7 @@
         (mkCheck "shellcheck" {
           script = pkgs: ''
             shopt -s globstar
-            ${pkgs.shellcheck}/bin/shellcheck --check-sourced --external-sources --shell bash ${./.}/**/*.sh
+            ${pkgs.shellcheck}/bin/shellcheck --check-sourced --enable all --external-sources --shell bash ${./.}/**/*.sh
           '';
         })
 

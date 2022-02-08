@@ -8,6 +8,11 @@ YELLOW="\033[33m"
 BLUE="\033[34m"
 PURPLE="\033[35m"
 
+_log() {
+    echo
+    echo -e "${BOLD}${YELLOW}${1}${RESET}"
+}
+
 _available() {
     hash "${1}" > /dev/null 2>&1
 }

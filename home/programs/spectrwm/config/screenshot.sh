@@ -18,6 +18,8 @@ screenshot() {
         FILE=$(scrot -s "${OUT}" -e 'echo $f')
         notification "Current window screenshot saved" "${FILE}"
 		;;
+    *)
+        notify-send -u critical "Taking screenshot failed" "An invalid argument has been passed: '${1}'. Valid values are: 'full', 'window'"
 	esac;
 }
 

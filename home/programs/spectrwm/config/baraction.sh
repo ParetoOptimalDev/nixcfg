@@ -17,11 +17,11 @@ HAS_BATT=has_batt
 render() {
     local template
     template="$(cpu) · $(mem) · $(hdd)"
-    if $HAS_TEMP; then template="${template} · $(temp)"; fi
-    if $HAS_WIFI; then template="${template} · $(wifi)"; fi
-    if $HAS_HEADSET; then template="${template} · $(headset)"; fi
+    if ${HAS_TEMP}; then template="${template} · $(temp)"; fi
+    if ${HAS_WIFI}; then template="${template} · $(wifi)"; fi
+    if ${HAS_HEADSET}; then template="${template} · $(headset)"; fi
     template="${template} · $(vol) · $(mic)"
-    if $HAS_BATT; then template="${template} · $(batt)"; fi
+    if ${HAS_BATT}; then template="${template} · $(batt)"; fi
     template="${template} · $(datetime)"
     echo "${template}"
 }
@@ -30,5 +30,5 @@ render() {
 # the baraction script output. And the the markup tags count in that limit.
 while :; do
     render
-    sleep $SLEEP_SEC
+    sleep "${SLEEP_SEC}"
 done

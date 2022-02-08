@@ -1,12 +1,6 @@
 # shellcheck disable=SC1091
 source @bashLib@
 
-_log() {
-    echo
-    echo -e "${BOLD}${YELLOW}${1}${RESET}"
-}
-
-
 # Source: https://qfpl.io/posts/installing-nixos/
 
 ### Gather system info
@@ -14,8 +8,19 @@ _log() {
 readonly HOSTNAME="${1}"
 readonly DISK="${2}"
 
-test "${HOSTNAME}" || { echo '$HOSTNAME is not given!'; exit 1; }
-[[ $(echo "${DISK}" | grep -P "^/dev/(sd[a-z]|nvme[0-9]n[1-9])$" -c) -gt 0 ]] || { echo '$DISK is not of format "/dev/sda" or "/dev/nvme0n1"!'; exit 1; }
+# Validate arguments
+
+test "${HOSTNAME}" || {
+    # shellcheck disable=SC2016
+    echo '$HOSTNAME is not given!'
+    exit 1
+}
+
+[[ $(echo "${DISK}" | grep -P "^/dev/(sd[a-z]|nvme[0-9]n[1-9])$" -c) -gt 0 ]] || {
+    # shellcheck disable=SC2016
+    echo '$DISK is not of format "/dev/sda" or "/dev/nvme0n1"!'
+    exit 1
+}
 
 is_nvme_disk() {
     [[ $(echo "${DISK}" | grep "^/dev/nvme" -c) -gt 0 ]]
@@ -69,8 +74,8 @@ create_volumes() {
     cryptsetup luksOpen "${LVM_PARTITION}" "${LVM_PV}"
 
     _log "[create_volumes] Creating LVM volumes..."
-    pvcreate /dev/mapper/${LVM_PV}
-    vgcreate "${LVM_VG}" /dev/mapper/${LVM_PV}
+    pvcreate "/dev/mapper/${LVM_PV}"
+    vgcreate "${LVM_VG}" "/dev/mapper/${LVM_PV}"
     lvcreate -L "${RAM_SIZE}" -n swap "${LVM_VG}"
     lvcreate -l 100%FREE -n root "${LVM_VG}"
 }
