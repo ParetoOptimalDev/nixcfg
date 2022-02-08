@@ -20,7 +20,7 @@ See [flake.nix](flake.nix) for more information like `system`.
 
 # Initial NixOS installation
 
-To install NixOS from the ISO from [nixos.org][nixos] on a fresh machine, run:
+To install NixOS from the ISO of [nixos.org][nixos] on a fresh machine, run:
 
 ```bash
 # If nix version < 2.4, run:
