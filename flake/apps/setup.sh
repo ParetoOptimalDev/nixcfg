@@ -1,3 +1,6 @@
+# shellcheck shell=bash
+
+# shellcheck source=/dev/null
 source @bashLib@
 
 nix_config="@flakePath@"
@@ -43,7 +46,7 @@ _setup_nixos() {
 _setup_nix() {
     has_nix_imperative=$(nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null)
     # preparation for non nixos systems
-    if has_nix_imperative; then
+    if $has_nix_imperative; then
         _log "Set priority of installed nix package..."
         nix-env --set-flag priority 1000 nix
     fi
@@ -57,7 +60,7 @@ _setup_nix() {
     rm -v result
 
     # clean up
-    if has_nix_imperative; then
+    if $has_nix_imperative; then
         _log "Uninstall manual installed nix package..."
         nix-env --uninstall nix
     fi

@@ -44,7 +44,7 @@
         (mkNixos "x86_64-linux" "nixos-vm")
       ];
     }
-    // eachSystem ({ mkApp }: {
+    // eachSystem ({ mkGeneric, mkApp, mkCheck, getDevShell, mkDevShell, ... }: {
       apps = listToAttrs [
         (mkApp "setup" {
           file = ./flake/apps/setup.sh;
@@ -56,31 +56,37 @@
         })
       ];
 
-      #checks = {
-      #pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-      #src = ./.;
-      #hooks = {
-      #nixpkgs-fmt.enable = true;
-      #shellcheck.enable = true;
-      #};
-      #};
-      #};
+      checks = listToAttrs [
+        (mkGeneric "pre-commit-check" (system: inputs.pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            nixpkgs-fmt.enable = true;
+            shellcheck.enable = true;
+          };
+        }))
 
-      #devShell = let pkgs = nixpkgs.legacyPackages.${system}; in
-      #pkgs.mkShell {
+        (mkCheck "shellcheck" {
+          script = pkgs: ''
+            shopt -s globstar
+            ${pkgs.shellcheck}/bin/shellcheck -x ${./.}/**/*.sh
+          '';
+        })
 
-      #name = "nixcfg";
+        (mkCheck "nixpkgs-fmt" {
+          script = pkgs: ''
+            shopt -s globstar
+            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}/**/*.nix
+          '';
+        })
+      ];
 
-      #buildInputs = with pkgs; [
-      ## banner printing on enter
-      #figlet
-      #lolcat
-      #];
+      devShell = getDevShell "nixcfg";
 
-      #shellHook = ''
-      #figlet $name | lolcat --freq 0.5
-      #${(self.checks.${system}.pre-commit-check).shellHook}
-      #'';
-      #};
+      devShells = listToAttrs [
+        (mkDevShell "nixcfg" {
+          checksShellHook = system: (self.checks.${system}.pre-commit-check).shellHook;
+          packages = pkgs: with pkgs; [ nixpkgs-fmt shellcheck ];
+        })
+      ];
     });
 }

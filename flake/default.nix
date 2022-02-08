@@ -10,6 +10,9 @@ let
     ]
     ++ customLib.getRecursiveDefaultNixFileList (rootPath + "/home");
 
+  nameValuePairSystemWrapper = system: name: fn:
+    inputs.nixpkgs.lib.nameValuePair name (fn system);
+
   wrapper = builder: system: name: args:
     let
       flakeArgs = { inherit inputs rootPath system; };
@@ -19,22 +22,30 @@ let
 
       builderArgs = flakeArgs // perSystem // { inherit args homeModules name; };
     in
-    inputs.nixpkgs.lib.nameValuePair name (import builder builderArgs);
+    (import builder builderArgs);
 
-  simpleWrapper = builder: system: name: wrapper builder system name { };
+  nameValuePairWrapper = builder: system: name: args:
+    inputs.nixpkgs.lib.nameValuePair name (wrapper builder system name args);
+
+  simpleNameValuePairWrapper = builder: system: name:
+    nameValuePairWrapper builder system name { };
 
 in
 
 {
-  mkHome = simpleWrapper ./builders/mkHome.nix;
-  mkNixos = simpleWrapper ./builders/mkNixos.nix;
+  mkHome = simpleNameValuePairWrapper ./builders/mkHome.nix;
+  mkNixos = simpleNameValuePairWrapper ./builders/mkNixos.nix;
 
   eachSystem = builderPerSystem:
     inputs.flake-utils.lib.eachSystem
       [ "aarch64-linux" "x86_64-linux" ]
       (system:
         builderPerSystem {
-          mkApp = wrapper ./builders/mkApp.nix system;
+          mkGeneric = nameValuePairSystemWrapper system;
+          mkApp = nameValuePairWrapper ./builders/mkApp.nix system;
+          mkCheck = nameValuePairWrapper ./builders/mkCheck.nix system;
+          getDevShell = name: inputs.self.devShells.${system}.${name};
+          mkDevShell = nameValuePairWrapper ./builders/mkDevShell.nix system;
         }
       );
 }

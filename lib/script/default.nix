@@ -27,6 +27,13 @@ let
         cat ${./preamble.sh} "${file}" > "$file"
         substituteAllInPlace "$file"
 
+        ${pkgs.shellcheck}/bin/shellcheck \
+          --check-sourced \
+          --enable all \
+          --external-sources \
+          --shell bash \
+          "$file"
+
         chmod +x "$file"
       '';
 
