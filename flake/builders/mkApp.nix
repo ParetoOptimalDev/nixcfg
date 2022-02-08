@@ -1,7 +1,8 @@
-{ inputs, rootPath, pkgs, customLib, name, args, ... }:
+{ inputs, pkgs, customLib, rootPath, name, args, ... }:
 
 let
 
+  file = rootPath + "/flake/apps/${args.file}";
   mkPath = args.path or (pkgs: [ ]);
 
 in
@@ -9,7 +10,7 @@ in
 inputs.flake-utils.lib.mkApp {
   drv = customLib.mkScript
     name
-    args.file
+    file
     (mkPath pkgs)
     (args.envs or { });
 }

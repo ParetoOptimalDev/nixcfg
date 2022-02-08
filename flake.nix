@@ -47,7 +47,7 @@
     // eachSystem ({ mkGeneric, mkApp, mkCheck, getDevShell, mkDevShell, ... }: {
       apps = listToAttrs [
         (mkApp "setup" {
-          file = ./flake/apps/setup.sh;
+          file = "setup.sh";
           envs = {
             _doNotClearPath = true;
             flakePath = "/home/\$(logname)/.nix-config";
