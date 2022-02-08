@@ -3,6 +3,8 @@
 ## Features
 
 * Automation scripts to setup a fresh [NixOS machine from scratch](flake/apps/nixos-install.sh) or an [arbitrary preinstalled Linux machine](flake/apps/setup.sh) easily
+* Generated shell scripts are always linted with [shellcheck][shellcheck]
+* Checks source code with [shellcheck][shellcheck] and [nixpkgs-fmt][nixpkgs-fmt]
 * Weekly automatic flake input updates committed to master when CI passes
 
 ## Supported configurations
@@ -86,3 +88,5 @@ $ hm-switch
 
 [home-manager]: https://github.com/nix-community/home-manager
 [nixos]: https://nixos.org/
+[nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
+[shellcheck]: https://github.com/koalaman/shellcheck
