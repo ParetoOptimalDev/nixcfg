@@ -15,6 +15,10 @@ let
   overlays = [
     (final: prev: {
       inherit unstable;
+
+      inherit (unstable)
+        # need 0.8.0
+        shellcheck;
     })
 
     inputs.kmonad.overlay
