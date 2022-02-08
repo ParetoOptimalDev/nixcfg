@@ -26,12 +26,19 @@ _is_root() {
 }
 
 _read() {
-    local message="${1}"
-    local result
+    local prompt="${1}"
+    local default="${2:-}"
 
-    read -rp "$(echo -e "\n${BOLD}${PURPLE}${message}${RESET} ")" result
+    _print_default_value() {
+        [[ -n "${default}" ]] && echo " [${default}]"
+    }
 
-    echo "${result}"
+    local answer
+    read -rp "$(echo -e "\n${BOLD}${PURPLE}${prompt}${RESET}$(_print_default_value) ")" answer
+
+    local answer_filled="${answer:-"${default}"}"
+
+    echo "${answer_filled}"
 }
 
 _read_boolean() {
@@ -58,14 +65,14 @@ _read_boolean() {
 }
 
 _read_enum() {
-    local text="${1}"
+    local prompt="${1}"
     local options="${*:2}"
 
-    local result
-    result="$(_read "${text} (one of ${options// /, }):")"
+    local answer
+    answer="$(_read "${prompt} (one of ${options// /, }):")"
 
-    if [[ " ${options[*]} " = *" ${result} "* ]]; then
-        echo "${result}"
+    if [[ " ${options[*]} " = *" ${answer} "* ]]; then
+        echo "${answer}"
     else
         _read_enum "${@}"
     fi

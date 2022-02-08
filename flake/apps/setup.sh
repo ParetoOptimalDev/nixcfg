@@ -25,9 +25,7 @@ fi
 
 # installation
 _setup_nixos() {
-    hostname_current=$(hostname)
-    hostname=$(_read "Enter hostname [${hostname_current}]")
-    hostname=${hostname:-${hostname_current}}
+    hostname=$(_read "Enter hostname" "$(hostname)")
 
     _log "Linking flake to system config..."
     ln -fs "${nix_config}/flake.nix" /etc/nixos/flake.nix
