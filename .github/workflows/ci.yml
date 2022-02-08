@@ -18,7 +18,7 @@ jobs:
         system:
           - x86_64
         nix-command:
-          - flake check
+          - flake check --keep-going --print-build-logs
 
         include:
           - nix-command: develop
