@@ -10,7 +10,7 @@ has_batt() {
         false
         return
     fi
-    [[ $(acpi -b 2> /dev/null | grep "Battery" | wc -l) > 0 ]]
+    [[ $(acpi -b 2> /dev/null | grep -c "Battery") -gt 0 ]]
 }
 
 batt() {

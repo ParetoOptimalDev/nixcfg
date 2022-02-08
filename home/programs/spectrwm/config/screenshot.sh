@@ -19,4 +19,4 @@ screenshot() {
 	esac;
 }
 
-screenshot $1
+screenshot "${1}"
