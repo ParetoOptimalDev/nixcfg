@@ -53,13 +53,6 @@ with colorScheme;
                               , "-L", "40", "-H", "60"
                               , "-h", "${warnColor}"
                               ] 50
-                          , Run Wireless "wlp82s0"
-                              [ "-t", "\xfaa8 <quality>"
-                              , "-S", "True"
-                              , "-x", "\xfaa9"
-                              , "-L", "50"
-                              , "-l", "${warnColor}"
-                              ] 20
                           , Run Alsa "default" "Master"
                               [ "-t", "<volumestatus>"
                               , "-S", "True"
@@ -107,7 +100,7 @@ with colorScheme;
                           ]
              , sepChar  = "%"
              , alignSep = "}{"
-             , template = " <fc=#6586c8></fc>  %StdinReader% }{ %alsa:default:Master% ${sep} %alsa:default:Capture% ${sep} %cpu% ${sep} %memory% ${sep} %disku% ${sep} %multicoretemp% ${sep} %wlp82s0wi% ${sep} %battery% ${sep} %LSZB% ${sep} %date% "
+             , template = " <fc=#6586c8></fc>  %StdinReader% }{ %alsa:default:Master% ${sep} %alsa:default:Capture% ${sep} %cpu% ${sep} %memory% ${sep} %disku% ${sep} %multicoretemp% ${sep} %battery% ${sep} %LSZB% ${sep} %date% "
              }
     '';
 }
