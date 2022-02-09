@@ -19,7 +19,7 @@ _clone() {
 
 # clone repos
 if ! _is_nixos || _is_root; then
-    _clone "nix-config" git@github.com:Gerschtli/nix-config.git "${nix_config}"
+    _clone "nix-config" git@github.com:christianharke/nixcfg.git "${nix_config}"
 fi
 
 
