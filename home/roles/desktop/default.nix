@@ -21,6 +21,7 @@ in
       alacritty.enable = true;
       cursors.enable = true;
       dunst.enable = true;
+      grobi.enable = true;
       gtk.enable = true;
       picom.enable = true;
       redshift.enable = true;

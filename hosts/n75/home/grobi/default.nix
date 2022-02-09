@@ -2,7 +2,6 @@
 
 {
   custom.roles.desktop.grobi = {
-    enable = true;
     rules = [
       {
         name = "Single";
