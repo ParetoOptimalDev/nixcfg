@@ -77,8 +77,7 @@ with colorScheme;
                               , "--"
                               , "-O", "<fc=green>On</fc> - "
                               , "-i", ""
-                              , "-L", "-15"
-                              , "-H", "-5"
+                              , "-L", "-15" , "-H", "-5"
                               , "-l", "${warnColor}"
                               , "--lows"   , "<fn=1>\62020</fn>  "
                               , "--mediums", "<fn=1>\62018</fn>  "
@@ -88,7 +87,7 @@ with colorScheme;
                               [ "-t", "  <usedratio>%"
                               ] 10
                           , Run DiskU
-                              [ ("/", "\xf0a0 <usedp>%")
+                              [ ("/", "\xf0a0 <free>")
                               ]
                               [ "-L", "20", "-H", "90"
                               , "-h", "${warnColor}"
