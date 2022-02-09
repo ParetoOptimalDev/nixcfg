@@ -14,7 +14,7 @@ _clone() {
     fi
 
     _log "Clone ${name}..."
-    git clone "${url}" "${directory}"
+    su -c "git clone ${url} ${directory}" - "$(logname)"
 }
 
 # clone repos
