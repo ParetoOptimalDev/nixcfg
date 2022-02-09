@@ -66,6 +66,24 @@
         "type": "github"
       }
     },
+    "i3lock-pixeled": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1644415276,
+        "narHash": "sha256-CIo/ZXZ+aI8O7WuXW8Dva2V/xIwN9jVww4PNuZTxVas=",
+        "owner": "christianharke",
+        "repo": "i3lock-pixeled",
+        "rev": "6baae83f9edf23770b29a8269f0729cf710e02a9",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "christianharke",
+        "repo": "i3lock-pixeled",
+        "type": "gitlab"
+      }
+    },
     "kmonad": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -91,15 +109,15 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1641423937,
-        "narHash": "sha256-iIBSDySeZ79FDFiI5but9EtOIRc5Ncu/gq27Hg/yXjo=",
-        "owner": "nixos",
+        "lastModified": 1644193793,
+        "narHash": "sha256-ggCI5LCXwkUJQwjpkr9qDFbQMiK3JvAfeNR4Uy0ny5Q=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e67c94a1adbb5cf8a0448bc9c434589b2dd293c2",
+        "rev": "521e4d7d13b09bc0a21976b9d19abd197d4e3b1e",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
+        "owner": "NixOS",
         "ref": "nixos-21.11",
         "repo": "nixpkgs",
         "type": "github"
@@ -117,6 +135,22 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1641423937,
+        "narHash": "sha256-iIBSDySeZ79FDFiI5but9EtOIRc5Ncu/gq27Hg/yXjo=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e67c94a1adbb5cf8a0448bc9c434589b2dd293c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-21.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -146,8 +180,9 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "i3lock-pixeled": "i3lock-pixeled",
         "kmonad": "kmonad",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "pre-commit-hooks": "pre-commit-hooks"
       }

@@ -12,6 +12,8 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
+    i3lock-pixeled.url = "gitlab:christianharke/i3lock-pixeled";
+
     kmonad = {
       url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";

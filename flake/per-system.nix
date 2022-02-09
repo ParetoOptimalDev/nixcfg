@@ -12,9 +12,15 @@ let
     inherit config system;
   };
 
+  customOverlays = [
+    inputs.i3lock-pixeled.overlay
+  ];
+
   overlays = [
     (final: prev: {
       inherit unstable;
+
+      custom = prev.lib.composeManyExtensions customOverlays final prev;
     })
 
     inputs.kmonad.overlay

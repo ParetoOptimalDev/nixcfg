@@ -15,13 +15,13 @@ in
 
       package = mkOption {
         type = types.package;
-        default = pkgs.i3lock-pixeled;
+        default = pkgs.custom.i3lock-pixeled;
         description = "Locker package to use";
       };
 
       lockCmd = mkOption {
         type = types.str;
-        default = "${pkgs.i3lock-pixeled}/bin/i3lock-pixeled";
+        default = "${pkgs.custom.i3lock-pixeled}/bin/i3lock-pixeled";
         description = "Command to activate locker";
       };
     };

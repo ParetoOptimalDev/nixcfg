@@ -5,7 +5,6 @@ let
     hinclient = callPackage ./hinclient { };
 
     # Overriding
-    i3lock-pixeled = callPackage ./i3lock-pixeled { };
     # spectrwm = callPackage ./spectrwm {};
   };
 in
