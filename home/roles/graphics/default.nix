@@ -1,8 +1,24 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+with lib;
+
+let
+
+  cfg = config.custom.roles.graphics;
+
+in
 
 {
-  home.packages = with pkgs; [
-    gimp
-    sxiv
-  ];
+  options = {
+    custom.roles.graphics = {
+      enable = mkEnableOption "Graphics";
+    };
+  };
+
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      gimp
+      sxiv
+    ];
+  };
 }

@@ -10,6 +10,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-utils.url = "github:numtide/flake-utils";
+
     kmonad = {
       url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,149 +23,89 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, kmonad, ... }:
+  outputs = { self, nixpkgs, ... } @ inputs:
     let
-      username = "christian";
-      system = "x86_64-linux";
-
-      config = {
-        allowUnfree = true;
-        packageOverrides = import ./pkgs;
+      flakeLib = import ./flake {
+        inherit inputs;
+        rootPath = ./.;
       };
 
-      overlay-unstable = final: prev: {
-        unstable = import inputs.nixpkgs-unstable {
-          inherit config system;
-        };
-      };
-
-      pkgs = import nixpkgs {
-        inherit config system;
-        overlays = [
-          overlay-unstable
-          kmonad.overlay
-        ];
-      };
-
-      mkComputer = configurationNix: extraModules: nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
-        specialArgs = { inherit self system inputs; };
-        modules = (
-          [
-            # System configuration for this host
-            (import configurationNix { inherit pkgs; root = self; })
-
-            # Common configuration
-            (import ./modules/common { inherit pkgs username; })
-
-            kmonad.nixosModule
-          ] ++ extraModules
-        );
-      };
-
+      inherit (nixpkgs.lib) listToAttrs;
+      inherit (flakeLib) mkHome mkNixos eachSystem;
     in
     {
-      nixosConfigurations = {
-        altair = mkComputer
-          ./workstation/altair
-          [
-            ./modules/gaming.nix
+      homeConfigurations = listToAttrs [
+        (mkHome "x86_64-linux" "dev@dev-vm")
+      ];
 
-            # home-manager configuration
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} = import ./home/home.nix
-                {
-                  inherit inputs system pkgs;
-                };
-            }
+      nixosConfigurations = listToAttrs [
+        (mkNixos "x86_64-linux" "altair")
+        (mkNixos "x86_64-linux" "n75")
+        (mkNixos "x86_64-linux" "nixos-vm")
+      ];
+    }
+    // eachSystem ({ mkGeneric, mkApp, mkCheck, getDevShell, mkDevShell, ... }: {
+      apps = listToAttrs [
+        (mkApp "setup" {
+          file = "setup.sh";
+          envs = {
+            _doNotClearPath = true;
+            flakePath = "/home/\$(logname)/.nix-config";
+          };
+          path = pkgs: with pkgs; [
+            git
+            hostname
+            jq
           ];
+        })
 
-        n75 = mkComputer
-          ./workstation/n75
-          [
-            (import ./modules/bluecare { inherit pkgs username; root = self; })
-            (import ./modules/container.nix { inherit pkgs username; })
-            ./modules/mobile.nix
-
-            # home-manager configuration
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} = import ./home/work.nix
-                {
-                  inherit inputs system pkgs;
-                };
-            }
+        (mkApp "nixos-install" {
+          file = "nixos-install.sh";
+          envs = {
+            _doNotClearPath = true;
+          };
+          path = pkgs: with pkgs; [
+            git
+            hostname
+            util-linux
+            parted
+            cryptsetup
+            lvm2
           ];
+        })
+      ];
 
-        nixos-vm = mkComputer
-          ./workstation/nixos-vm
-          [
-            # home-manager configuration
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} = import ./home/nixos-vm.nix
-                {
-                  inherit inputs system pkgs;
-                };
-            }
-          ];
-      };
-
-      # Non-NixOS Systems
-      #homeConfigurations =
-      #let
-      #homeDirectory = "/home/${username}";
-      #baseConfiguration = {
-      #programs.home-manager.enable = true;
-      #home = {
-      #username = username;
-      #homeDirectory = homeDirectory;
-      #};
-      #};
-      #mkHomeConfig = cfg: home-manager.lib.homeManagerConfiguration {
-      #inherit username system homeDirectory;
-      #configuration = baseConfiguration // cfg;
-      #};
-      #in
-      #{
-      #"tbd" = mkHomeConfig {
-      #programs.git = import ./home/git.nix;
-      #};
-      #};
-
-      checks.${system} = {
-        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+      checks = listToAttrs [
+        (mkGeneric "pre-commit-check" (system: inputs.pre-commit-hooks.lib.${system}.run {
           src = ./.;
           hooks = {
             nixpkgs-fmt.enable = true;
             shellcheck.enable = true;
           };
-        };
-      };
+        }))
 
-      devShell.${system} = pkgs.mkShell {
+        (mkCheck "shellcheck" {
+          script = pkgs: ''
+            shopt -s globstar
+            ${pkgs.shellcheck}/bin/shellcheck --check-sourced --enable all --external-sources --shell bash ${./.}/**/*.sh
+          '';
+        })
 
-        name = "nixcfg";
+        (mkCheck "nixpkgs-fmt" {
+          script = pkgs: ''
+            shopt -s globstar
+            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}/**/*.nix
+          '';
+        })
+      ];
 
-        buildInputs = with pkgs; [
-          figlet
-          lolcat # banner printing on enter
+      devShell = getDevShell "nixcfg";
 
-          home-manager
-        ];
-
-        shellHook = ''
-          figlet $name | lolcat --freq 0.5
-          ${(self.checks.${system}.pre-commit-check).shellHook}
-          ${pkgs.pre-commit}/bin/pre-commit install
-        '';
-      };
-    };
+      devShells = listToAttrs [
+        (mkDevShell "nixcfg" {
+          checksShellHook = system: (self.checks.${system}.pre-commit-check).shellHook;
+          packages = pkgs: with pkgs; [ nixpkgs-fmt shellcheck ];
+        })
+      ];
+    });
 }

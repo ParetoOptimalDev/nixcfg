@@ -1,25 +1,39 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+with lib;
+
+let
+
+  cfg = config.custom.roles.web;
+
+in
 
 {
-  home.packages = with pkgs; [
-    _1password
-    _1password-gui
-    bind
-    wget
-    thunderbird
-
-    # Messengers
-    signal-desktop
-    tdesktop # Telegram
-  ];
-
-  programs = {
-    chromium.enable = true;
-    firefox.enable = true;
-    qutebrowser.enable = true;
+  options = {
+    custom.roles.web = {
+      enable = mkEnableOption "Web";
+    };
   };
 
-  services = {
-    nextcloud-client = import ./nextcloud-client;
+  config = mkIf cfg.enable {
+    custom.roles.web.nextcloud-client.enable = true;
+
+    home.packages = with pkgs; [
+      _1password
+      _1password-gui
+      bind
+      wget
+      thunderbird
+
+      # Messengers
+      signal-desktop
+      tdesktop # Telegram
+    ];
+
+    programs = {
+      chromium.enable = true;
+      firefox.enable = true;
+      qutebrowser.enable = true;
+    };
   };
 }

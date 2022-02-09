@@ -1,6 +1,10 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+with lib;
 
 let
+
+  cfg = config.custom.roles.desktop.xmonad;
 
   colors = {
     magenta = "#FF79C6";
@@ -25,52 +29,53 @@ let
 in
 
 {
-  imports = [
-    ../dunst
-  ];
-
-  home = {
-    packages = with pkgs; [
-      # Screenshots
-      scrot
-
-      # Menu
-      dmenuPatched
-
-      # Locker
-      i3lock-pixeled
-
-      # Fonts
-      nerdfonts
-    ];
-  };
-
-  programs.xmobar = import ./xmobar.nix {
-    inherit pkgs;
-    inherit colors;
-  };
-
-  services = {
-    picom = import ../picom;
-    trayer = {
-      enable = true;
-      settings = {
-        edge = "top";
-        align = "right";
-        SetDockType = true;
-        SetPartialStrut = true;
-        expand = true;
-        width = 5;
-        transparent = true;
-        tint = "0x${builtins.substring 1 6 colors.grey}";
-        height = 22;
-      };
+  options = {
+    custom.roles.desktop.xmonad = {
+      enable = mkEnableOption "Xmonad window manager";
     };
   };
 
-  xsession.windowManager.xmonad = import ./xmonad.nix {
-    inherit lib;
-    inherit pkgs;
-    inherit colors;
+  config = mkIf cfg.enable {
+    custom.roles.desktop = {
+      locker.enable = true;
+    };
+
+    home = {
+      packages = with pkgs; [
+        # Screenshots
+        scrot
+
+        # Menu
+        dmenuPatched
+
+        # Fonts
+        nerdfonts
+      ];
+    };
+
+    programs.xmobar = import ./xmobar.nix {
+      inherit pkgs colors;
+    };
+
+    services = {
+      trayer = {
+        enable = true;
+        settings = {
+          edge = "top";
+          align = "right";
+          SetDockType = true;
+          SetPartialStrut = true;
+          expand = true;
+          width = 5;
+          transparent = true;
+          tint = "0x${builtins.substring 1 6 colors.grey}";
+          height = 22;
+        };
+      };
+    };
+
+    xsession.windowManager.xmonad = import ./xmonad.nix {
+      inherit config lib pkgs colors;
+    };
   };
 }

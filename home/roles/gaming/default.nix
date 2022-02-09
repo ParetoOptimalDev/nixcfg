@@ -1,22 +1,35 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+with lib;
+
+let
+
+  cfg = config.custom.roles.gaming;
+
+in
 
 {
-  imports = [
-    ./steam
-  ];
+  options = {
+    custom.roles.gaming = {
+      enable = mkEnableOption "Gaming";
+    };
+  };
 
-  home.packages = with pkgs; [
-    # Comms
-    discord
-    teamspeak_client
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      # Comms
+      discord
+      teamspeak_client
 
-    # Game libs
-    lutris
+      # Game libs
+      lutris
+      steam
 
-    # Games
-    superTux
-    superTuxKart
-    wesnoth
-    zeroad
-  ];
+      # Games
+      superTux
+      superTuxKart
+      wesnoth
+      zeroad
+    ];
+  };
 }

@@ -1,7 +1,23 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+with lib;
+
+let
+
+  cfg = config.custom.roles.ops;
+
+in
 
 {
-  home.packages = [
-    pkgs.lnav
-  ];
+  options = {
+    custom.roles.ops = {
+      enable = mkEnableOption "Operations";
+    };
+  };
+
+  config = mkIf cfg.enable {
+    home.packages = [
+      pkgs.lnav
+    ];
+  };
 }
