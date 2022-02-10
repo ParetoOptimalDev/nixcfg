@@ -3,8 +3,8 @@
 let
 
   colorScheme = {
-    foregroundColor = colors.white;
-    backgroundColor = colors.grey;
+    foregroundColor = colors.lowWhite;
+    backgroundColor = colors.black;
     accentColor = colors.orange;
     warnColor = colors.red;
   };
@@ -99,7 +99,7 @@ with colorScheme;
                           ]
              , sepChar  = "%"
              , alignSep = "}{"
-             , template = " <fc=#6586c8></fc>  %StdinReader% }{ %alsa:default:Master% ${sep} %alsa:default:Capture% ${sep} %cpu% ${sep} %memory% ${sep} %disku% ${sep} %multicoretemp% ${sep} %battery% ${sep} %LSZB% ${sep} %date% "
+             , template = " <fc=${colors.lavender}></fc>  %StdinReader% }{ %alsa:default:Master% ${sep} %alsa:default:Capture% ${sep} %cpu% ${sep} %memory% ${sep} %disku% ${sep} %multicoretemp% ${sep} %battery% ${sep} %LSZB% ${sep} %date% "
              }
     '';
 }

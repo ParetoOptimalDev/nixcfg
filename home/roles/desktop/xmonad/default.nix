@@ -8,6 +8,7 @@ let
 
   colors = {
     magenta = "#FF79C6";
+    lavender = "#6586c8";
     blue = "#0080FF";
     white = "#F8F8F2";
     yellow = "#F1FA8C";
@@ -15,6 +16,7 @@ let
     red = "#FF5555";
     lowWhite = "#BBBBBB";
     grey = "#5F5F5F";
+    black = "#000000";
   };
 
   dmenuPatched = pkgs.dmenu.override {
@@ -68,7 +70,7 @@ in
           expand = true;
           width = 5;
           transparent = true;
-          tint = "0x${builtins.substring 1 6 colors.grey}";
+          tint = "0x${builtins.substring 1 6 colors.black}";
           height = 22;
         };
       };

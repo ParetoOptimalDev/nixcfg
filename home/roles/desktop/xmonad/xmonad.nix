@@ -93,7 +93,7 @@ in
         { ppSep             = orange " • "
         , ppTitleSanitize   = xmobarStrip
         , ppCurrent         = wrap (orange "[") (orange "]")
-        , ppHidden          = white . wrap " " ""
+        , ppHidden          = lavender . wrap " " ""
         , ppHiddenNoWindows = lowWhite . wrap " " ""
         , ppUrgent          = red . wrap (yellow "!") (yellow "!")
         }
