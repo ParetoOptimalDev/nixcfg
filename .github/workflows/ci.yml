@@ -51,6 +51,7 @@ jobs:
           _system: ${{ matrix.system }}-linux
         run: |
           nix \
+            --verbose \
             --log-format bar-with-logs \
             --option keep-going true \
             --show-trace \
