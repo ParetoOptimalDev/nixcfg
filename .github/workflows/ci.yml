@@ -53,7 +53,7 @@ jobs:
           nix \
             --verbose \
             --log-format bar-with-logs \
-            --option keep-going true \
+            --keep-going \
             --show-trace \
             ${{ matrix.nix-command }}
 
