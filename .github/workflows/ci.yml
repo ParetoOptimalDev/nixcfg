@@ -18,7 +18,7 @@ jobs:
         system:
           - x86_64
         nix-command:
-          - flake check --keep-going --print-build-logs
+          - flake check
           - eval .#apps.$_system.nixos-install.program
           - eval .#apps.$_system.setup.program
 
