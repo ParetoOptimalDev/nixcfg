@@ -4,20 +4,8 @@ with lib;
 
 let
 
-  cfg = config.custom.roles.desktop.xmonad;
-
-  colors = {
-    magenta = "#FF79C6";
-    lavender = "#6586c8";
-    blue = "#0080FF";
-    white = "#F8F8F2";
-    yellow = "#F1FA8C";
-    orange = "#FF7F00";
-    red = "#FF5555";
-    lowWhite = "#BBBBBB";
-    grey = "#5F5F5F";
-    black = "#000000";
-  };
+  desktopCfg = config.custom.roles.desktop;
+  cfg = desktopCfg.xmonad;
 
   dmenuPatched = pkgs.dmenu.override {
     patches = builtins.map builtins.fetchurl [
@@ -27,6 +15,8 @@ let
       }
     ];
   };
+
+  font = "VictorMono Nerd Font:style=SemiBold:pixelsize=14:antialias=true";
 
 in
 
@@ -38,46 +28,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    custom.roles.desktop = {
-      locker.enable = true;
-    };
-
-    home = {
-      packages = with pkgs; [
-        # Screenshots
-        scrot
-
-        # Menu
-        dmenuPatched
-
-        # Fonts
-        nerdfonts
-      ];
-    };
-
-    programs.xmobar = import ./xmobar.nix {
-      inherit pkgs colors;
-    };
-
-    services = {
-      trayer = {
-        enable = true;
-        settings = {
-          edge = "top";
-          align = "right";
-          SetDockType = true;
-          SetPartialStrut = true;
-          expand = true;
-          width = 5;
-          transparent = true;
-          tint = "0x${builtins.substring 1 6 colors.black}";
-          height = 22;
-        };
+    custom.programs.xmonad = {
+      enable = true;
+      font = {
+        package = pkgs.nerdfonts;
+        config = font;
       };
-    };
-
-    xsession.windowManager.xmonad = import ./xmonad.nix {
-      inherit config lib pkgs colors;
+      dmenu = {
+        package = dmenuPatched;
+        runCmd = "dmenu_run -fn \"${font}\" -h 22";
+      };
+      xmobar = {
+        enable = true;
+        mobile = desktopCfg.mobile.enable;
+      };
     };
   };
 }
