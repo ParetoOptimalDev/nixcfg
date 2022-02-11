@@ -1,5 +1,8 @@
 # Nix Configuration
 
+![ci](https://github.com/christianharke/nixcfg/actions/workflows/ci.yml/badge.svg)
+![update](https://github.com/christianharke/nixcfg/actions/workflows/update.yml/badge.svg)
+
 ## Features
 
 * Automation scripts to setup a fresh [NixOS machine from scratch](flake/apps/nixos-install.sh) or an [arbitrary preinstalled Linux machine](flake/apps/setup.sh) easily
