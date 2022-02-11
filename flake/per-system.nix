@@ -5,7 +5,6 @@ let
   config = {
     allowAliases = false;
     allowUnfree = true;
-    packageOverrides = import "${rootPath}/pkgs";
   };
 
   unstable = import inputs.nixpkgs-unstable {
