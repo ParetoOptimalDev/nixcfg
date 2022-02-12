@@ -50,9 +50,10 @@ pkgs.writeText "xmonad.hs" ''
   import XMonad.Util.SpawnOnce
   import XMonad.Util.Ungrab
 
-  import XMonad.Layout.Spacing
   import XMonad.Layout.Magnifier
+  import XMonad.Layout.NoBorders
   import XMonad.Layout.Renamed
+  import XMonad.Layout.Spacing
   import XMonad.Layout.ThreeColumns
 
   main :: IO ()
@@ -129,7 +130,7 @@ pkgs.writeText "xmonad.hs" ''
     myStartupHook = startupHook def <+> do
         ${concatStringsSep "\n    " (mapAttrsToList mkAutorun cfg.autoruns)}
   ''}
-  myLayout = spacingWithEdge 5 $ tiled ||| Mirror tiled ||| Full ||| threeCol
+  myLayout = smartBorders $ spacingWithEdge 5 $ tiled ||| Mirror tiled ||| Full ||| threeCol
     where
       threeCol = renamed [Replace "ThreeCol"]
           $ magnifiercz' 1.3
