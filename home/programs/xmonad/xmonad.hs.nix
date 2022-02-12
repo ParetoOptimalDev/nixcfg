@@ -38,6 +38,7 @@ pkgs.writeText "xmonad.hs" ''
   import XMonad
 
   import XMonad.Hooks.DynamicLog
+  import XMonad.Hooks.EwmhDesktops
   import XMonad.Hooks.ManageDocks
   import XMonad.Hooks.ManageHelpers
 
@@ -46,12 +47,10 @@ pkgs.writeText "xmonad.hs" ''
   import XMonad.Util.SpawnOnce
   import XMonad.Util.Ungrab
 
-  import XMonad.Layout.Gaps
+  import XMonad.Layout.Spacing
   import XMonad.Layout.Magnifier
   import XMonad.Layout.Renamed
   import XMonad.Layout.ThreeColumns
-
-  import XMonad.Hooks.EwmhDesktops
 
   main :: IO ()
   main = xmonad
@@ -111,7 +110,7 @@ pkgs.writeText "xmonad.hs" ''
     myStartupHook = startupHook def <+> do
         ${concatStringsSep "\n    " (mapAttrsToList mkAutorun cfg.autoruns)}
   ''}
-  myLayout = gaps [(U,10), (R,10), (D,10), (L,10)] $ tiled ||| Mirror tiled ||| Full ||| threeCol
+  myLayout = spacingWithEdge 5 $ tiled ||| Mirror tiled ||| Full ||| threeCol
     where
       threeCol = renamed [Replace "ThreeCol"]
           $ magnifiercz' 1.3
