@@ -4,19 +4,19 @@ with lib;
 
 let
 
-  cfg = config.custom.users.christian.env.bluecare.spectrwm;
+  cfg = config.custom.users.christian.env.bluecare.xmonad;
 
 in
 
 {
   options = {
-    custom.users.christian.env.bluecare.spectrwm = {
-      enable = mkEnableOption "Spectrwm config";
+    custom.users.christian.env.bluecare.xmonad = {
+      enable = mkEnableOption "Xmonad config";
     };
   };
 
   config = mkIf cfg.enable {
-    custom.programs.spectrwm = {
+    custom.programs.xmonad = {
       autoruns = {
         "gnome-pomodoro" = 1;
         "idea-ultimate" = 2;

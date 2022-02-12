@@ -26,6 +26,8 @@ let
             toString strw})";
     if strw == width then str else fixedWidthString reqWidth filler str + filler;
 
+  mkAutorun = n: v: "spawnOnOnce \"${toString v}\" \"${n}\"";
+
   mkXmobarColor = n: v: ''
     ${fixedWidthString 10 " " n} = xmobarColor "${v}" ""
   '';
@@ -41,6 +43,7 @@ pkgs.writeText "xmonad.hs" ''
 
   import XMonad.Util.EZConfig
   import XMonad.Util.Loggers
+  import XMonad.Util.SpawnOnce
   import XMonad.Util.Ungrab
 
   import XMonad.Layout.Gaps
@@ -59,10 +62,15 @@ pkgs.writeText "xmonad.hs" ''
       toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
 
   myConfig = def
-      { modMask    = mod4Mask      -- Rebind Mod to the Super key
-      , terminal = "alacritty"
-      , layoutHook = myLayout      -- Use custom layouts
-      , manageHook = myManageHook  -- Match on certain windows
+      { modMask         = ${cfg.modKey}Mask           -- Rebind Mod key
+      , terminal        = "alacritty"
+      , borderWidth = 2
+      , normalBorderColor = "${cfg.colorScheme.foreground}"
+      , focusedBorderColor = "${cfg.colorScheme.base}"
+      , layoutHook      = myLayout           -- Use custom layouts
+      , manageHook      = myManageHook       -- Match on certain windows
+      ${optionalString (cfg.autoruns != {})
+        ", startupHook     = myStartupHook      -- autostarts"}
       , handleEventHook = fullscreenEventHook
       }
     `additionalKeysP`
@@ -73,10 +81,36 @@ pkgs.writeText "xmonad.hs" ''
 
   myManageHook :: ManageHook
   myManageHook = composeAll
-      [ className =? "Gimp" --> doFloat
+      -- Workspace assignments
+      [ className =? "jetbrains-idea"             --> doShift "2"
+      , className =? "Firefox"                    --> doShift "3"
+      , className =? "Microsoft Teams - Preview"  --> doShift "4"
+      , className =? "Signal"                     --> doShift "4"
+      , className =? "Slack"                      --> doShift "4"
+      , className =? "TelegramDesktop"            --> doShift "4"
+      , className =? "zoom"                       --> doShift "4"
+      , className =? "Chromium-browser"           --> doShift "5"
+      , className =? "Thunderbird"                --> doShift "5"
+      , className =? "VirtualBox"                 --> doShift "6"
+      , className =? "VirtualBox Machine"         --> doShift "6"
+      , className =? "VirtualBox Manager"         --> doShift "6"
+      , className =? "xfreerdp"                   --> doShift "6"
+      , className =? "Steam"                      --> doShift "8"
+      , className =? "TeamSpeak 3"                --> doShift "8"
+      -- Spotify workspace shift does not work, see:
+      -- https://www.reddit.com/r/xmonad/comments/q7i569/spotify_workspace_shift_issue/
+      , className =? "Spotify"                    --> doShift "9"
+
+      -- Floating windows
       , isDialog            --> doFloat
+      , className =? "Gimp" --> doFloat
+      , title =? "win0"     --> doFloat
       ]
 
+  ${optionalString (cfg.autoruns != {}) ''
+    myStartupHook = startupHook def <+> do
+        ${concatStringsSep "\n    " (mapAttrsToList mkAutorun cfg.autoruns)}
+  ''}
   myLayout = gaps [(U,10), (R,10), (D,10), (L,10)] $ tiled ||| Mirror tiled ||| Full ||| threeCol
     where
       threeCol = renamed [Replace "ThreeCol"]

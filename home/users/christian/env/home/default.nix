@@ -22,6 +22,7 @@ in
         git.enable = true;
         office.cli.enable = config.custom.roles.office.cli.enable;
         ranger.enable = true;
+        xmonad.enable = true;
       };
 
       roles = {

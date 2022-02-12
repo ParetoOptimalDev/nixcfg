@@ -45,6 +45,7 @@ in
         scala.enable = config.custom.roles.dev.scala.enable;
         ssh.enable = true;
         tmux.enable = true;
+        xmonad.enable = true;
         zoomus.enable = true;
       };
 

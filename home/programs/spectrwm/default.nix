@@ -19,7 +19,7 @@ in
     enable = mkEnableOption "Spectrwm window manager";
 
     modKey = mkOption {
-      type = types.str;
+      type = types.enum [ "Mod1" "Mod2" "Mod4" ];
       default = "Mod4";
       description = ''
         The window manager mod key.
@@ -283,7 +283,6 @@ in
             # quirk[jetbrains-idea:win0]          = FLOAT
             # quirk[java-lang-Thread]             = FLOAT
             quirk[Microsoft Teams - Preview:Screen sharing toolbar] = FLOAT
-            quirk[Code]                         = WS[2]
             quirk[jetbrains-idea]               = WS[2]
             quirk[Microsoft Teams - Preview]    = WS[4]
             quirk[Signal]                       = WS[4]
@@ -295,9 +294,9 @@ in
             quirk[VirtualBox Machine]           = WS[6]
             quirk[VirtualBox Manager]           = WS[6]
             quirk[xfreerdp]                     = WS[6]
-            quirk[Steam]                        = WS[9]
-            quirk[TeamSpeak 3]                  = WS[9]
-            quirk[Spotify]                      = WS[10]
+            quirk[Steam]                        = WS[8]
+            quirk[TeamSpeak 3]                  = WS[8]
+            quirk[Spotify]                      = WS[9]
 
             ${cfg.extraConfig}
           '';

@@ -30,6 +30,9 @@ in
   config = mkIf cfg.enable {
     custom.programs.xmonad = {
       enable = true;
+      autoruns = {
+        "alacritty" = 1;
+      };
       font = {
         package = pkgs.nerdfonts;
         config = font;

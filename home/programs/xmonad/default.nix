@@ -13,6 +13,34 @@ in
     custom.programs.xmonad = {
       enable = mkEnableOption "Xmonad window manager";
 
+      modKey = mkOption {
+        type = types.enum [ "mod1" "mod2" "mod4" ];
+        default = "mod4";
+        description = ''
+          The window manager mod key.
+          <itemizedList>
+            <listItem>Alt key is <code>mod1</code></listItem>
+            <listItem>Apple key on OSX is <code>mod2</code></listItem>
+            <listItem>Windows key is <code>mod4</code></listItem>
+          <itemizedList>
+        '';
+      };
+
+      autoruns = mkOption {
+        type = with types; attrsOf int;
+        default = { };
+        description = ''
+          applications to be launched in a workspace of choice.
+        '';
+        example = literalExpression ''
+          {
+            "firefox" = 1;
+            "slack" = 2;
+            "spotify" = 3;
+          }
+        '';
+      };
+
       colorScheme = {
         foreground = mkOption {
           type = types.str;
