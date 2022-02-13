@@ -20,6 +20,7 @@ in
       packages = with pkgs; [
         openjfx11
         jetbrains.idea-ultimate
+        (nerdfonts.override { fonts = [ "FiraCode" ]; })
       ];
 
       sessionVariables = {

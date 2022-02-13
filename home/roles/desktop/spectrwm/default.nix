@@ -4,8 +4,8 @@ with lib;
 
 let
 
-  cfg = config.custom.roles.desktop.spectrwm;
-  lockerCfg = config.custom.roles.desktop.locker;
+  desktopCfg = config.custom.roles.desktop;
+  cfg = desktopCfg.spectrwm;
 
 in
 
@@ -22,9 +22,11 @@ in
         autoruns = {
           "alacritty" = 1;
         };
-
+        font = {
+          inherit (desktopCfg.font) package xft;
+        };
         locker = {
-          inherit (lockerCfg) package lockCmd;
+          inherit (desktopCfg.locker) package lockCmd;
         };
       };
       roles.desktop = {

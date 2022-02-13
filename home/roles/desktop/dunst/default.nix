@@ -4,7 +4,8 @@ with lib;
 
 let
 
-  cfg = config.custom.roles.desktop.dunst;
+  desktopCfg = config.custom.roles.desktop;
+  cfg = desktopCfg.dunst;
 
 in
 
@@ -18,7 +19,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       libnotify
-      nerdfonts
+      desktopCfg.font.package
     ];
 
     services.dunst = {
@@ -46,7 +47,7 @@ in
           separator_color = "auto";
           sort = "true";
           idle_threshold = 2;
-          font = "VictorMono Nerd Font Regular 11";
+          font = "${desktopCfg.font.family} 11";
           line_height = 3;
           format = "<b>[%a] %s %p</b>\\n%b";
           show_age_threshold = -1;

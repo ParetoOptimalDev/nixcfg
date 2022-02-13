@@ -16,8 +16,6 @@ let
     ];
   };
 
-  font = "VictorMono Nerd Font:style=SemiBold:pixelsize=14:antialias=true";
-
 in
 
 {
@@ -34,12 +32,11 @@ in
         "alacritty" = 1;
       };
       font = {
-        package = pkgs.nerdfonts;
-        config = font;
+        inherit (desktopCfg.font) package xft;
       };
       dmenu = {
         package = dmenuPatched;
-        runCmd = "dmenu_run -fn \"${font}\" -h 22";
+        runCmd = "dmenu_run -fn \"${desktopCfg.font.xft}\" -h 22";
       };
       xmobar = {
         enable = true;

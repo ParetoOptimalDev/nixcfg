@@ -4,7 +4,8 @@ with lib;
 
 let
 
-  cfg = config.custom.roles.desktop.alacritty;
+  desktopCfg = config.custom.roles.desktop;
+  cfg = desktopCfg.alacritty;
 
 in
 
@@ -18,7 +19,7 @@ in
   config = mkIf cfg.enable {
     home = {
       packages = with pkgs; [
-        nerdfonts
+        desktopCfg.font.package
       ];
 
       sessionVariables =
@@ -39,7 +40,7 @@ in
         window.dynamic_padding = true;
         font =
           let
-            fontFamily = "VictorMono Nerd Font Mono";
+            fontFamily = "${desktopCfg.font.family}";
           in
           {
             normal = {

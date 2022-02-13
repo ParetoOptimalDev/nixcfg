@@ -46,12 +46,26 @@ in
       '';
     };
 
-    initscrScript = mkOption {
-      type = types.lines;
-      default = "";
-      description = ''
-        Commands to initialize physical screens.
-      '';
+    font = {
+      package = mkOption {
+        type = types.package;
+        default = pkgs.nerdfonts;
+        description = "Font derivation";
+      };
+
+      xft = mkOption {
+        type = types.str;
+        default = "VictorMono Nerd Font:style=SemiBold:pixelsize=14:antialias=true";
+        description = "Font config";
+      };
+    };
+
+    dmenu = {
+      package = mkOption {
+        type = types.package;
+        default = pkgs.dmenu;
+        description = "dmenu derivation";
+      };
     };
 
     locker = {
@@ -64,6 +78,14 @@ in
         type = types.str;
         description = "Command to activate the locker";
       };
+    };
+
+    initscrScript = mkOption {
+      type = types.lines;
+      default = "";
+      description = ''
+        Commands to initialize physical screens.
+      '';
     };
 
     extraConfig = mkOption {
@@ -83,14 +105,9 @@ in
         lm_sensors
         scrot
 
-        # Menu
-        dmenu
-
-        # Locker
+        cfg.dmenu.package
         cfg.locker.package
-
-        # Fonts
-        nerdfonts
+        cfg.font.package
 
         # The window manager
         spectrwm
@@ -197,7 +214,7 @@ in
             # bar_color_selected[1]   = rgb:00/80/80
             bar_font_color[1]       = white
             bar_font_color_selected = orange
-            bar_font                = VictorMono Nerd Font:style=SemiBold:pixelsize=14:antialias=true
+            bar_font                = ${cfg.font.xft}
             bar_action              = ${config.xdg.configFile."${baractionFile}".target}
             bar_justify             = center
             bar_format              = +N:+I +S <+D+<>+4<+A+4<+V

@@ -10,7 +10,7 @@ in
 
 ''
     Config { overrideRedirect = False
-           , font     = "xft:${cfg.font.config}"
+           , font     = "xft:${cfg.font.xft}"
            , alpha    = 254
            , bgColor  = "${cfg.colorScheme.background}"
            , fgColor  = "${cfg.colorScheme.foreground}"
