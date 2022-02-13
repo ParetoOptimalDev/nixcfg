@@ -156,6 +156,7 @@ in
           expand = true;
           width = 5;
           transparent = true;
+          alpha = 1;
           tint = "0x${builtins.substring 1 6 cfg.colorScheme.background}";
           height = 22;
         };

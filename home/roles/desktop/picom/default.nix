@@ -18,7 +18,16 @@ in
   config = mkIf cfg.enable {
     services.picom = {
       enable = true;
+      package = pkgs.unstable.picom;
+      blur = true;
+      experimentalBackends = true;
       extraOptions = ''
+        blur:
+        {
+          method = "gaussian";
+          size = 10;
+          deviation = 5.0;
+        };
         unredir-if-possible = false; # Stop IntelliJ from flickering
       '';
       fade = true;
@@ -29,6 +38,8 @@ in
       ];
       inactiveOpacity = "0.9";
       opacityRule = [
+        "70:window_type = 'dock'"
+
         "100:_NET_WM_STATE@:32a ~= '_NET_WM_STATE_MAXIMIZED_*'"
         "100:_NET_WM_STATE@:32a *= '_NET_WM_STATE_FULLSCREEN'"
         "100:fullscreen"

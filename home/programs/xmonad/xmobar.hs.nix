@@ -11,7 +11,7 @@ in
 ''
     Config { overrideRedirect = False
            , font     = "xft:${cfg.font.config}"
-           , alpha    = 128
+           , alpha    = 254
            , bgColor  = "${cfg.colorScheme.background}"
            , fgColor  = "${cfg.colorScheme.foreground}"
            , position = TopW L 95
