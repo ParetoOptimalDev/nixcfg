@@ -28,6 +28,9 @@ in
   config = mkIf cfg.enable {
     custom.programs.xmonad = {
       enable = true;
+
+      inherit (desktopCfg) locker;
+
       autoruns = {
         "alacritty" = 1;
       };

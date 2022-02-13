@@ -136,6 +136,7 @@ in
       packages = with pkgs; [
         cfg.dmenu.package
         cfg.font.package
+        cfg.locker.package
         cfg.screenshot.package
       ];
     };

@@ -17,20 +17,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    custom = {
-      programs.spectrwm = {
-        autoruns = {
-          "alacritty" = 1;
-        };
-        font = {
-          inherit (desktopCfg.font) package xft;
-        };
-        locker = {
-          inherit (desktopCfg.locker) package lockCmd;
-        };
+    custom.programs.spectrwm = {
+      inherit (desktopCfg) locker;
+
+      autoruns = {
+        "alacritty" = 1;
       };
-      roles.desktop = {
-        locker.enable = true;
+      font = {
+        inherit (desktopCfg.font) package xft;
       };
     };
   };
