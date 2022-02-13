@@ -35,7 +35,7 @@ in
       enable = true;
       settings = {
         env.TERM = "xterm-256color";
-        opacity = 0.95;
+        background_opacity = 0.95;
         font =
           let
             fontFamily = "VictorMono Nerd Font Mono";
