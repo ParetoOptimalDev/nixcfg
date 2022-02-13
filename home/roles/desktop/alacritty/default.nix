@@ -36,6 +36,7 @@ in
       settings = {
         env.TERM = "xterm-256color";
         background_opacity = 0.95;
+        window.dynamic_padding = true;
         font =
           let
             fontFamily = "VictorMono Nerd Font Mono";
