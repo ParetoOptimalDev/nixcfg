@@ -20,6 +20,9 @@ in
       enable = true;
       package = pkgs.unstable.picom;
       blur = true;
+      blurExclude = [
+        "window_type = 'utility'" # Firefox/Thunderbird dropdowns
+      ];
       experimentalBackends = true;
       extraOptions = ''
         blur:
