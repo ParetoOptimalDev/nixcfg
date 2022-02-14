@@ -56,6 +56,8 @@ pkgs.writeText "xmonad.hs" ''
   import XMonad.Layout.Spacing
   import XMonad.Layout.ThreeColumns
 
+  import qualified XMonad.StackSet as W
+
   main :: IO ()
   main = xmonad
        . ewmh
@@ -82,8 +84,25 @@ pkgs.writeText "xmonad.hs" ''
       , ("M-p"  , spawn "${escapeHaskellString cfg.dmenu.runCmd}")
       ]
 
+  manageZoomHook =
+    composeAll $
+      [ (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat,
+        (className =? zoomClassName) <&&> shouldSink <$> title --> doSink
+      ]
+    where
+      zoomClassName = "zoom"
+      tileTitles =
+        [ "Zoom - Free Account", -- main window
+          "Zoom - Licensed Account", -- main window
+          "Zoom", -- meeting window on creation
+          "Zoom Meeting" -- meeting window shortly after creation
+        ]
+      shouldFloat title = title `notElem` tileTitles
+      shouldSink title = title `elem` tileTitles
+      doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
+
   myManageHook :: ManageHook
-  myManageHook = composeAll
+  myManageHook = manageZoomHook <+> composeAll
       -- Workspace assignments
       [ className =? "jetbrains-idea"             --> doShift "2"
       , className =? "Firefox"                    --> doShift "3"
@@ -105,9 +124,9 @@ pkgs.writeText "xmonad.hs" ''
       , className =? "Spotify"                    --> doShift "9"
 
       -- Floating windows
-      , isDialog            --> doFloat
-      , className =? "Gimp" --> doFloat
-      , title =? "win0"     --> doFloat
+      , isDialog                                            --> doFloat
+      , className =? "Gimp"                                 --> doFloat
+      , className =? "jetbrains-idea" <&&> title =? "win0"  --> doFloat
       ]
 
   addNETSupported :: Atom -> X ()
