@@ -1,4 +1,4 @@
-# Nix Configuration
+# :snowflake: Nix Configuration
 
 ![ci](https://github.com/christianharke/nixcfg/actions/workflows/ci.yml/badge.svg)
 ![update](https://github.com/christianharke/nixcfg/actions/workflows/update.yml/badge.svg)
