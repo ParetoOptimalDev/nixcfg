@@ -16,8 +16,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
-      pkgs.unstable.zoom-us
+    home.packages = with pkgs; [
+      zoom-us
     ];
 
     xdg.configFile."zoomus.conf".source = ./config/zoomus.conf;
