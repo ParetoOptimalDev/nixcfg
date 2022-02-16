@@ -22,9 +22,12 @@ inputs.nixpkgs.lib.nixosSystem {
         inherit pkgs;
       };
 
-      nix.registry = {
-        nixpkgs.flake = inputs.nixpkgs;
-        nix-config.flake = inputs.self;
+      nix = {
+        nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+        registry = {
+          nixpkgs.flake = inputs.nixpkgs;
+          nix-config.flake = inputs.self;
+        };
       };
     }
   ]
