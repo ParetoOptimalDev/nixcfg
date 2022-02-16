@@ -12,7 +12,7 @@ root: ~/bluecare
 # Project hooks
 # Runs on project start, always
 on_project_start:
-  - sudo systemctl start container@mongodb.service
+  - cd ./larnags/larnags && CONTAINER_NAME="blueconnect-mongo" PORT=27017 ./runlocal-mongo.sh
   - sudo systemctl start container@devmail.service
 # Run on project start, the first time
 # on_project_first_start: command
@@ -22,7 +22,7 @@ on_project_start:
 # on_project_exit: command
 # Run on project stop
 on_project_stop:
-  - sudo systemctl stop container@mongodb.service
+  - cd ./larnags/larnags/ && docker stop "blueconnect-mongo"
   - sudo systemctl stop container@devmail.service
   - ./psif/solr/solr_/bin/solr stop
 
@@ -48,17 +48,20 @@ windows:
     - system:
         layout: tiled
         panes:
-            - journalctl -f -u container@mongodb.service
+            - docker logs -f "blueconnect-mongo" 
             - journalctl -f -u container@devmail.service
             - cd ./larnags/larnags && hinclient headless identities=larndev1 keystore=/home/christian/.accounts/bluecare/hin/larndev1.hin passphrase=/home/christian/.accounts/bluecare/hin/larndev1.passphrase hinclient.httpproxy.port=5026 hinclient.clientapi.port=5027 hinclient.smtpproxy.port=5028 hinclient.pop3proxy.port=5029 hinclient.imapproxy.port=5030 language=de
             - echo "TODO: QuoVadis Stuff"
     - blueconnect:
         layout: main-horizontal
         root: ~/bluecare/larnags/larnags
+        pre:
+            - export VITE_PORT=3001
         panes:
             - lazygit
             - cd ./static/main && grunt
-            - HTTP_PORT=9000 DEBUG_PORT=5000 JMX_PORT=9900 ./runlocal-frontend.sh
+            - cd ./webapp && npm run build && npm run dev
+            - HTTP_PORT=9000 DEBUG_PORT=5000 JMX_PORT=9900 VUE_DEV=yes ./runlocal-frontend.sh
             - DEBUG_PORT=5500 JMX_PORT=9990 ./runlocal-cluster.sh
     - patstamm:
         layout: main-horizontal
