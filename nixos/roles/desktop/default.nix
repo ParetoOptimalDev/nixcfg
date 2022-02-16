@@ -20,6 +20,12 @@ in
       xserver = {
         enable = true;
         desktopManager.xterm.enable = true;
+        serverFlagsSection = ''
+          Option "BlankTime" "0"
+          Option "StandbyTime" "0"
+          Option "SuspendTime" "0"
+          Option "OffTime" "0"
+        '';
       };
     };
   };
