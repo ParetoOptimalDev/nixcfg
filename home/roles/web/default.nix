@@ -33,7 +33,6 @@ in
     programs = {
       chromium.enable = true;
       firefox.enable = true;
-      qutebrowser.enable = true;
     };
   };
 }
