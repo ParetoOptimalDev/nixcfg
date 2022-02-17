@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 
@@ -16,14 +16,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
-      pkgs.ranger
-    ];
-
-    xdg.dataFile."ranger/bookmarks".text = ''
-      # Common
-      d:${config.home.homeDirectory}/Downloads
-      h:/mnt/home/home
-    '';
+    custom.programs.ranger = {
+      enable = true;
+      bookmarks = ''
+        # Common
+        d:${config.home.homeDirectory}/Downloads
+        h:/mnt/home/home
+      '';
+    };
   };
 }
