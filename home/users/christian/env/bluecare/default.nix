@@ -34,6 +34,7 @@ in
         bin.enable = true;
         davmail.enable = true;
         git.enable = true;
+        gtk.enable = true;
         office.cli = {
           enable = config.custom.roles.office.cli.enable;
           caldav = {
