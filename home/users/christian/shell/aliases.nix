@@ -28,9 +28,6 @@
   jshell = "nix-shell -p openjdk --command jshell";
   visualvm = "visualvm --cp:a ~/jmx/jmxremote_optional.jar";
 
-  # Git CLI UI
-  lg = "lazygit";
-
   # PDF viewer
   mupdf = "mupdf-x11";
 

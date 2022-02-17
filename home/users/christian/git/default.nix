@@ -16,9 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      lazygit
-    ];
+    custom.programs.lazygit.enable = true;
 
     programs.git = {
       enable = true;
