@@ -46,68 +46,74 @@
         (mkNixos "x86_64-linux" "nixos-vm")
       ];
     }
-    // eachSystem ({ mkGeneric, mkApp, mkCheck, getDevShell, mkDevShell, ... }: {
-      apps = listToAttrs [
-        (mkApp "setup" {
-          file = "setup.sh";
-          envs = {
-            _doNotClearPath = true;
-            flakePath = "/home/\$(logname)/.nix-config";
-          };
-          path = pkgs: with pkgs; [
-            git
-            hostname
-            jq
-          ];
-        })
+    // eachSystem ({ mkGeneric, mkApp, mkCheck, getDevShell, mkDevShell, ... }:
+      let
+        mkShellCheck = pkgs: ''
+          shopt -s globstar
+          echo 'Running shellcheck...'
+          ${pkgs.shellcheck}/bin/shellcheck --check-sourced --enable all --external-sources --shell bash ${./.}/**/*.sh
+        '';
+      in
+      {
+        apps = listToAttrs [
+          (mkApp "setup" {
+            file = "setup.sh";
+            envs = {
+              _doNotClearPath = true;
+              flakePath = "/home/\$(logname)/.nix-config";
+            };
+            path = pkgs: with pkgs; [
+              git
+              hostname
+              jq
+            ];
+          })
 
-        (mkApp "nixos-install" {
-          file = "nixos-install.sh";
-          envs = {
-            _doNotClearPath = true;
-          };
-          path = pkgs: with pkgs; [
-            git
-            hostname
-            util-linux
-            parted
-            cryptsetup
-            lvm2
-          ];
-        })
-      ];
+          (mkApp "nixos-install" {
+            file = "nixos-install.sh";
+            envs = {
+              _doNotClearPath = true;
+            };
+            path = pkgs: with pkgs; [
+              git
+              hostname
+              util-linux
+              parted
+              cryptsetup
+              lvm2
+            ];
+          })
+        ];
 
-      checks = listToAttrs [
-        (mkGeneric "pre-commit-check" (system: inputs.pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            nixpkgs-fmt.enable = true;
-            shellcheck.enable = true;
-          };
-        }))
+        checks = listToAttrs [
+          (mkGeneric "pre-commit-check" (system: inputs.pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixpkgs-fmt.enable = true;
+              shellcheck.enable = true;
+            };
+          }))
 
-        (mkCheck "shellcheck" {
-          script = pkgs: ''
-            shopt -s globstar
-            ${pkgs.shellcheck}/bin/shellcheck --check-sourced --enable all --external-sources --shell bash ${./.}/**/*.sh
-          '';
-        })
+          (mkCheck "shellcheck" {
+            script = mkShellCheck;
+          })
 
-        (mkCheck "nixpkgs-fmt" {
-          script = pkgs: ''
-            shopt -s globstar
-            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}/**/*.nix
-          '';
-        })
-      ];
+          (mkCheck "nixpkgs-fmt" {
+            script = pkgs: ''
+              shopt -s globstar
+              ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${./.}/**/*.nix
+            '';
+          })
+        ];
 
-      devShell = getDevShell "nixcfg";
+        devShell = getDevShell "nixcfg";
 
-      devShells = listToAttrs [
-        (mkDevShell "nixcfg" {
-          checksShellHook = system: (self.checks.${system}.pre-commit-check).shellHook;
-          packages = pkgs: with pkgs; [ nixpkgs-fmt shellcheck ];
-        })
-      ];
-    });
+        devShells = listToAttrs [
+          (mkDevShell "nixcfg" {
+            checksShellHook = system: (self.checks.${system}.pre-commit-check).shellHook;
+            packages = pkgs: with pkgs; [ nixpkgs-fmt shellcheck ];
+            customShellHook = mkShellCheck;
+          })
+        ];
+      });
 }

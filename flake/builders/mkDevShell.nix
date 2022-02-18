@@ -2,8 +2,9 @@
 
 let
 
-  checksShellHookFn = args.checksShellHook or (system: "");
   packagesFn = args.packages or (pkgs: [ ]);
+  checksShellHookFn = args.checksShellHook or (system: "");
+  customShellHookFn = args.customShellHook or (pkgs: { });
 
 in
 
@@ -16,5 +17,7 @@ pkgs.mkShell {
   ] ++ (packagesFn pkgs);
   shellHook = ''
     figlet ${name} | lolcat --freq 0.5
-  '' + (checksShellHookFn system);
+  ''
+  + (checksShellHookFn system)
+  + (customShellHookFn pkgs);
 }
