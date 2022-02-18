@@ -1,5 +1,6 @@
 # :snowflake: Nix Configuration
 
+[![NixOS](https://img.shields.io/badge/NixOS-21.11-blue.svg?logo=NixOS&logoColor=white)](https://nixos.org)
 ![ci](https://github.com/christianharke/nixcfg/actions/workflows/ci.yml/badge.svg)
 ![update](https://github.com/christianharke/nixcfg/actions/workflows/update.yml/badge.svg)
 
