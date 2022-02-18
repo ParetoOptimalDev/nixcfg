@@ -30,7 +30,7 @@ IFS=$'\n'
 ## Script arguments
 FILE_PATH="${1}"         # Full path of the highlighted file
 PV_WIDTH="${2}"          # Width of the preview pane (number of fitting characters)
-## shellcheck disable=SC2034 # PV_HEIGHT is provided for convenience and unused
+# shellcheck disable=SC2034 # PV_HEIGHT is provided for convenience and unused
 PV_HEIGHT="${3}"         # Height of the preview pane (number of fitting characters)
 IMAGE_CACHE_PATH="${4}"  # Full path that should be used to cache image preview
 PV_IMAGE_ENABLED="${5}"  # 'True' if image previews are enabled, 'False' otherwise.
@@ -44,10 +44,13 @@ HIGHLIGHT_TABWIDTH=${HIGHLIGHT_TABWIDTH:-8}
 HIGHLIGHT_STYLE=${HIGHLIGHT_STYLE:-pablo}
 HIGHLIGHT_OPTIONS="--replace-tabs=${HIGHLIGHT_TABWIDTH} --style=${HIGHLIGHT_STYLE} ${HIGHLIGHT_OPTIONS:-}"
 PYGMENTIZE_STYLE=${PYGMENTIZE_STYLE:-autumn}
+# shellcheck disable=SC2034
 OPENSCAD_IMGSIZE=${RNGR_OPENSCAD_IMGSIZE:-1000,1000}
+# shellcheck disable=SC2034
 OPENSCAD_COLORSCHEME=${RNGR_OPENSCAD_COLORSCHEME:-Tomorrow Night}
 
 handle_extension() {
+    # shellcheck disable=SC2249
     case "${FILE_EXTENSION_LOWER}" in
         ## Archive
         a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|\
@@ -123,9 +126,11 @@ handle_image() {
     ## rendered from vector graphics. If the conversion program allows
     ## specifying only one dimension while keeping the aspect ratio, the width
     ## will be used.
+    # shellcheck disable=SC2034
     local DEFAULT_SIZE="1920x1080"
 
     local mimetype="${1}"
+    # shellcheck disable=SC2249
     case "${mimetype}" in
         ## SVG
         image/svg+xml|image/svg)
@@ -144,7 +149,7 @@ handle_image() {
             orientation="$( identify -format '%[EXIF:Orientation]\n' -- "${FILE_PATH}" )"
             ## If orientation data is present and the image actually
             ## needs rotating ("1" means no rotation)...
-            if [[ -n "$orientation" && "$orientation" != 1 ]]; then
+            if [[ -n "${orientation}" && "${orientation}" != 1 ]]; then
                 ## ...auto-rotate the image according to the EXIF data.
                 convert -- "${FILE_PATH}" -auto-orient "${IMAGE_CACHE_PATH}" && exit 6
             fi
@@ -264,6 +269,7 @@ handle_image() {
 
 handle_mime() {
     local mimetype="${1}"
+    # shellcheck disable=SC2249
     case "${mimetype}" in
         ## RTF and DOC
         text/rtf|*msword)
