@@ -4,6 +4,8 @@ with lib;
 
 let
 
+  inherit (config.lib.custom) genAttrs';
+
   cfg = config.custom.users.christian.env.bluecare.bin;
 
   mkUserBinScript = name:
@@ -32,16 +34,18 @@ in
       xorg.xrandr
     ];
 
-    xdg.configFile = listToAttrs (map mkUserBinScript [
-      # Display setup
-      "display-docked"
-      "display-extended"
-      "display-extended-left"
-      "display-mirror"
-      "display-single"
+    xdg.configFile = genAttrs'
+      [
+        # Display setup
+        "display-docked"
+        "display-extended"
+        "display-extended-left"
+        "display-mirror"
+        "display-single"
 
-      "dockerrm"
-      "terminalserver"
-    ]);
+        "dockerrm"
+        "terminalserver"
+      ]
+      mkUserBinScript;
   };
 }

@@ -4,6 +4,8 @@ with lib;
 
 let
 
+  inherit (config.lib.custom) genAttrs';
+
   cfg = config.custom.users.christian.bin;
 
   mkUserBinScript = name:
@@ -34,14 +36,16 @@ in
       pulseaudio
     ];
 
-    xdg.configFile = listToAttrs (map mkUserBinScript [
-      # Bluetooth headset
-      "lib/btctl"
-      "wh1000xm2-connect"
-      "wh1000xm2-disconnect"
+    xdg.configFile = genAttrs'
+      [
+        # Bluetooth headset
+        "lib/btctl"
+        "wh1000xm2-connect"
+        "wh1000xm2-disconnect"
 
-      # Password CLI
-      "pass"
-    ]);
+        # Password CLI
+        "pass"
+      ]
+      mkUserBinScript;
   };
 }

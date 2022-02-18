@@ -1,8 +1,11 @@
 { config, lib, pkgs, ... }:
 
+with builtins;
 with lib;
 
 let
+
+  inherit (config.lib.custom) genAttrs';
 
   cfg = config.custom.roles.dev.embedmongo;
 
@@ -10,7 +13,7 @@ let
 
   mkSymlink = dir: {
     name = ".embedmongo/extracted/${dir}/extractmongod";
-    value = { source = builtins.toPath "${mongodbPkg}/bin/mongod"; };
+    value = { source = toPath "${mongodbPkg}/bin/mongod"; };
   };
 
 in
@@ -28,13 +31,15 @@ in
         mongodbPkg
       ];
 
-      file = builtins.listToAttrs (map mkSymlink [
-        "Linux-B64--2.0.3"
-        "Linux-B64--3.2.0"
-        "Linux-B64--3.6.2"
-        "Linux-B64--3.6.5"
-        "Linux-B64--4.0.2"
-      ]);
+      file = genAttrs'
+        [
+          "Linux-B64--2.0.3"
+          "Linux-B64--3.2.0"
+          "Linux-B64--3.6.2"
+          "Linux-B64--3.6.5"
+          "Linux-B64--4.0.2"
+        ]
+        mkSymlink;
     };
   };
 }
