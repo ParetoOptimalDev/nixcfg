@@ -17,20 +17,21 @@ in
            , position = TopW L 95
            , textOffset = 16
            , commands = [ Run WeatherX "LSZB"
-                            [ ("clear", "\xe30d")
-                            , ("sunny", "\xe30d")
-                            , ("mostly clear", "\xe30c")
-                            , ("mostly sunny", "\xe30c")
-                            , ("partly sunny", "\xe30c")
-                            , ("partly cloudy", "\xe30c")
-                            , ("mostly cloudy", "\xe302")
-                            , ("fair", "\xe32b")
-                            , ("obscured","\xe311")
-                            , ("overcast","\xe311")
-                            , ("cloudy","\xe312")
-                            , ("considerable cloudiness", "\xe313")
+                            [ ("clear", "\xe30d ")
+                            , ("sunny", "\xe30d ")
+                            , ("fair", "\xe38d ")
+                            , ("mostly clear", "\xe30c ")
+                            , ("mostly sunny", "\xe30c ")
+                            , ("partly cloudy", "\xe302 ")
+                            , ("partly sunny", "\xe302 ")
+                            , ("mostly cloudy", "\xe309 ")
+                            , ("obscured","\xe311 ")
+                            , ("overcast","\xe311 ")
+                            , ("cloudy","\xe312 ")
+                            , ("considerable cloudiness", "\xe319 ")
+                            , ("", "unknown")
                             ]
-                            [ "-t", "<skyConditionS>  <skyCondition> <tempC>°"
+                            [ "-t", "<skyConditionS> <tempC>°"
                             ] 9000
                         , Run Cpu
                             [ "-t", "  <total>%"
@@ -76,17 +77,19 @@ in
 
                           -- Mobile monitors
                           , Run Battery
-                              [ "-t", "<acstatus><watts> (<left>%)"
+                              [ "-t", "<acstatus><left>"
+                              , "-S", "True"
                               , "-L", "10", "-H", "80"
                               , "-p", "3"
                               , "--"
-                              , "-O", "<fc=green>On</fc> - "
+                              , "-O", "\xfba3"
                               , "-i", ""
+                              , "-o", ""
                               , "-L", "-15" , "-H", "-5"
                               , "-l", "${cfg.colorScheme.warn}"
-                              , "--lows"   , "<fn=1>\62020</fn>  "
-                              , "--mediums", "<fn=1>\62018</fn>  "
-                              , "--highs"  , "<fn=1>\62016</fn>  "
+                              , "--lows"   , "\xf579"
+                              , "--mediums", "\xf57d"
+                              , "--highs"  , "\xf578"
                               ] 10''}
                         ]
            , sepChar  = "%"
