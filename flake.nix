@@ -10,18 +10,39 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-commons = {
+      url = "github:christianharke/flake-commons";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+    };
     flake-utils.url = "github:numtide/flake-utils";
 
-    i3lock-pixeled.url = "gitlab:christianharke/i3lock-pixeled";
+    i3lock-pixeled = {
+      url = "gitlab:christianharke/i3lock-pixeled";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+    };
 
     kmonad = {
       url = "github:kmonad/kmonad?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
   };
 
