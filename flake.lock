@@ -13,11 +13,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1645394499,
-        "narHash": "sha256-GwHJZpbhyARibMTd6tpWI0ti7MqPOB4NOD7SdO1xuDg=",
+        "lastModified": 1645397748,
+        "narHash": "sha256-M4SDtlOX3ZreWq1wRYgOvim5qyYyeGj7BZt+LKaqml0=",
         "owner": "christianharke",
         "repo": "flake-commons",
-        "rev": "1a23f63ce95388be365d3078e5a1e9fee789c981",
+        "rev": "27ad566b3714a32cbc85c77ac7aedcb38910eecd",
         "type": "github"
       },
       "original": {

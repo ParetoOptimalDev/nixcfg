@@ -34,9 +34,9 @@ in
 {
   inherit pkgs;
 
-  customLib = import (rootPath + "/lib")
+  customLib = (import (rootPath + "/lib")
     {
       inherit (inputs.nixpkgs) lib;
       inherit pkgs rootPath;
-    } // inputs.flake-commons.lib;
+    }) // inputs.flake-commons.lib.${system};
 }

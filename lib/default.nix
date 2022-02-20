@@ -3,8 +3,6 @@
 let
   callPackage = lib.callPackageWith args;
 
-  attrs = callPackage ./attrs.nix { };
-  fileList = callPackage ./file-list.nix { };
   script = callPackage ./script { };
 
   homeBasePath = rootPath + "/home";
@@ -13,8 +11,6 @@ let
 in
 
 {
-  inherit (attrs) attrsToList genAttrs';
-  inherit (fileList) getFileList getRecursiveNixFileList getRecursiveDefaultNixFileList;
   inherit (script) mkScript;
 
   mkHomePath = p: homeBasePath + p;
