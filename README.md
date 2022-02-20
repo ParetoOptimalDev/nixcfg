@@ -1,8 +1,8 @@
 # :snowflake: Nix Configuration
 
-[![NixOS](https://img.shields.io/badge/NixOS-21.11-blue.svg?logo=NixOS&logoColor=white)](https://nixos.org)
-![ci](https://github.com/christianharke/nixcfg/actions/workflows/ci.yml/badge.svg)
-![update](https://github.com/christianharke/nixcfg/actions/workflows/update.yml/badge.svg)
+[![NixOS][nixos-badge]][nixos]
+[![Build and Test][ci-badge]][ci]
+[![Update][update-badge]][update]
 
 ## Features
 
@@ -90,7 +90,13 @@ $ # On non-NixOS
 $ hm-switch
 ```
 
+[ci]: https://github.com/christianharke/nixcfg/actions/workflows/ci.yml
+[ci-badge]: https://github.com/christianharke/nixcfg/actions/workflows/ci.yml/badge.svg
+[update]: https://github.com/christianharke/nixcfg/actions/workflows/update.yml
+[update-badge]: https://github.com/christianharke/nixcfg/actions/workflows/update.yml/badge.svg
+
 [home-manager]: https://github.com/nix-community/home-manager
 [nixos]: https://nixos.org/
+[nixos-badge]: https://img.shields.io/badge/NixOS-21.11-blue.svg?logo=NixOS&logoColor=white
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
 [shellcheck]: https://github.com/koalaman/shellcheck
