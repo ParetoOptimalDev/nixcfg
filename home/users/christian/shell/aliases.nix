@@ -1,4 +1,7 @@
 {
+  # Enable aliases with `sudo`
+  sudo = "sudo ";
+
   # Navigating
   d = "dirs -v | head -10";
   l = "exa -hl --git --icons";
