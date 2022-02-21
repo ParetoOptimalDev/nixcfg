@@ -29,14 +29,13 @@ let
     inherit config overlays system;
   };
 
+  customLib = inputs.flake-commons.lib.${system} {
+    inherit (inputs.nixpkgs) lib;
+    inherit pkgs rootPath;
+  };
+
 in
 
 {
-  inherit pkgs;
-
-  customLib = (import (rootPath + "/lib")
-    {
-      inherit (inputs.nixpkgs) lib;
-      inherit pkgs rootPath;
-    }) // inputs.flake-commons.lib.${system};
+  inherit pkgs customLib;
 }
