@@ -29,7 +29,6 @@ in
                             , ("overcast","\xe311 ")
                             , ("cloudy","\xe312 ")
                             , ("considerable cloudiness", "\xe319 ")
-                            , ("", "unknown")
                             ]
                             [ "-t", "<skyConditionS> <tempC>°"
                             ] 9000
