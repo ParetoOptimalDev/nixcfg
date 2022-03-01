@@ -130,6 +130,7 @@ pkgs.writeText "xmonad.hs" ''
       , ("M-C-v", namedScratchpadAction myScratchpads "pavucontrol")
       ]
 
+  manageZoomHook :: ManageHook
   manageZoomHook =
     composeAll $
       [ (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat,
