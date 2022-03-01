@@ -99,37 +99,6 @@ pkgs.writeText "xmonad.hs" ''
           x = center w
           y = center h
 
-  main :: IO ()
-  main = xmonad
-       . ewmh
-     =<< statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig
-    where
-      toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-      toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
-
-  myConfig = def
-      { modMask         = myModMask          -- Rebind Mod key
-      , terminal        = myTerminal
-      , borderWidth = 2
-      , normalBorderColor = "${cfg.colorScheme.foreground}"
-      , focusedBorderColor = "${cfg.colorScheme.base}"
-      , layoutHook      = myLayout           -- Use custom layouts
-      , manageHook      = myManageHook       -- Match on certain windows
-      ${optionalString (cfg.autoruns != {})
-        ", startupHook     = myStartupHook >> addEWMHFullscreen"}
-      , handleEventHook = fullscreenEventHook
-      }
-    `additionalKeysP`
-      [ ("M-S-<Delete>", spawn "${escapeHaskellString cfg.locker.lockCmd}")
-      , ("M-S-s", unGrab *> spawn "${escapeHaskellString cfg.screenshot.runCmd}")
-      , ("M-p"  , spawn "${escapeHaskellString cfg.dmenu.runCmd}")
-
-      -- ScratchPads
-      , ("M-C-<Return>", namedScratchpadAction myScratchpads "terminal")
-      , ("M-C-t", namedScratchpadAction myScratchpads "htop")
-      , ("M-C-v", namedScratchpadAction myScratchpads "pavucontrol")
-      ]
-
   manageZoomHook :: ManageHook
   manageZoomHook =
     composeAll $
@@ -218,4 +187,35 @@ pkgs.writeText "xmonad.hs" ''
     where
       ${concatStringsSep ", " (mapAttrsToList (n: v: toString n)  cfg.colorScheme)} :: String -> String
       ${concatStringsSep "    " (mapAttrsToList mkXmobarColor cfg.colorScheme)}
+
+  myConfig = def
+      { modMask         = myModMask          -- Rebind Mod key
+      , terminal        = myTerminal
+      , borderWidth = 2
+      , normalBorderColor = "${cfg.colorScheme.foreground}"
+      , focusedBorderColor = "${cfg.colorScheme.base}"
+      , layoutHook      = myLayout           -- Use custom layouts
+      , manageHook      = myManageHook       -- Match on certain windows
+      ${optionalString (cfg.autoruns != {})
+        ", startupHook     = myStartupHook >> addEWMHFullscreen"}
+      , handleEventHook = fullscreenEventHook
+      }
+    `additionalKeysP`
+      [ ("M-S-<Delete>", spawn "${escapeHaskellString cfg.locker.lockCmd}")
+      , ("M-S-s", unGrab *> spawn "${escapeHaskellString cfg.screenshot.runCmd}")
+      , ("M-p"  , spawn "${escapeHaskellString cfg.dmenu.runCmd}")
+
+      -- ScratchPads
+      , ("M-C-<Return>", namedScratchpadAction myScratchpads "terminal")
+      , ("M-C-t", namedScratchpadAction myScratchpads "htop")
+      , ("M-C-v", namedScratchpadAction myScratchpads "pavucontrol")
+      ]
+
+  main :: IO ()
+  main = xmonad
+       . ewmh
+     =<< statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig
+    where
+      toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
+      toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
 ''
