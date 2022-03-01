@@ -59,6 +59,9 @@ pkgs.writeText "xmonad.hs" ''
 
   import qualified XMonad.StackSet as W
 
+  myModMask :: KeyMask
+  myModMask = ${cfg.modKey}Mask
+
   myTerminal :: String
   myTerminal = "alacritty"
 
@@ -105,7 +108,7 @@ pkgs.writeText "xmonad.hs" ''
       toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
 
   myConfig = def
-      { modMask         = ${cfg.modKey}Mask           -- Rebind Mod key
+      { modMask         = myModMask          -- Rebind Mod key
       , terminal        = myTerminal
       , borderWidth = 2
       , normalBorderColor = "${cfg.colorScheme.foreground}"
