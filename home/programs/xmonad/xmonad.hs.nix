@@ -190,27 +190,27 @@ pkgs.writeText "xmonad.hs" ''
 
   myKeys :: [(String, X ())]
   myKeys =
-    [ ("M-S-<Delete>", spawn "${escapeHaskellString cfg.locker.lockCmd}")
-    , ("M-S-s", unGrab *> spawn "${escapeHaskellString cfg.screenshot.runCmd}")
-    , ("M-p"  , spawn "${escapeHaskellString cfg.dmenu.runCmd}")
+    [ ("M-S-<Delete>",  spawn "${escapeHaskellString cfg.locker.lockCmd}")
+    , ("M-S-s",         unGrab *> spawn "${escapeHaskellString cfg.screenshot.runCmd}")
+    , ("M-p",           spawn "${escapeHaskellString cfg.dmenu.runCmd}")
 
     -- ScratchPads
-    , ("M-C-<Return>", namedScratchpadAction myScratchpads "terminal")
-    , ("M-C-t", namedScratchpadAction myScratchpads "htop")
-    , ("M-C-v", namedScratchpadAction myScratchpads "pavucontrol")
+    , ("M-C-<Return>",  namedScratchpadAction myScratchpads "terminal")
+    , ("M-C-t",         namedScratchpadAction myScratchpads "htop")
+    , ("M-C-v",         namedScratchpadAction myScratchpads "pavucontrol")
     ]
 
   myConfig = def
-      { modMask         = myModMask          -- Rebind Mod key
-      , terminal        = myTerminal
-      , borderWidth = 2
-      , normalBorderColor = "${cfg.colorScheme.foreground}"
-      , focusedBorderColor = "${cfg.colorScheme.base}"
-      , layoutHook      = myLayout           -- Use custom layouts
-      , manageHook      = myManageHook       -- Match on certain windows
+      { modMask             = myModMask     -- Rebind Mod key
+      , terminal            = myTerminal
+      , borderWidth         = 2
+      , normalBorderColor   = "${cfg.colorScheme.foreground}"
+      , focusedBorderColor  = "${cfg.colorScheme.base}"
+      , layoutHook          = myLayout      -- Use custom layouts
+      , manageHook          = myManageHook  -- Match on certain windows
       ${optionalString (cfg.autoruns != {})
-        ", startupHook     = myStartupHook >> addEWMHFullscreen"}
-      , handleEventHook = fullscreenEventHook
+        ", startupHook         = myStartupHook >> addEWMHFullscreen"}
+      , handleEventHook     = fullscreenEventHook
       }
     `additionalKeysP` myKeys
 
