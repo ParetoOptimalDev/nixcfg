@@ -73,10 +73,10 @@ pkgs.writeText "xmonad.hs" ''
     ]
     where
       center :: Rational -> Rational
-      center (ratio) = (1 - ratio)/2
-      spawnTerm      = myTerminal ++ " -t scratchpad"
-      findTerm       = title =? "scratchpad"
-      manageTerm     = customFloating $ W.RationalRect x y w h
+      center ratio  = (1 - ratio)/2
+      spawnTerm     = myTerminal ++ " -t scratchpad"
+      findTerm      = title =? "scratchpad"
+      manageTerm    = customFloating $ W.RationalRect x y w h
         where
           w = (4/5)
           h = (5/6)
@@ -87,7 +87,7 @@ pkgs.writeText "xmonad.hs" ''
       manageHtop    = customFloating $ W.RationalRect x y w h
         where
           w = (2/3)
-          h = (2/3)
+          h = (3/4)
           x = center w
           y = center h
       spawnPavuCtl  = "pavucontrol"
@@ -95,7 +95,7 @@ pkgs.writeText "xmonad.hs" ''
       managePavuCtl = customFloating $ W.RationalRect x y w h
         where
           w = (2/3)
-          h = (2/3)
+          h = (3/4)
           x = center w
           y = center h
 
@@ -188,6 +188,18 @@ pkgs.writeText "xmonad.hs" ''
       ${concatStringsSep ", " (mapAttrsToList (n: v: toString n)  cfg.colorScheme)} :: String -> String
       ${concatStringsSep "    " (mapAttrsToList mkXmobarColor cfg.colorScheme)}
 
+  myKeys :: [(String, X ())]
+  myKeys =
+    [ ("M-S-<Delete>", spawn "${escapeHaskellString cfg.locker.lockCmd}")
+    , ("M-S-s", unGrab *> spawn "${escapeHaskellString cfg.screenshot.runCmd}")
+    , ("M-p"  , spawn "${escapeHaskellString cfg.dmenu.runCmd}")
+
+    -- ScratchPads
+    , ("M-C-<Return>", namedScratchpadAction myScratchpads "terminal")
+    , ("M-C-t", namedScratchpadAction myScratchpads "htop")
+    , ("M-C-v", namedScratchpadAction myScratchpads "pavucontrol")
+    ]
+
   myConfig = def
       { modMask         = myModMask          -- Rebind Mod key
       , terminal        = myTerminal
@@ -200,16 +212,7 @@ pkgs.writeText "xmonad.hs" ''
         ", startupHook     = myStartupHook >> addEWMHFullscreen"}
       , handleEventHook = fullscreenEventHook
       }
-    `additionalKeysP`
-      [ ("M-S-<Delete>", spawn "${escapeHaskellString cfg.locker.lockCmd}")
-      , ("M-S-s", unGrab *> spawn "${escapeHaskellString cfg.screenshot.runCmd}")
-      , ("M-p"  , spawn "${escapeHaskellString cfg.dmenu.runCmd}")
-
-      -- ScratchPads
-      , ("M-C-<Return>", namedScratchpadAction myScratchpads "terminal")
-      , ("M-C-t", namedScratchpadAction myScratchpads "htop")
-      , ("M-C-v", namedScratchpadAction myScratchpads "pavucontrol")
-      ]
+    `additionalKeysP` myKeys
 
   main :: IO ()
   main = xmonad
