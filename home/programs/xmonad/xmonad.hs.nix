@@ -45,18 +45,56 @@ pkgs.writeText "xmonad.hs" ''
   import XMonad.Hooks.ManageDocks
   import XMonad.Hooks.ManageHelpers
 
-  import XMonad.Util.EZConfig
-  import XMonad.Util.Loggers
-  import XMonad.Util.SpawnOnce
-  import XMonad.Util.Ungrab
-
   import XMonad.Layout.Magnifier
   import XMonad.Layout.NoBorders
   import XMonad.Layout.Renamed
   import XMonad.Layout.Spacing
   import XMonad.Layout.ThreeColumns
 
+  import XMonad.Util.EZConfig
+  import XMonad.Util.Loggers
+  import XMonad.Util.NamedScratchpad
+  import XMonad.Util.SpawnOnce
+  import XMonad.Util.Ungrab
+
   import qualified XMonad.StackSet as W
+
+  myTerminal :: String
+  myTerminal = "alacritty"
+
+  myScratchpads :: [NamedScratchpad]
+  myScratchpads =
+    [ NS "terminal" spawnTerm findTerm manageTerm
+    , NS "htop" spawnHtop findHtop manageHtop
+    , NS "pavucontrol" spawnPavuCtl findPavuCtl managePavuCtl
+    ]
+    where
+      center :: Rational -> Rational
+      center (ratio) = (1 - ratio)/2
+      spawnTerm      = myTerminal ++ " -t scratchpad"
+      findTerm       = title =? "scratchpad"
+      manageTerm     = customFloating $ W.RationalRect x y w h
+        where
+          w = (4/5)
+          h = (5/6)
+          x = center w
+          y = center h
+      spawnHtop     = myTerminal ++ " -t htop -e htop"
+      findHtop      = title =? "htop"
+      manageHtop    = customFloating $ W.RationalRect x y w h
+        where
+          w = (2/3)
+          h = (2/3)
+          x = center w
+          y = center h
+      spawnPavuCtl  = "pavucontrol"
+      findPavuCtl   = className =? "Pavucontrol"
+      managePavuCtl = customFloating $ W.RationalRect x y w h
+        where
+          w = (2/3)
+          h = (2/3)
+          x = center w
+          y = center h
 
   main :: IO ()
   main = xmonad
@@ -68,7 +106,7 @@ pkgs.writeText "xmonad.hs" ''
 
   myConfig = def
       { modMask         = ${cfg.modKey}Mask           -- Rebind Mod key
-      , terminal        = "alacritty"
+      , terminal        = myTerminal
       , borderWidth = 2
       , normalBorderColor = "${cfg.colorScheme.foreground}"
       , focusedBorderColor = "${cfg.colorScheme.base}"
@@ -82,6 +120,11 @@ pkgs.writeText "xmonad.hs" ''
       [ ("M-S-<Delete>", spawn "${escapeHaskellString cfg.locker.lockCmd}")
       , ("M-S-s", unGrab *> spawn "${escapeHaskellString cfg.screenshot.runCmd}")
       , ("M-p"  , spawn "${escapeHaskellString cfg.dmenu.runCmd}")
+
+      -- ScratchPads
+      , ("M-C-<Return>", namedScratchpadAction myScratchpads "terminal")
+      , ("M-C-t", namedScratchpadAction myScratchpads "htop")
+      , ("M-C-v", namedScratchpadAction myScratchpads "pavucontrol")
       ]
 
   manageZoomHook =
@@ -127,7 +170,7 @@ pkgs.writeText "xmonad.hs" ''
       , isDialog                                            --> doFloat
       , className =? "Gimp"                                 --> doFloat
       , className =? "jetbrains-idea" <&&> title =? "win0"  --> doFloat
-      ]
+      ] <+> namedScratchpadManageHook myScratchpads
 
   addNETSupported :: Atom -> X ()
   addNETSupported x   = withDisplay $ \dpy -> do
