@@ -40,6 +40,8 @@ pkgs.writeText "xmonad.hs" ''
 
   import XMonad
 
+  import XMonad.Actions.CycleWS
+
   import XMonad.Hooks.DynamicLog
   import XMonad.Hooks.EwmhDesktops
   import XMonad.Hooks.ManageDocks
@@ -194,11 +196,22 @@ pkgs.writeText "xmonad.hs" ''
     , ("M-S-s",         unGrab *> spawn "${escapeHaskellString cfg.screenshot.runCmd}")
     , ("M-p",           spawn "${escapeHaskellString cfg.dmenu.runCmd}")
 
+    -- Cycling workspaces
+    , ("M-<Right>",   moveTo Next nonNSP)
+    , ("M-<Left>",    moveTo Prev nonNSP)
+    , ("M-S-<Right>", shiftTo Next nonNSP)
+    , ("M-S-<Left>",  shiftTo Prev nonNSP)
+    , ("M-z",         toggleWS' [scratchpadWorkspaceTag])
+
     -- ScratchPads
     , ("M-C-<Return>",  namedScratchpadAction myScratchpads "terminal")
     , ("M-C-t",         namedScratchpadAction myScratchpads "htop")
     , ("M-C-v",         namedScratchpadAction myScratchpads "pavucontrol")
     ]
+    where
+      scratchpadWorkspaceTag = "NSP"
+      ignoringWSs ts = WSIs . return $ (`notElem` ts) . W.tag
+      nonNSP = ignoringWSs [scratchpadWorkspaceTag]
 
   myConfig = def
       { modMask             = myModMask     -- Rebind Mod key
