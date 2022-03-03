@@ -34,8 +34,12 @@ let
     inherit pkgs rootPath;
   };
 
+  machNix = import inputs.mach-nix {
+    inherit pkgs;
+  };
+
 in
 
 {
-  inherit pkgs customLib;
+  inherit pkgs customLib machNix;
 }

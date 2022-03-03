@@ -1,10 +1,18 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, machNix, ... }:
 
 with lib;
 
 let
 
   cfg = config.custom.users.christian.vim;
+
+  vimwiki-cli = machNix.buildPythonPackage {
+    src = builtins.fetchGit {
+      url = "https://github.com/sstallion/vimwiki-cli";
+      ref = "refs/tags/v1.0.0";
+      rev = "6e7689e052d1462d950e6af19964c97827216e64";
+    };
+  };
 
 in
 
@@ -17,6 +25,9 @@ in
 
   config = mkIf cfg.enable {
     home = {
+      packages = [
+        vimwiki-cli
+      ];
       sessionVariables =
         {
           EDITOR = "vim";
@@ -228,7 +239,11 @@ in
           endfunction
           :autocmd FileType vimwiki map <leader>c :call ToggleCalendar()<CR>
 
-          au BufNewFile ~/Nextcloud/Notes/diary/*.txt :silent 0r !${vimConfigDir}/bin/generate-vimwiki-diary-template.py '%'
+          au BufNewFile ~/Nextcloud/Notes/diary/*.txt
+            \ call append(0,[
+            \ "# " . split(expand('%:r'),'/')[-1], "",
+            \ "## Todo",  "",
+            \ "## Notes", "" ])
         '';
         plugins = with pkgs.vimPlugins; [
           direnv-vim
