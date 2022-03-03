@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, machNix, ... }:
 
 with lib;
 
 let
 
   cfg = config.custom.roles.dev.python;
+
+  pythonEnv = machNix.mkPython {
+    python = "python39";
+  };
 
 in
 
@@ -17,7 +21,7 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [
-      pkgs.python3
+      pythonEnv
     ];
   };
 }

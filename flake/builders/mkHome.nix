@@ -1,4 +1,4 @@
-{ inputs, rootPath, system, pkgs, customLib, homeModules, name, ... }:
+{ inputs, rootPath, system, pkgs, homeModules, name, ... }:
 
 let
 

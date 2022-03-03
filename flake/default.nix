@@ -2,7 +2,7 @@
 
 let
 
-  homeModulesBuilder = { inputs, rootPath, customLib, ... }:
+  homeModulesBuilder = { rootPath, customLib, ... }:
     [
       {
         lib.custom = customLib;
