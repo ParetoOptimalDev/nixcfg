@@ -20,7 +20,7 @@ in
       # ASPECTRA
       Host aspectra-deployment
         User deployment
-        HostName 172.24.40.15
+        HostName 172.24.35.28
         ProxyJump jenkins.dev.bluecare.ch
         IdentityFile ~/.ssh/id_rsa_aspectra
         PubkeyAcceptedAlgorithms +ssh-rsa
