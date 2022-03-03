@@ -239,7 +239,11 @@ in
           endfunction
           :autocmd FileType vimwiki map <leader>c :call ToggleCalendar()<CR>
 
-          au BufNewFile ~/Nextcloud/Notes/diary/*.txt :silent 0r !${vimConfigDir}/bin/generate-vimwiki-diary-template.py '%'
+          au BufNewFile ~/Nextcloud/Notes/diary/*.txt
+            \ call append(0,[
+            \ "# " . split(expand('%:r'),'/')[-1], "",
+            \ "## Todo",  "",
+            \ "## Notes", "" ])
         '';
         plugins = with pkgs.vimPlugins; [
           direnv-vim
