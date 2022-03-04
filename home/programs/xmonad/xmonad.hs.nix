@@ -70,6 +70,7 @@ pkgs.writeText "xmonad.hs" ''
   myScratchpads :: [NamedScratchpad]
   myScratchpads =
     [ NS "terminal" spawnTerm findTerm manageTerm
+    , NS "calendar" spawnCal findCal manageCal
     , NS "diary" spawnDiary findDiary manageDiary
     , NS "wiki" spawnWiki findWiki manageWiki
     , NS "htop" spawnHtop findHtop manageHtop
@@ -81,6 +82,14 @@ pkgs.writeText "xmonad.hs" ''
       spawnTerm     = myTerminal ++ " -t scratchpad"
       findTerm      = title =? "scratchpad"
       manageTerm    = customFloating $ W.RationalRect x y w h
+        where
+          w = (4/5)
+          h = (5/6)
+          x = center w
+          y = center h
+      spawnCal    = myTerminal ++ " -t calendar -e khal interactive"
+      findCal     = title =? "calendar"
+      manageCal   = customFloating $ W.RationalRect x y w h
         where
           w = (4/5)
           h = (5/6)
@@ -223,6 +232,7 @@ pkgs.writeText "xmonad.hs" ''
 
     -- ScratchPads
     , ("M-C-<Return>",  namedScratchpadAction myScratchpads "terminal")
+    , ("M-C-k",         namedScratchpadAction myScratchpads "calendar")
     , ("M-C-d",         namedScratchpadAction myScratchpads "diary")
     , ("M-C-w",         namedScratchpadAction myScratchpads "wiki")
     , ("M-C-t",         namedScratchpadAction myScratchpads "htop")
