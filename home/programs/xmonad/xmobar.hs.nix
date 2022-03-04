@@ -16,39 +16,7 @@ in
            , fgColor  = "${cfg.colorScheme.foreground}"
            , position = TopW L 95
            , textOffset = 16
-           , commands = [ Run WeatherX "LSZB"
-                            [ ("clear", "\xe30d ")
-                            , ("sunny", "\xe30d ")
-                            , ("fair", "\xe38d ")
-                            , ("mostly clear", "\xe30c ")
-                            , ("mostly sunny", "\xe30c ")
-                            , ("partly cloudy", "\xe302 ")
-                            , ("partly sunny", "\xe302 ")
-                            , ("mostly cloudy", "\xe309 ")
-                            , ("obscured","\xe311 ")
-                            , ("overcast","\xe311 ")
-                            , ("cloudy","\xe312 ")
-                            , ("considerable cloudiness", "\xe319 ")
-                            ]
-                            [ "-t", "<skyConditionS> <tempC>°"
-                            ] 9000
-                        , Run Cpu
-                            [ "-t", "\xfb19 <total>"
-                            , "-S", "True"
-                            , "-L", "40", "-H", "60"
-                            , "-h", "${cfg.colorScheme.warn}"
-                            ] 10
-                        , Run MultiCoreTemp
-                            [ "-t", "<avgbar> <avg>°"
-                            , "-L", "40", "-H", "65"
-                            , "-h", "${cfg.colorScheme.warn}"
-                            , "-W", "0"
-                            , "-f", "\xf2cb\xf2cb\xf2ca\xf2ca\xf2c9\xf2c9\xf2c8\xf2c8\xf2c7\xf2c7"
-                            , "--"
-                            , "--mintemp", "40"
-                            , "--maxtemp", "60"
-                            ] 50
-                        , Run Alsa "default" "Master"
+           , commands = [ Run Alsa "default" "Master"
                             [ "-t", "<volumestatus>"
                             , "-S", "True"
                             , "--"
@@ -65,6 +33,12 @@ in
                             , "--on", "\xf86b ", "--off", "<fc=${cfg.colorScheme.warn}>\xf86c</fc>"
                             , "--onc", "${cfg.colorScheme.foreground}"
                             ]
+                        , Run Cpu
+                            [ "-t", "\xfb19 <total>"
+                            , "-S", "True"
+                            , "-L", "40", "-H", "60"
+                            , "-h", "${cfg.colorScheme.warn}"
+                            ] 10
                         , Run Memory
                             [ "-t", "<usedbar> <usedratio>"
                             , "-S", "True"
@@ -81,6 +55,32 @@ in
                             , "-W", "0"
                             , "-f", "\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9"
                             ] 20
+                        , Run MultiCoreTemp
+                            [ "-t", "<avgbar> <avg>°"
+                            , "-L", "40", "-H", "65"
+                            , "-h", "${cfg.colorScheme.warn}"
+                            , "-W", "0"
+                            , "-f", "\xf2cb\xf2cb\xf2ca\xf2ca\xf2c9\xf2c9\xf2c8\xf2c8\xf2c7\xf2c7"
+                            , "--"
+                            , "--mintemp", "40"
+                            , "--maxtemp", "60"
+                            ] 50
+                        , Run WeatherX "LSZB"
+                            [ ("clear", "\xe30d ")
+                            , ("sunny", "\xe30d ")
+                            , ("fair", "\xe38d ")
+                            , ("mostly clear", "\xe30c ")
+                            , ("mostly sunny", "\xe30c ")
+                            , ("partly cloudy", "\xe302 ")
+                            , ("partly sunny", "\xe302 ")
+                            , ("mostly cloudy", "\xe309 ")
+                            , ("obscured","\xe311 ")
+                            , ("overcast","\xe311 ")
+                            , ("cloudy","\xe312 ")
+                            , ("considerable cloudiness", "\xe319 ")
+                            ]
+                            [ "-t", "<skyConditionS> <tempC>°"
+                            ] 9000
                         , Run Date "\xe385 %a %b %-d %H:%M" "date" 10
                         , Run StdinReader
   ${optionalString cfg.xmobar.mobile ''
