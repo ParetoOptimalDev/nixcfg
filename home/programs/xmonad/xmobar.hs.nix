@@ -81,19 +81,16 @@ in
 
                           -- Mobile monitors
                           , Run Battery
-                              [ "-t", "<acstatus><left>"
+                              [ "-t", "<acstatus>"
                               , "-S", "True"
-                              , "-L", "10", "-H", "80"
-                              , "-p", "3"
-                              , "--"
-                              , "-O", "\xfba3"
-                              , "-i", ""
-                              , "-o", ""
-                              , "-L", "-15" , "-H", "-5"
+                              , "-L", "15", "-H", "80"
                               , "-l", "${cfg.colorScheme.warn}"
-                              , "--lows"   , "\xf579"
-                              , "--mediums", "\xf57d"
-                              , "--highs"  , "\xf578"
+                              , "-W", "0"
+                              , "-f", "\xf579\xf57a\xf57b\xf57c\xf57d\xf57e\xf57f\xf580\xf581\xf578"
+                              , "--"
+                              , "-i", "\xfba3"
+                              , "-O", "\xfba3"
+                              , "-o", "<leftbar> <left>"
                               ] 10''}
                         ]
            , sepChar  = "%"
