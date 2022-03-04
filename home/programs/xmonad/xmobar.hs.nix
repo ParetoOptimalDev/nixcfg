@@ -68,12 +68,12 @@ in
                             [ "-t", "  <usedratio>%"
                             ] 10
                         , Run DiskU
-                            [ ("/", "\xf0a0 <free>")
+                            [ ("/", "<freebar> <free>")
                             ]
-                            [ "-L", "20", "-H", "90"
-                            , "-h", "${cfg.colorScheme.warn}"
-                            , "-m", "1"
-                            , "-p", "3"
+                            [ "-L", "10", "-H", "50"
+                            , "-l", "${cfg.colorScheme.warn}"
+                            , "-W", "0"
+                            , "-f", "\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0"
                             ] 20
                         , Run Date "\xe385 %a %b %-d %H:%M" "date" 10
                         , Run StdinReader
