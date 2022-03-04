@@ -33,8 +33,9 @@ in
                             [ "-t", "<skyConditionS> <tempC>°"
                             ] 9000
                         , Run Cpu
-                            [ "-t", "  <total>%"
-                            , "-L", "3", "-H", "50"
+                            [ "-t", "\xfb19 <total>"
+                            , "-S", "True"
+                            , "-L", "40", "-H", "60"
                             , "-h", "${cfg.colorScheme.warn}"
                             ] 10
                         , Run MultiCoreTemp
@@ -65,7 +66,12 @@ in
                             , "--onc", "${cfg.colorScheme.foreground}"
                             ]
                         , Run Memory
-                            [ "-t", "  <usedratio>%"
+                            [ "-t", "<usedbar> <usedratio>"
+                            , "-S", "True"
+                            , "-L", "40", "-H", "60"
+                            , "-h", "${cfg.colorScheme.warn}"
+                            , "-W", "0"
+                            , "-f", "\xf85a\xf85a\xf85a\xf85a\xf85a\xf85a\xf85a\xf85a\xf85a\xf85a"
                             ] 10
                         , Run DiskU
                             [ ("/", "<freebar> <free>")
@@ -73,7 +79,7 @@ in
                             [ "-L", "10", "-H", "50"
                             , "-l", "${cfg.colorScheme.warn}"
                             , "-W", "0"
-                            , "-f", "\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0\xf0a0"
+                            , "-f", "\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9\xf7c9"
                             ] 20
                         , Run Date "\xe385 %a %b %-d %H:%M" "date" 10
                         , Run StdinReader
