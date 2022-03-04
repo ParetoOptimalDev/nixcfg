@@ -38,9 +38,14 @@ in
                             , "-h", "${cfg.colorScheme.warn}"
                             ] 10
                         , Run MultiCoreTemp
-                            [ "-t", "\xf2c8 <avg>°"
-                            , "-L", "40", "-H", "60"
+                            [ "-t", "<avgbar> <avg>°"
+                            , "-L", "40", "-H", "65"
                             , "-h", "${cfg.colorScheme.warn}"
+                            , "-W", "0"
+                            , "-f", "\xf2cb\xf2cb\xf2ca\xf2ca\xf2c9\xf2c9\xf2c8\xf2c8\xf2c7\xf2c7"
+                            , "--"
+                            , "--mintemp", "40"
+                            , "--maxtemp", "60"
                             ] 50
                         , Run Alsa "default" "Master"
                             [ "-t", "<volumestatus>"
