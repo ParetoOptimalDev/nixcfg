@@ -65,4 +65,12 @@ else
     _log "You need to be root on NixOS or non-root on non-NixOS! Aborting..."
 fi
 
+# post-setup
+_generate_age() {
+    mkdir -p "${HOME}/.age"
+    age-keygen -o "${HOME}/.age/key.txt" 2>&1 |
+        sed -e "s,^Public key: \(.*\)\$,$(hostname)-${USER} = \"\1\"," |
+        tee -a "${nix_config}/.agenix.toml"
+}
+
 echo

@@ -19,6 +19,7 @@ in
     home.username = "christian";
 
     custom = {
+      roles.homeage.enable = true;
       users.christian = {
         bin.enable = true;
         fonts.enable = true;

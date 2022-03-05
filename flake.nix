@@ -20,6 +20,11 @@
     };
     flake-utils.url = "github:numtide/flake-utils";
 
+    homeage = {
+      url = "github:jordanisaacs/homeage";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     i3lock-pixeled = {
       url = "gitlab:christianharke/i3lock-pixeled";
       inputs = {

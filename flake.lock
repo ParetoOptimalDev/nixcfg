@@ -62,6 +62,26 @@
         "type": "github"
       }
     },
+    "homeage": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1636425441,
+        "narHash": "sha256-7c/5YCNk+KB+sg7UE5mhmOYc3DRc9aa6L2EdFzfN2YM=",
+        "owner": "jordanisaacs",
+        "repo": "homeage",
+        "rev": "0388d8c73829c425db9db0772d7bb0d440970f09",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jordanisaacs",
+        "repo": "homeage",
+        "type": "github"
+      }
+    },
     "i3lock-pixeled": {
       "inputs": {
         "flake-utils": [
@@ -215,6 +235,7 @@
         "flake-commons": "flake-commons",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "homeage": "homeage",
         "i3lock-pixeled": "i3lock-pixeled",
         "kmonad": "kmonad",
         "mach-nix": "mach-nix",

@@ -4,6 +4,8 @@ let
 
   homeModulesBuilder = { rootPath, customLib, ... }:
     [
+      inputs.homeage.homeManagerModules.homeage
+
       {
         lib.custom = customLib;
       }
