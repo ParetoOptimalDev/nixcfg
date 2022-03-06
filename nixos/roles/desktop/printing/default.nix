@@ -2,7 +2,7 @@
 
 let
 
-  hplip = pkgs.hplipWithPlugin;
+  hplip = pkgs.unstable.hplipWithPlugin;
 
 in
 
@@ -18,7 +18,7 @@ in
       name = "pr-hp-chr";
       location = "Home Office";
       description = "HP Officejet Pro 8600 Plus";
-      deviceUri = "socket://pr-hp-chr";
+      deviceUri = "hp:/net/Officejet_Pro_8600?hostname=pr-hp-chr";
       model = "drv:///hp/hpcups.drv/hp-officejet_pro_8600.ppd";
       ppdOptions = {
         "PageSize" = "A4";
