@@ -190,6 +190,7 @@
       "original": {
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
+        "rev": "6799201bec19b753a4ac305a53d34371e497941e",
         "type": "github"
       }
     },
