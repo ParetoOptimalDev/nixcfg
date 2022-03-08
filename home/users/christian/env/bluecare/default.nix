@@ -54,6 +54,7 @@ in
         desktop = {
           cursors.pointerCursorName = "Bibata-Modern-DarkRed";
         };
+        ops.enable = true;
       };
     };
   };
