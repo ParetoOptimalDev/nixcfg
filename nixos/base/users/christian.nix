@@ -7,11 +7,21 @@ let
   username = "christian";
 
   secretSmb = "smb-home-christian";
+  ovpnConfig = "ovpn-home-christian-config";
+  ovpnPkcs12 = "ovpn-home-christian-p12";
+  ovpnTls = "ovpn-home-christian-tls";
+  ovpnCredentials = "ovpn-home-christian-credentials";
 
 in
 
 {
-  custom.base.agenix.secrets = [ secretSmb ];
+  custom.base.agenix.secrets = [
+    secretSmb
+    ovpnConfig
+    ovpnPkcs12
+    ovpnTls
+    ovpnCredentials
+  ];
 
   fileSystems =
     let
@@ -63,7 +73,12 @@ in
 
   services.openvpn.servers.home = {
     autoStart = false;
-    config = "config /home/${username}/.accounts/home/ovpn/${username}.ovpn";
+    config = ''
+      config ${config.age.secrets.${ovpnConfig}.path}
+      pkcs12 ${config.age.secrets.${ovpnPkcs12}.path}
+      tls-auth ${config.age.secrets.${ovpnTls}.path}
+      auth-user-pass ${config.age.secrets.${ovpnCredentials}.path}
+    '';
     updateResolvConf = true;
   };
 

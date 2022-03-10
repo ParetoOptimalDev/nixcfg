@@ -7,6 +7,9 @@ let
   cfg = config.custom.env.bluecare.openvpn;
   bluecareCfg = config.custom.env.bluecare;
 
+  ovpnConfig = "ovpn-bluecare-christian-config";
+  ovpnCredentials = "ovpn-bluecare-christian-credentials";
+
 in
 
 {
@@ -23,10 +26,15 @@ in
   };
 
   config = mkIf cfg.enable {
+    custom.base.agenix.secrets = [ ovpnConfig ovpnCredentials ];
+
     services = {
       openvpn.servers.bluecare = {
         inherit (cfg) autoStart;
-        config = "config /home/${bluecareCfg.username}/.accounts/bluecare/ovpn/chr@vpfwblue.bluecare.ch.ovpn";
+        config = ''
+          config ${config.age.secrets.${ovpnConfig}.path}
+          auth-user-pass ${config.age.secrets.${ovpnCredentials}.path}
+        '';
         updateResolvConf = true;
       };
     };
