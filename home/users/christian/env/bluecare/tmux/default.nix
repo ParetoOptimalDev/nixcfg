@@ -16,6 +16,11 @@ in
   };
 
   config = mkIf cfg.enable {
+    custom.roles.homeage.secrets = [
+      "hin-larndev1.hin"
+      "hin-larndev1-passphrase"
+    ];
+
     xdg.configFile = {
       "tmuxinator/bcon-full.yml".source = ./config/bcon-full.yml;
       "tmuxinator/bcon-int.yml".source = ./config/bcon-int.yml;
