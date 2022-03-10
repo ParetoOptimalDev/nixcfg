@@ -6,8 +6,10 @@
 
 ## Features
 
-* Automation scripts to setup a fresh [NixOS machine from scratch](flake/apps/nixos-install.sh) or an [arbitrary preinstalled Linux machine](flake/apps/setup.sh) easily
-* Generated shell scripts are always linted with [shellcheck][shellcheck]
+* Automation scripts to setup a fresh [NixOS machine from scratch](flake/apps/nixos-install.sh) or
+  an [arbitrary preinstalled Linux machine](flake/apps/setup.sh) easily
+* Secret management in [NixOS][nixos] ([agenix][agenix]) and [home-manager][home-manager]
+  ([homeage][homeage]) with [age][age]
 * Checks source code with [shellcheck][shellcheck] and [nixpkgs-fmt][nixpkgs-fmt]
 * Weekly automatic flake input updates committed to master when CI passes
 
@@ -50,6 +52,8 @@ working backup from your data of all drives connected to your target machine.
 **Warning:** Even if the script *should* ask you before committing any changes to your machine,
 it can unexpectedly cause great harm!
 
+After rebooting proceed with the [next section](#initial-setup).
+
 ## Initial Setup
 
 ### NixOS
@@ -67,12 +71,26 @@ echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 sh <(curl -L https://nixos.org/nix/install) --no-channel-add --no-modify-profile
 . ~/.nix-profile/etc/profile.d/nix.sh
 
-# Set up this Nix config
+# Set up this Nix configuration
 nix run github:christianharke/nixcfg#setup
 
 # set login shell
 chsh -s /bin/zsh
 ```
+
+### Make secrets available on new host
+
+The setup script will create the [age][age] keys needed and put them in the
+[.agenix.toml](.agenix.toml) file, where it then needs to be assigned to the appropriate groups.
+Push the updated `.agenix.toml` back to the git repository, pull it to an existing host and
+re-key all the secrets with the command:
+
+```bash
+sudo agenix -i /root/.age/key.txt -i ~/.age/key.txt -r -vv
+```
+
+After pushing/pulling the re-keyed secrets, just [run a rebuild](#rebuilding) of the new host's
+config for decrypting them.
 
 ## Updating
 
@@ -95,8 +113,12 @@ $ hm-switch
 [update]: https://github.com/christianharke/nixcfg/actions/workflows/update.yml
 [update-badge]: https://github.com/christianharke/nixcfg/actions/workflows/update.yml/badge.svg
 
+[age]: https://age-encryption.org/
+[agenix]: https://github.com/ryantm/agenix
 [home-manager]: https://github.com/nix-community/home-manager
+[homeage]: https://github.com/jordanisaacs/homeage
 [nixos]: https://nixos.org/
 [nixos-badge]: https://img.shields.io/badge/NixOS-21.11-blue.svg?logo=NixOS&logoColor=white
 [nixpkgs-fmt]: https://github.com/nix-community/nixpkgs-fmt
 [shellcheck]: https://github.com/koalaman/shellcheck
+

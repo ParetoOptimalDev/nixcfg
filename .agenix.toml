@@ -1,3 +1,24 @@
 [identities]
 n75-christian = "age1d7c3z9lw9zkxas7kun0hqz39rfhzwzvu7pvvjya00tj9rr77xy3s2vlma3"
+n75-root = "age1e4xrtnrh6kr2g3zsr9shw3u9nn7nl69ry2ecpm8lsmax0pga5y8s46jurd"
+
+[groups]
+all = [
+  "n75-christian",
+  "n75-root"
+]
+root = [
+  "n75-root"
+]
+christian = [
+  "n75-christian"
+]
+
+[[paths]]
+glob = "secrets/*.age"
+groups = [ "root" ]
+
+[[paths]]
+glob = "secrets/christian/*.age"
+groups = [ "christian" ]
 

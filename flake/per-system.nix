@@ -18,6 +18,7 @@ let
   overlays = [
     (final: prev: {
       inherit unstable;
+      inherit (inputs.agenix-cli.packages.${system}) agenix-cli;
 
       custom = prev.lib.composeManyExtensions customOverlays final prev;
     })

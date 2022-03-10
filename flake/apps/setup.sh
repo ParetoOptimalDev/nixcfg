@@ -1,7 +1,10 @@
 # shellcheck disable=SC1091
 source @bashLib@
 
+export -f _log
+
 nix_config="@flakePath@"
+export nix_config
 
 _clone() {
     local name="${1}"
@@ -22,10 +25,29 @@ if ! _is_nixos || _is_root; then
     _clone "nix-config" git@github.com:christianharke/nixcfg.git "${nix_config}"
 fi
 
+# generage age key
+_generate_age() {
+    local age_dir="${HOME}/.age"
+    local age_key_file="${age_dir}/key.txt"
+    if [[ ! -e "${HOME}/.age" ]]; then
+        mkdir -p "${age_dir}"
+        _log "Generating age key at ${age_key_file}"
+        # shellcheck disable=SC2005
+        echo "$(nix shell nixpkgs#age -c age-keygen -o "${age_key_file}" 2>&1)" |
+            sed -e "s,^Public key: \(.*\)\$,$(hostname)-${USER} = \"\1\"," |
+            tee -a "${nix_config}/.agenix.toml"
+    else
+        _log "Target directory ${age_dir} already exists, aborting age key generation!"
+    fi
+}
+export -f _generate_age
 
 # installation
 _setup_nixos() {
     hostname=$(_read "Enter hostname" "$(hostname)")
+
+    _generate_age
+    su "$(logname)" -c "bash -c _generate_age"
 
     _log "Linking flake to system config..."
     ln -fs "${nix_config}/flake.nix" /etc/nixos/flake.nix
@@ -41,6 +63,8 @@ _setup_nix() {
         _log "Set priority of installed nix package..."
         nix-env --set-flag priority 1000 nix
     fi
+
+    _generate_age
 
     _log "Build home-manager activationPackage..."
     nix build "${nix_config}#homeConfigurations.$(logname)@$(hostname).activationPackage"
@@ -64,13 +88,5 @@ elif ! _is_nixos && ! _is_root; then
 else
     _log "You need to be root on NixOS or non-root on non-NixOS! Aborting..."
 fi
-
-# post-setup
-_generate_age() {
-    mkdir -p "${HOME}/.age"
-    age-keygen -o "${HOME}/.age/key.txt" 2>&1 |
-        sed -e "s,^Public key: \(.*\)\$,$(hostname)-${USER} = \"\1\"," |
-        tee -a "${nix_config}/.agenix.toml"
-}
 
 echo
