@@ -9,9 +9,9 @@ let
   calendarsPath = "${config.xdg.dataHome}/calendars";
 
   inherit (config.custom.roles.homeage) secretsPath;
-  secretUrl = "vdirsyncer_nextcloud_url";
-  secretUsername = "vdirsyncer_nextcloud_username";
-  secretPassword = "vdirsyncer_nextcloud_password";
+  secretUrl = "vdirsyncer-nextcloud-url";
+  secretUsername = "vdirsyncer-nextcloud-username";
+  secretPassword = "vdirsyncer-nextcloud-password";
 
 in
 
