@@ -6,6 +6,8 @@ let
 
   cfg = config.custom.users.christian.env.home.office.cli;
 
+  calendarsPath = "${config.xdg.dataHome}/calendars";
+
 in
 
 {
@@ -21,7 +23,7 @@ in
         [calendars]
 
         [[private]]
-        path = ${config.xdg.dataHome}/calendars/nextcloud/personal
+        path = ${calendarsPath}/nextcloud/personal
         color = dark red
 
         [default]

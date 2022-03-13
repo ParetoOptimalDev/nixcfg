@@ -1,5 +1,48 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1646845404,
+        "narHash": "sha256-JENXFCI2HVqi0whBzt7MAW9PX3ziEaYqBhMux+4g+VM=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "764c975e74bce2f89a5106b68ec48e2b586f893c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
+    "agenix-cli": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1641404293,
+        "narHash": "sha256-0+QVY1sDhGF4hAN6m2FdKZgm9V1cuGGjY4aitRBnvKg=",
+        "owner": "cole-h",
+        "repo": "agenix-cli",
+        "rev": "77fccec4ed922a0f5f55ed964022b0db7d99f07d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cole-h",
+        "repo": "agenix-cli",
+        "type": "github"
+      }
+    },
     "flake-commons": {
       "inputs": {
         "flake-utils": [
@@ -59,6 +102,26 @@
         "owner": "nix-community",
         "ref": "release-21.11",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "homeage": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1636425441,
+        "narHash": "sha256-7c/5YCNk+KB+sg7UE5mhmOYc3DRc9aa6L2EdFzfN2YM=",
+        "owner": "jordanisaacs",
+        "repo": "homeage",
+        "rev": "0388d8c73829c425db9db0772d7bb0d440970f09",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jordanisaacs",
+        "repo": "homeage",
         "type": "github"
       }
     },
@@ -212,9 +275,12 @@
     },
     "root": {
       "inputs": {
+        "agenix": "agenix",
+        "agenix-cli": "agenix-cli",
         "flake-commons": "flake-commons",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "homeage": "homeage",
         "i3lock-pixeled": "i3lock-pixeled",
         "kmonad": "kmonad",
         "mach-nix": "mach-nix",

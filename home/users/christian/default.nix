@@ -19,6 +19,7 @@ in
     home.username = "christian";
 
     custom = {
+      roles.homeage.enable = true;
       users.christian = {
         bin.enable = true;
         fonts.enable = true;
@@ -27,6 +28,7 @@ in
           kmonad.enable = true;
           xbindkeys.enable = true;
         };
+        office.cli.enable = config.custom.roles.office.cli.enable;
         shell.enable = true;
         steam.enable = config.custom.roles.gaming.enable;
         vim.enable = true;

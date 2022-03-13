@@ -10,6 +10,7 @@ inputs.nixpkgs.lib.nixosSystem {
   modules = [
     (rootPath + "/hosts/${name}")
 
+    inputs.agenix.nixosModules.age
     inputs.home-manager.nixosModules.home-manager
     inputs.kmonad.nixosModule
 

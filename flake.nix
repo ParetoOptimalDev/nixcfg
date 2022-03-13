@@ -20,6 +20,24 @@
     };
     flake-utils.url = "github:numtide/flake-utils";
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    agenix-cli = {
+      url = "github:cole-h/agenix-cli";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    homeage = {
+      url = "github:jordanisaacs/homeage";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     i3lock-pixeled = {
       url = "gitlab:christianharke/i3lock-pixeled";
       inputs = {

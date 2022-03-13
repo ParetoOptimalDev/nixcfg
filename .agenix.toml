@@ -1,0 +1,30 @@
+[identities]
+altair-christian = "age15fjlypp3dt6jjgctv3dh2alywmpkdamn20srnsr0q9vr3nznesmqt9gp2u"
+altair-root = "age1uzy4gk7pmmt2nskdqa43t5sjf4zyddj6wl22vjct9eh2hn59rgasnhflwf"
+n75-christian = "age1d7c3z9lw9zkxas7kun0hqz39rfhzwzvu7pvvjya00tj9rr77xy3s2vlma3"
+n75-root = "age1e4xrtnrh6kr2g3zsr9shw3u9nn7nl69ry2ecpm8lsmax0pga5y8s46jurd"
+
+[groups]
+all = [
+  "altair-christian",
+  "altair-root",
+  "n75-christian",
+  "n75-root"
+]
+root = [
+  "altair-root",
+  "n75-root"
+]
+christian = [
+  "altair-christian",
+  "n75-christian"
+]
+
+[[paths]]
+glob = "secrets/*.age"
+groups = [ "root" ]
+
+[[paths]]
+glob = "secrets/christian/*.age"
+groups = [ "christian" ]
+

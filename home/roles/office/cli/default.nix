@@ -20,7 +20,7 @@ in
       };
 
       vdirsyncer.extraConfig = mkOption {
-        type = types.str;
+        type = types.lines;
         default = "";
         description = "Additional lines to put into vdirsyncer config file";
       };
@@ -75,27 +75,12 @@ in
         longdateformat = %d.%m.%Y
         datetimeformat = %d.%m. %H:%M
         longdatetimeformat = %d.%m.%Y %H:%M
+
       '' + cfg.khal.extraConfig;
       "vdirsyncer/config".text = ''
         [general]
         status_path = "${config.xdg.dataHome}/vdirsyncer/status/"
 
-        [pair nextcloud_calendar]
-        a = "nextcloud_calendar_local"
-        b = "nextcloud_calendar_remote"
-        collections = ["personal"]
-        metadata = ["displayname", "color"]
-
-        [storage nextcloud_calendar_local]
-        type = "filesystem"
-        path = "${config.xdg.dataHome}/calendars/nextcloud"
-        fileext = ".ics"
-
-        [storage nextcloud_calendar_remote]
-        type = "caldav"
-        url.fetch = ["command", "~/.accounts/get_secret.sh", "home/vdirsyncer_nextcloud", "url"]
-        username.fetch = ["command", "~/.accounts/get_secret.sh", "home/vdirsyncer_nextcloud", "username"]
-        password.fetch = ["command", "~/.accounts/get_secret.sh", "home/vdirsyncer_nextcloud", "password"]
       '' + cfg.vdirsyncer.extraConfig;
     };
   };
