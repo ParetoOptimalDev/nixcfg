@@ -15,7 +15,7 @@ let
 
   linesForAttrs = attrs: concatMap
     (name:
-      let value = attrs.${name}; in
+      let value = attrs."${name}"; in
       if isAttrs value
       then map (line: name + "." + line) (linesForAttrs value)
       else [ "${name}=${toStr value}" ]
@@ -68,7 +68,7 @@ in
         logFilePath = config.xdg.dataHome + "/davmail/davmail.log";
         logFileSize = "1MB";
         mode = "auto";
-        url = cfg.url;
+        inherit (cfg) url;
         caldavPort = 1080;
         imapPort = 1143;
         ldapPort = 1389;

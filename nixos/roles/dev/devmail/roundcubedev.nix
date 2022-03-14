@@ -65,7 +65,7 @@ in
   config = mkIf cfg.enable {
     services.nginx = {
       virtualHosts = {
-        ${cfg.hostName} = {
+        "${cfg.hostName}" = {
           locations."/" = {
             root = pkgs.roundcube;
             index = "index.php";

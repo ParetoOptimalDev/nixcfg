@@ -32,8 +32,8 @@ in
       openvpn.servers.bluecare = {
         inherit (cfg) autoStart;
         config = ''
-          config ${config.age.secrets.${ovpnConfig}.path}
-          auth-user-pass ${config.age.secrets.${ovpnCredentials}.path}
+          config ${config.age.secrets."${ovpnConfig}".path}
+          auth-user-pass ${config.age.secrets."${ovpnCredentials}".path}
         '';
         updateResolvConf = true;
       };

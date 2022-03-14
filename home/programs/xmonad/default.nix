@@ -142,7 +142,7 @@ in
     };
 
     programs.xmobar = {
-      enable = cfg.xmobar.enable;
+      inherit (cfg.xmobar) enable;
       extraConfig = import ./xmobar.hs.nix { inherit lib pkgs cfg; };
     };
 

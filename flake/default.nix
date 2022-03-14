@@ -24,7 +24,7 @@ let
 
       builderArgs = flakeArgs // perSystem // { inherit args homeModules name; };
     in
-    (import builder builderArgs);
+    import builder builderArgs;
 
   nameValuePairWrapper = builder: system: name: args:
     inputs.nixpkgs.lib.nameValuePair name (wrapper builder system name args);
@@ -46,7 +46,7 @@ in
           mkGeneric = nameValuePairSystemWrapper system;
           mkApp = nameValuePairWrapper ./builders/mkApp.nix system;
           mkCheck = nameValuePairWrapper ./builders/mkCheck.nix system;
-          getDevShell = name: inputs.self.devShells.${system}.${name};
+          getDevShell = name: inputs.self.devShells."${system}"."${name}";
           mkDevShell = nameValuePairWrapper ./builders/mkDevShell.nix system;
         }
       );

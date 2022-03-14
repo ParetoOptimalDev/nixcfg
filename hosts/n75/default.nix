@@ -18,7 +18,7 @@ in
 
     env.bluecare = {
       enable = true;
-      username = username;
+      inherit username;
     };
 
     roles.desktop = {

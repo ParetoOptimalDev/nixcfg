@@ -36,7 +36,7 @@ in
         git.enable = true;
         gtk.enable = true;
         office.cli = {
-          enable = config.custom.roles.office.cli.enable;
+          inherit (config.custom.roles.office.cli) enable;
           caldav = {
             host = "localhost";
             port = config.custom.programs.davmail.config.davmail.caldavPort;

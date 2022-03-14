@@ -28,7 +28,7 @@ in
       target = "/mnt/home";
       fileserver = "sv-syno-01";
       fsType = "cifs";
-      credentials = config.age.secrets.${secretSmb}.path;
+      credentials = config.age.secrets."${secretSmb}".path;
       automount_opts = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s" ];
       auth_opts = [ "uid=1000" "gid=100" "credentials=${credentials}" ];
       options = automount_opts ++ auth_opts;
@@ -36,48 +36,48 @@ in
     {
       "${target}/backup" = {
         device = "//${fileserver}/backup";
-        fsType = fsType;
-        options = options;
+        inherit fsType;
+        inherit options;
       };
 
       "${target}/home" = {
         device = "//${fileserver}/home";
-        fsType = fsType;
-        options = options;
+        inherit fsType;
+        inherit options;
       };
 
       "${target}/music" = {
         device = "//${fileserver}/music";
-        fsType = fsType;
-        options = options;
+        inherit fsType;
+        inherit options;
       };
 
       "${target}/photo" = {
         device = "//${fileserver}/photo";
-        fsType = fsType;
-        options = options;
+        inherit fsType;
+        inherit options;
       };
 
       "${target}/public" = {
         device = "//${fileserver}/public";
-        fsType = fsType;
-        options = options;
+        inherit fsType;
+        inherit options;
       };
 
       "${target}/video" = {
         device = "//${fileserver}/video";
-        fsType = fsType;
-        options = options;
+        inherit fsType;
+        inherit options;
       };
     };
 
   services.openvpn.servers.home = {
     autoStart = false;
     config = ''
-      config ${config.age.secrets.${ovpnConfig}.path}
-      pkcs12 ${config.age.secrets.${ovpnPkcs12}.path}
-      tls-auth ${config.age.secrets.${ovpnTls}.path}
-      auth-user-pass ${config.age.secrets.${ovpnCredentials}.path}
+      config ${config.age.secrets."${ovpnConfig}".path}
+      pkcs12 ${config.age.secrets."${ovpnPkcs12}".path}
+      tls-auth ${config.age.secrets."${ovpnTls}".path}
+      auth-user-pass ${config.age.secrets."${ovpnCredentials}".path}
     '';
     updateResolvConf = true;
   };

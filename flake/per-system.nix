@@ -14,14 +14,14 @@ let
   customOverlays = [
     inputs.i3lock-pixeled.overlay
     (final: prev: {
-      neovim = inputs.neovim.defaultPackage.${system};
+      neovim = inputs.neovim.defaultPackage."${system}";
     })
   ];
 
   overlays = [
     (final: prev: {
       inherit unstable;
-      inherit (inputs.agenix-cli.packages.${system}) agenix-cli;
+      inherit (inputs.agenix-cli.packages."${system}") agenix-cli;
 
       custom = prev.lib.composeManyExtensions customOverlays final prev;
     })
@@ -33,7 +33,7 @@ let
     inherit config overlays system;
   };
 
-  customLib = inputs.flake-commons.lib.${system} {
+  customLib = inputs.flake-commons.lib."${system}" {
     inherit (inputs.nixpkgs) lib;
     inherit pkgs rootPath;
   };

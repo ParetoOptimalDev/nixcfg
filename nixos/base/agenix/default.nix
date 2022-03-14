@@ -23,7 +23,7 @@ in
     age = {
       secrets = mkMerge (builtins.map
         (secret: {
-          ${secret}.file = rootPath + "/secrets/${secret}.age";
+          "${secret}".file = rootPath + "/secrets/${secret}.age";
         })
         cfg.secrets);
 

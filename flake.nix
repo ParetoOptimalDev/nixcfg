@@ -145,11 +145,12 @@
         ];
 
         checks = listToAttrs [
-          (mkGeneric "pre-commit-check" (system: inputs.pre-commit-hooks.lib.${system}.run {
+          (mkGeneric "pre-commit-check" (system: inputs.pre-commit-hooks.lib."${system}".run {
             src = ./.;
             hooks = {
               nixpkgs-fmt.enable = true;
               shellcheck.enable = true;
+              statix.enable = true;
             };
           }))
 
@@ -169,8 +170,8 @@
 
         devShells = listToAttrs [
           (mkDevShell "nixcfg" {
-            checksShellHook = system: (self.checks.${system}.pre-commit-check).shellHook;
-            packages = pkgs: with pkgs; [ nixpkgs-fmt shellcheck ];
+            checksShellHook = system: self.checks."${system}".pre-commit-check.shellHook;
+            packages = pkgs: with pkgs; [ nixpkgs-fmt shellcheck statix ];
             customShellHook = mkShellCheck;
           })
         ];
