@@ -527,6 +527,7 @@
         "startify": "startify",
         "statusline-lightline": "statusline-lightline",
         "statusline-lightline-onedark": "statusline-lightline-onedark",
+        "statusline-lualine": "statusline-lualine",
         "telescope": "telescope",
         "test": "test",
         "theme-gruvbox": "theme-gruvbox",
@@ -540,11 +541,11 @@
         "which-key": "which-key"
       },
       "locked": {
-        "lastModified": 1647372010,
-        "narHash": "sha256-WPNmZcgj6ex3qazsQSZTZBBC552ZMCKljqRun8ZhGPE=",
+        "lastModified": 1647441047,
+        "narHash": "sha256-66Z8Kg6aMNaF160pSsxgDUJyiCEXSYZ6KaVc2BJOsqw=",
         "owner": "christianharke",
         "repo": "neovim-flake",
-        "rev": "5afb81a1aa8a8a496eb42a7ebc4ac9ee7ca2235a",
+        "rev": "1288dddc3892733c44bb346f32991ebe8830ca67",
         "type": "github"
       },
       "original": {
@@ -793,6 +794,22 @@
       "original": {
         "owner": "NovaDev94",
         "repo": "lightline-onedark",
+        "type": "github"
+      }
+    },
+    "statusline-lualine": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1646668162,
+        "narHash": "sha256-F7R5V70ta/9s9qn+QkZtk5AFb/PfKtuOqPHP/Y6/WHI=",
+        "owner": "nvim-lualine",
+        "repo": "lualine.nvim",
+        "rev": "88a44ade818f9ee7ba730aa4096250e22b243808",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-lualine",
+        "repo": "lualine.nvim",
         "type": "github"
       }
     },
