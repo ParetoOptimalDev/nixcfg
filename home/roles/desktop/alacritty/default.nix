@@ -45,7 +45,7 @@ in
           {
             normal = {
               family = fontFamily;
-              style = "Regular";
+              style = "SemiBold";
             };
             bold = {
               family = fontFamily;
