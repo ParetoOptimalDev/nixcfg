@@ -155,6 +155,38 @@
         "type": "github"
       }
     },
+    "dashboard-startify": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1620487920,
+        "narHash": "sha256-//3bzFTe1WKqvQ3uYrDbk5Zu5BKq2hXQGeBhmhKIHvk=",
+        "owner": "mhinz",
+        "repo": "vim-startify",
+        "rev": "81e36c352a8deea54df5ec1e2f4348685569bed2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mhinz",
+        "repo": "vim-startify",
+        "type": "github"
+      }
+    },
+    "dashboard-startup": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1644087093,
+        "narHash": "sha256-TBkTfIcBX8LdnX5Cww/y5i4VBYOwqdIipSWYWY0JLGo=",
+        "owner": "startup-nvim",
+        "repo": "startup.nvim",
+        "rev": "d64c0599aada57f2d992418709dc4490c17641c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "startup-nvim",
+        "repo": "startup.nvim",
+        "type": "github"
+      }
+    },
     "devicons": {
       "flake": false,
       "locked": {
@@ -503,6 +535,8 @@
         "dap": "dap",
         "dap-telescope": "dap-telescope",
         "dap-virtual-text": "dap-virtual-text",
+        "dashboard-startify": "dashboard-startify",
+        "dashboard-startup": "dashboard-startup",
         "devicons": "devicons",
         "editorconfig": "editorconfig",
         "flake-utils": [
@@ -524,7 +558,6 @@
           "pre-commit-hooks"
         ],
         "rnix-lsp": "rnix-lsp",
-        "startify": "startify",
         "statusline-lightline": "statusline-lightline",
         "statusline-lightline-onedark": "statusline-lightline-onedark",
         "statusline-lualine": "statusline-lualine",
@@ -541,11 +574,11 @@
         "which-key": "which-key"
       },
       "locked": {
-        "lastModified": 1647441047,
-        "narHash": "sha256-66Z8Kg6aMNaF160pSsxgDUJyiCEXSYZ6KaVc2BJOsqw=",
+        "lastModified": 1647613451,
+        "narHash": "sha256-8SjuRJR6f3ffyk/Q3dOtUDt7AN+xZVVfUVl+vMaKfPw=",
         "owner": "christianharke",
         "repo": "neovim-flake",
-        "rev": "1288dddc3892733c44bb346f32991ebe8830ca67",
+        "rev": "6ede8fc9b70db83a8843e8ca063eca28da2b5a70",
         "type": "github"
       },
       "original": {
@@ -747,22 +780,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "pre-commit-hooks": "pre-commit-hooks"
-      }
-    },
-    "startify": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1620487920,
-        "narHash": "sha256-//3bzFTe1WKqvQ3uYrDbk5Zu5BKq2hXQGeBhmhKIHvk=",
-        "owner": "mhinz",
-        "repo": "vim-startify",
-        "rev": "81e36c352a8deea54df5ec1e2f4348685569bed2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mhinz",
-        "repo": "vim-startify",
-        "type": "github"
       }
     },
     "statusline-lightline": {
