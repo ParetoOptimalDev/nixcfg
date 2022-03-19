@@ -49,6 +49,8 @@ in
         htop
         killall
         neofetch
+        pandoc
+        texlive.combined.scheme-small
         trash-cli
         unzip
       ];
