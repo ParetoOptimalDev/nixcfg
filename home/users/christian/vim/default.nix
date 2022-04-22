@@ -42,9 +42,9 @@ in
         {
           "${config.xdg.configHome}/nvim/spell/de.utf-8.spl".source = nvim-spell-de-utf8-dictionary;
           "${config.xdg.configHome}/nvim/spell/en.utf-8.spl".source = nvim-spell-en-utf8-dictionary;
-          "${config.xdg.dataHome}/nvim/site/spell/shared.utf-8.add".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix-config/home/users/christian/vim/data/shared.utf-8.add";
-          "${config.xdg.dataHome}/nvim/site/spell/de.utf-8.add".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix-config/home/users/christian/vim/data/de.utf-8.add";
-          "${config.xdg.dataHome}/nvim/site/spell/en.utf-8.add".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix-config/home/users/christian/vim/data/en.utf-8.add";
+          "${config.xdg.dataHome}/nvim/site/spell/shared.utf-8.add".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix-config/home/users/christian/vim/data/spell/shared.utf-8.add";
+          "${config.xdg.dataHome}/nvim/site/spell/de.utf-8.add".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix-config/home/users/christian/vim/data/spell/de.utf-8.add";
+          "${config.xdg.dataHome}/nvim/site/spell/en.utf-8.add".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix-config/home/users/christian/vim/data/spell/en.utf-8.add";
         };
 
       packages = [
@@ -55,6 +55,11 @@ in
       sessionVariables = {
         EDITOR = "vim";
       };
+    };
+
+    xdg.dataFile = {
+      "nvim/site/dict/mthesaur.txt".source = ./data/dict/mthesaur.txt;
+      "nvim/site/dict/openthesaurus.txt".source = ./data/dict/openthesaurus.txt;
     };
   };
 }
