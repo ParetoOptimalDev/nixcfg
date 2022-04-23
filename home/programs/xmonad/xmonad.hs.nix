@@ -150,7 +150,7 @@ pkgs.writeText "xmonad.hs" ''
   myManageHook = manageZoomHook <+> composeAll
       -- Workspace assignments
       [ className =? "jetbrains-idea"             --> doShift "2"
-      , className =? "Firefox"                    --> doShift "3"
+      , className =? "firefox"                    --> doShift "3"
       , className =? "Microsoft Teams - Preview"  --> doShift "4"
       , className =? "Signal"                     --> doShift "4"
       , className =? "Slack"                      --> doShift "4"
