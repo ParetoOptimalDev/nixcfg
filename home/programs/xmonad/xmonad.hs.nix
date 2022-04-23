@@ -163,7 +163,7 @@ pkgs.writeText "xmonad.hs" ''
       , className =? "VirtualBox Manager"         --> doShift "6"
       , className =? "xfreerdp"                   --> doShift "6"
       , className =? "Steam"                      --> doShift "8"
-      , className =? "TeamSpeak 3"                --> doShift "8"
+      , className =? "TeamSpeak 3"                --> doShift "9"
       -- Spotify workspace shift does not work, see:
       -- https://www.reddit.com/r/xmonad/comments/q7i569/spotify_workspace_shift_issue/
       , className =? "Spotify"                    --> doShift "9"

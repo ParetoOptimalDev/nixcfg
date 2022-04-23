@@ -19,8 +19,8 @@ in
     custom.programs.xmonad = {
       autoruns = {
         "firefox" = 3;
-        "steam" = 9;
-        "ts3client" = 10;
+        "steam" = 8;
+        "ts3client" = 9;
       };
     };
   };
