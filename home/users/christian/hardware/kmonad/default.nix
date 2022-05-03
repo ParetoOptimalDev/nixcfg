@@ -20,6 +20,7 @@ in
       enable = true;
       configFiles = {
         G512 = ./logitech-g512.de-ch.kbd;
+        WASD_V3 = ./wasd-v3.de-ch.kbd;
       };
     };
   };
