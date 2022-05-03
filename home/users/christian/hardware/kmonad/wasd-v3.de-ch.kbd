@@ -7,8 +7,8 @@
 )
 
 (defalias
-  sym  (tap-hold 200 spc (layer-toggle syms))   ;; Tap on space for space and hold for nums/syms layer
-  ec   (tap-hold 200 esc ctl)                   ;; Tap on escape for escape and hold for left ctrl
+  sym  (tap-hold 150 spc (layer-toggle syms))   ;; Tap on space for space and hold for nums/syms layer
+  ec   (tap-hold 150 esc ctl)                   ;; Tap on escape for escape and hold for left ctrl
   ;; vi   (layer-toggle vim)                       ;; enables the vim layer
 )
 
