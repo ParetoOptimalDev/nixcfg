@@ -25,6 +25,9 @@ in
       lutris
       steam
 
+      # Runtimes
+      wine
+
       # Games
       superTux
       superTuxKart
