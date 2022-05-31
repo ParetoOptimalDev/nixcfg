@@ -298,9 +298,11 @@ handle_mime() {
         ## Text
         text/* | */xml)
             ## Syntax highlight
+            # shellcheck disable=SC2312
             if [[ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]]; then
                 exit 2
             fi
+            # shellcheck disable=SC2312
             if [[ "$( tput colors )" -ge 256 ]]; then
                 local pygmentize_format='terminal256'
                 local highlight_format='xterm256'

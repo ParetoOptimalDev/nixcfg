@@ -17,6 +17,13 @@ let
   };
 
   vimwiki-cli = machNix.buildPythonPackage {
+    pname = "vimwiki-cli";
+    version = "1.0.0";
+    requirements = ''
+      click~=7.1
+      setuptools
+      wheel
+    '';
     src = fetchGit {
       url = "https://github.com/sstallion/vimwiki-cli";
       ref = "refs/tags/v1.0.0";

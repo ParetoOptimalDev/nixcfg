@@ -36,8 +36,10 @@ in
       enable = true;
       settings = {
         env.TERM = "xterm-256color";
-        background_opacity = 0.95;
-        window.dynamic_padding = true;
+        window = {
+          dynamic_padding = true;
+          opacity = 0.95;
+        };
         font =
           let
             fontFamily = "${desktopCfg.font.family}";

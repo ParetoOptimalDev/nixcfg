@@ -25,7 +25,7 @@ in
     home = {
       packages = with pkgs; [
         unstable.home-manager
-        nix_2_4
+        nixStatic
       ];
 
       shellAliases = {

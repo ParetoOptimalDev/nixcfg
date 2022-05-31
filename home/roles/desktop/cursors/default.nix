@@ -22,19 +22,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
-      pkgs.dconf
-    ];
+    home = {
+      packages = [
+        pkgs.dconf
+      ];
 
-    gtk.enable = true;
-
-    xsession = {
-      enable = true;
       pointerCursor = {
         name = cfg.pointerCursorName;
         package = pkgs.bibata-extra-cursors;
         size = 22;
       };
     };
+
+    gtk.enable = true;
+
+    xsession.enable = true;
   };
 }

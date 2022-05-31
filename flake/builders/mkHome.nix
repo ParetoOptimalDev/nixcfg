@@ -15,7 +15,7 @@ inputs.home-manager.lib.homeManagerConfiguration {
 
   configuration = rootPath + "/hosts/${hostname}/home-${username}.nix";
   homeDirectory = "/home/${username}";
-  stateVersion = "21.11";
+  stateVersion = "22.05";
 
   extraModules = homeModules;
   extraSpecialArgs = {

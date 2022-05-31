@@ -78,7 +78,7 @@ in
       # compatible, in order to avoid breaking some software such as database
       # servers. You should change this only after NixOS release notes say you
       # should.
-      stateVersion = "21.11";
+      stateVersion = "22.05";
     };
   };
 }

@@ -16,14 +16,20 @@ test "${HOSTNAME}" || {
     exit 1
 }
 
-[[ $(echo "${DISK}" | grep -P "^/dev/(sd[a-z]|nvme[0-9]n[1-9])$" -c) -gt 0 ]] || {
+NUM_SUPPORTED_DISKS=$(echo "${DISK}" | grep -P "^/dev/(sd[a-z]|nvme[0-9]n[1-9])$" -c)
+readonly NUM_SUPPORTED_DISKS
+
+[[ ${NUM_SUPPORTED_DISKS} -gt 0 ]] || {
     # shellcheck disable=SC2016
     echo '$DISK is not of format "/dev/sda" or "/dev/nvme0n1"!'
     exit 1
 }
 
+NUM_NVME_DISKS=$(echo "${DISK}" | grep "^/dev/nvme" -c)
+readonly NUM_NVME_DISKS
+
 is_nvme_disk() {
-    [[ $(echo "${DISK}" | grep "^/dev/nvme" -c) -gt 0 ]]
+    [[ ${NUM_NVME_DISKS} -gt 0 ]]
 }
 
 get_partition() {
@@ -40,7 +46,13 @@ LVM_PARTITION="$(get_partition 2)"
 readonly LVM_PARTITION
 
 get_ram_size() {
-    lsmem --summary=only | grep "Total online memory:" | grep -Po "[0-9]+[kKmMgGtTpPeE]"
+    local mem_summary
+    mem_summary="$(lsmem --summary=only)"
+    local mem_summary_online
+    mem_summary_online="$(echo "${mem_summary}" | grep "Total online memory:")"
+    local mem_online_size
+    mem_online_size="$(echo "${mem_summary_online}" | grep -Po "[0-9]+[kKmMgGtTpPeE]")"
+    echo "${mem_online_size}"
 }
 
 RAM_SIZE="$(get_ram_size)"
@@ -106,7 +118,11 @@ install() {
     local mount_boot="${mount_root}/boot"
 
     _log "[install] Enabling swap..."
-    if [[ $(swapon --noheadings | wc -l) -lt 1 ]]; then
+    local swap_list
+    swap_list="$(swapon --noheadings)"
+    local num_swap
+    num_swap=$(echo "${swap_list}" | wc -l)
+    if [[ ${num_swap} -lt 1 ]]; then
         swapon -v "${LVM_LV_SWAP}"
     fi
 
@@ -131,7 +147,11 @@ if _read_boolean "Do you want to DELETE ALL PARTITIONS?" N; then
     create_filesystems
 fi
 
-if [[ $(cryptsetup -q status "${LVM_PV}" | grep "^/dev/mapper/${LVM_PV} is active and is in use.$" -c) -lt 1 ]]; then
+LVM_PV_STATUS="$(cryptsetup -q status "${LVM_PV}")"
+readonly LVM_PV_STATUS
+LVM_PV_NUM_ACTIVE=$(echo "${LVM_PV_STATUS}" | grep "^/dev/mapper/${LVM_PV} is active and is in use.$" -c)
+readonly LVM_PV_NUM_ACTIVE
+if [[ ${LVM_PV_NUM_ACTIVE} -lt 1 ]]; then
     decrypt_lvm
 fi
 

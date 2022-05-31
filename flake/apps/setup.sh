@@ -6,6 +6,12 @@ export -f _log
 nix_config="@flakePath@"
 export nix_config
 
+USER_NAME="$(logname)"
+readonly USER_NAME
+
+HOST_NAME="$(hostname)"
+readonly HOST_NAME
+
 _clone() {
     local name="${1}"
     local url="${2}"
@@ -17,7 +23,7 @@ _clone() {
     fi
 
     _log "Clone ${name}..."
-    su -c "git clone ${url} ${directory}" - "$(logname)"
+    su -c "git clone ${url} ${directory}" - "${USER_NAME}"
 }
 
 # clone repos
@@ -32,10 +38,11 @@ _generate_age() {
     if [[ ! -e "${HOME}/.age" ]]; then
         mkdir -p "${age_dir}"
         _log "Generating age key at ${age_key_file}"
-        # shellcheck disable=SC2005
-        echo "$(nix shell nixpkgs#age -c age-keygen -o "${age_key_file}" 2>&1)" |
-            sed -e "s,^Public key: \(.*\)\$,$(hostname)-${USER} = \"\1\"," |
-            tee -a "${nix_config}/.agenix.toml"
+        local generated_age_key
+        generated_age_key="$(nix shell nixpkgs#age -c age-keygen -o "${age_key_file}" 2>&1)"
+        local age_pubkey_line
+        age_pubkey_line="$(sed -e "s,^Public key: \(.*\)\$,${HOST_NAME}-${USER} = \"${generated_age_key}\",")"
+        echo "${age_pubkey_line}" | tee -a "${nix_config}/.agenix.toml"
     else
         _log "Target directory ${age_dir} already exists, aborting age key generation!"
     fi
@@ -44,10 +51,10 @@ export -f _generate_age
 
 # installation
 _setup_nixos() {
-    hostname=$(_read "Enter hostname" "$(hostname)")
+    hostname=$(_read "Enter hostname" "${HOST_NAME}")
 
     _generate_age
-    su "$(logname)" -c "bash -c _generate_age"
+    su "${USER_NAME}" -c "bash -c _generate_age"
 
     _log "Linking flake to system config..."
     ln -fs "${nix_config}/flake.nix" /etc/nixos/flake.nix
@@ -57,7 +64,12 @@ _setup_nixos() {
 }
 
 _setup_nix() {
-    has_nix_imperative=$(nix-env -q --json | jq ".[].pname" | grep '"nix"' > /dev/null)
+    local nix_env_pkgs_json
+    nix_env_pkgs_json="$(nix-env -q --json)"
+    local nix_env_pkgs_names
+    nix_env_pkgs_names="$(echo "${nix_env_pkgs_json}" | jq ".[].pname")"
+    local has_nix_imperative
+    has_nix_imperative=$(echo "${nix_env_pkgs_names}" | grep '"nix"' > /dev/null)
     # preparation for non nixos systems
     if ${has_nix_imperative}; then
         _log "Set priority of installed nix package..."
@@ -67,7 +79,7 @@ _setup_nix() {
     _generate_age
 
     _log "Build home-manager activationPackage..."
-    nix build "${nix_config}#homeConfigurations.$(logname)@$(hostname).activationPackage"
+    nix build "${nix_config}#homeConfigurations.${USER_NAME}@${HOST_NAME}.activationPackage"
 
     _log "Run activate script..."
     HOME_MANAGER_BACKUP_EXT=hm-bak ./result/activate

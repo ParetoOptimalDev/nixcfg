@@ -2,7 +2,12 @@
 # Volume indicator
 
 vol() {
-  vol=$(amixer get Master | awk -F'[][]' 'END{ print $4":"$2 }' | sed 's/on://g')
-  echo -e "墳${vol}"
+  local master_summary
+  master_summary="$(amixer get Master)"
+  local master_state
+  master_state="$(echo "${master_summary}" | awk -F'[][]' 'END{ print $4":"$2 }')"
+  local master_volume
+  master_volume="${master_state//on:/}"
+  echo -e "墳${master_volume}"
 }
 

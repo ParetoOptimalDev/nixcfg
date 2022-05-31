@@ -13,7 +13,7 @@ let
 
   mkSymlink = dir: {
     name = ".embedmongo/extracted/${dir}/extractmongod";
-    value = { source = toPath "${mongodbPkg}/bin/mongod"; };
+    value = { source = "${mongodbPkg}/bin/mongod"; };
   };
 
 in

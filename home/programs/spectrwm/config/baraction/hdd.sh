@@ -2,7 +2,10 @@
 ## Available disk space indicator
 
 hdd() {
-  hdd="$(df -h -P -l "/" | awk 'NR==2{print $4}')"
-  echo -e "  ${hdd}"
+  local disk_free_root
+  disk_free_root="$(df -hPl "/")"
+  local disk_usage_percentage
+  disk_usage_percentage="$(echo "${disk_free_root}" | awk 'NR==2{print $4}')"
+  echo -e "  ${disk_usage_percentage}"
 }
 

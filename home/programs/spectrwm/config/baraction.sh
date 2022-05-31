@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2312
 # baraction.sh for spectrwm status bar
 
 for i in "$(dirname "$0")"/baraction/*; do
