@@ -22,6 +22,7 @@ in
       blur = true;
       blurExclude = [
         "window_type = 'utility'" # Firefox/Thunderbird dropdowns
+        "name = 'as_toolbar'" # Zoom screen sharing toolbar
       ];
       experimentalBackends = true;
       extraOptions = ''
@@ -48,14 +49,14 @@ in
         "100:fullscreen"
 
         # App specifics
+        "100:class_g = 'Alacritty' && focused"
         "100:class_g = 'dmenu'"
         "100:class_g *= 'Microsoft Teams'"
         "100:name ^= 'Slack | Slack call'"
-        "100:name ~= 'Zoom Meeting$'"
+        "100:name *= 'Zoom Meeting'" # Zoom meeting window
         "100:name = 'as_toolbar'" # Zoom screen sharing toolbar
         "100:name *= 'i3lock'"
         "100:window_type = 'utility'" # Firefox/Thunderbird dropdowns
-        "100:class_g = 'Alacritty' && focused"
       ];
       shadow = true;
       shadowExclude = [
@@ -63,7 +64,7 @@ in
 
         # App specifics
         "name = 'as_toolbar'" # Zoom screen sharing toolbar
-        "name = 'cpt_frame_window'" # Zoom screen sharing frame
+        "name ~= 'cpt_frame(_xcb)?_window'" # Zoom screen sharing frame
         "window_type = 'utility'" # Firefox/Thunderbird dropdowns
       ];
     };
