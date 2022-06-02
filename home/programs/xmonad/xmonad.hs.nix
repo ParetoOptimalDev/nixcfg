@@ -46,6 +46,8 @@ pkgs.writeText "xmonad.hs" ''
   import XMonad.Hooks.EwmhDesktops
   import XMonad.Hooks.ManageDocks
   import XMonad.Hooks.ManageHelpers
+  import XMonad.Hooks.StatusBar
+  import XMonad.Hooks.StatusBar.PP
 
   import XMonad.Layout.Magnifier
   import XMonad.Layout.NoBorders
@@ -174,22 +176,6 @@ pkgs.writeText "xmonad.hs" ''
       , className =? "jetbrains-idea" <&&> title =? "win0"  --> doFloat
       ] <+> namedScratchpadManageHook myScratchpads
 
-  addNETSupported :: Atom -> X ()
-  addNETSupported x   = withDisplay $ \dpy -> do
-      r               <- asks theRoot
-      a_NET_SUPPORTED <- getAtom "_NET_SUPPORTED"
-      a               <- getAtom "ATOM"
-      liftIO $ do
-         sup <- (join . maybeToList) <$> getWindowProperty32 dpy a_NET_SUPPORTED r
-         when (fromIntegral x `notElem` sup) $
-           changeProperty32 dpy r a_NET_SUPPORTED a propModeAppend [fromIntegral x]
-
-  addEWMHFullscreen :: X ()
-  addEWMHFullscreen   = do
-      wms <- getAtom "_NET_WM_STATE"
-      wfs <- getAtom "_NET_WM_STATE_FULLSCREEN"
-      mapM_ addNETSupported [wms, wfs]
-
   ${optionalString (cfg.autoruns != {}) ''
     myStartupHook = startupHook def <+> do
         ${concatStringsSep "\n    " (mapAttrsToList mkAutorun cfg.autoruns)}
@@ -206,14 +192,25 @@ pkgs.writeText "xmonad.hs" ''
 
   myXmobarPP :: PP
   myXmobarPP = def
-      { ppSep             = accent " • "
-      , ppTitleSanitize   = xmobarStrip
-      , ppCurrent         = wrap (accent "[") (accent "]")
-      , ppHidden          = base . wrap " " " "
-      , ppHiddenNoWindows = foreground . wrap " " " "
-      , ppUrgent          = warn . wrap "!" "!"
+      { ppSep              = accent " • "
+      , ppTitleSanitize    = xmobarStrip
+      , ppCurrent          = wrap "" " " . xmobarBorder "Top" "${cfg.colorScheme.accent}" 2
+      , ppHidden           = base . wrap "" " "
+      , ppHiddenNoWindows  = foreground . wrap "" " "
+      , ppVisible          = foreground . wrap "" " " . base . xmobarBorder "Top" "${cfg.colorScheme.foreground}" 2
+      , ppVisibleNoWindows = Just $ wrap "" " " . xmobarBorder "Top" "${cfg.colorScheme.foreground}" 2
+      , ppUrgent           = warn . wrap "" "!"
+      , ppOrder            = \[ws, l, _, wins] -> [ws, l, wins]
+      , ppExtras           = [logTitles formatFocused formatUnfocused]
       }
     where
+      formatFocused   = wrap (base       "[") (base       "]") . foreground . ppWindow
+      formatUnfocused = wrap " "              " "              . foreground . ppWindow
+
+      -- | Windows should have *some* title, which should not not exceed a sane length.
+      ppWindow :: String -> String
+      ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
+
       ${concatStringsSep ", " (mapAttrsToList (n: v: toString n)  cfg.colorScheme)} :: String -> String
       ${concatStringsSep "    " (mapAttrsToList mkXmobarColor cfg.colorScheme)}
 
@@ -252,16 +249,14 @@ pkgs.writeText "xmonad.hs" ''
       , layoutHook          = myLayout      -- Use custom layouts
       , manageHook          = myManageHook  -- Match on certain windows
       ${optionalString (cfg.autoruns != {})
-        ", startupHook         = myStartupHook >> addEWMHFullscreen"}
-      , handleEventHook     = fullscreenEventHook
+        ", startupHook         = myStartupHook"}
       }
     `additionalKeysP` myKeys
 
   main :: IO ()
   main = xmonad
+       . ewmhFullscreen
        . ewmh
-     =<< statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig
-    where
-      toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-      toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
+       . withEasySB (statusBarProp "xmobar" (pure myXmobarPP)) defToggleStrutsKey
+       $ myConfig
 ''

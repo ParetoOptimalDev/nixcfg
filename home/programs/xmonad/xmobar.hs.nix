@@ -82,7 +82,7 @@ in
                             [ "-t", "<skyConditionS> <tempC>°"
                             ] 9000
                         , Run Date "\xe385 %a %b %-d %H:%M" "date" 10
-                        , Run StdinReader
+                        , Run XMonadLog
   ${optionalString cfg.xmobar.mobile ''
 
                           -- Mobile monitors
@@ -101,6 +101,6 @@ in
                         ]
            , sepChar  = "%"
            , alignSep = "}{"
-           , template = " <fc=${cfg.colorScheme.base}></fc>  %StdinReader% }{ %alsa:default:Master% ${sep} %alsa:default:Capture% ${sep} %cpu% ${sep} %memory% ${sep} %disku% ${sep} %multicoretemp% ${sep} ${optionalString cfg.xmobar.mobile "%battery% ${sep} "}%LSZB% ${sep} %date% "
+           , template = " <fc=${cfg.colorScheme.base}></fc>  %XMonadLog% }{ %alsa:default:Master% ${sep} %alsa:default:Capture% ${sep} %cpu% ${sep} %memory% ${sep} %disku% ${sep} %multicoretemp% ${sep} ${optionalString cfg.xmobar.mobile "%battery% ${sep} "}%LSZB% ${sep} %date% "
            }
 ''
