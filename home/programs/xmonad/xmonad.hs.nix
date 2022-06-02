@@ -135,7 +135,7 @@ pkgs.writeText "xmonad.hs" ''
         (className =? zoomClassName) <&&> shouldSink <$> title --> doSink
       ]
     where
-      zoomClassName = "zoom"
+      zoomClassName = ".zoom --disable-gpu-sandbox"
       tileTitles =
         [ "Zoom - Free Account", -- main window
           "Zoom - Licensed Account", -- main window
@@ -155,7 +155,7 @@ pkgs.writeText "xmonad.hs" ''
       , className =? "Signal"                     --> doShift "4"
       , className =? "Slack"                      --> doShift "4"
       , className =? "TelegramDesktop"            --> doShift "4"
-      , className =? "zoom"                       --> doShift "4"
+      , className =? ".zoom --disable-gpu-sandbox" --> doShift "4"
       , className =? "Chromium-browser"           --> doShift "5"
       , className =? "Thunderbird"                --> doShift "5"
       , className =? "VirtualBox"                 --> doShift "6"
