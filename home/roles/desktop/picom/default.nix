@@ -21,8 +21,8 @@ in
       package = pkgs.unstable.picom;
       blur = true;
       blurExclude = [
-        "window_type = 'utility'" # Firefox/Thunderbird dropdowns
         "name = 'as_toolbar'" # Zoom screen sharing toolbar
+        "window_type = 'utility'" # Firefox/Thunderbird dropdowns
       ];
       experimentalBackends = true;
       extraOptions = ''
@@ -52,6 +52,7 @@ in
         "100:class_g = 'Alacritty' && focused"
         "100:class_g = 'dmenu'"
         "100:class_g *= 'Microsoft Teams'"
+        "100:class_g = 'trayer'"
         "100:name ^= 'Slack | Slack call'"
         "100:name *= 'Zoom Meeting'" # Zoom meeting window
         "100:name = 'as_toolbar'" # Zoom screen sharing toolbar
@@ -63,6 +64,7 @@ in
         "window_type *= 'menu'"
 
         # App specifics
+        "class_g = 'trayer'"
         "name = 'as_toolbar'" # Zoom screen sharing toolbar
         "name ~= 'cpt_frame(_xcb)?_window'" # Zoom screen sharing frame
         "window_type = 'utility'" # Firefox/Thunderbird dropdowns

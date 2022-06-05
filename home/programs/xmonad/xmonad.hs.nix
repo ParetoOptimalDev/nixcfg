@@ -176,10 +176,12 @@ pkgs.writeText "xmonad.hs" ''
       , className =? "jetbrains-idea" <&&> title =? "win0"  --> doFloat
       ] <+> namedScratchpadManageHook myScratchpads
 
-  ${optionalString (cfg.autoruns != {}) ''
-    myStartupHook = startupHook def <+> do
-        ${concatStringsSep "\n    " (mapAttrsToList mkAutorun cfg.autoruns)}
-  ''}
+  myStartupHook :: X ()
+  myStartupHook = startupHook def <+> do
+      spawn "${pkgs.bash}/bin/bash ${./scripts/systray.sh} &"
+      ${optionalString (cfg.autoruns != {}) ''
+            ${concatStringsSep "\n    " (mapAttrsToList mkAutorun cfg.autoruns)}
+      ''}
   myLayout = smartBorders $ spacingWithEdge 5 $ tiled ||| Mirror tiled ||| Full ||| threeCol
     where
       threeCol = renamed [Replace "ThreeCol"]

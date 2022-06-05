@@ -14,7 +14,7 @@ in
            , alpha    = 254
            , bgColor  = "${cfg.colorScheme.background}"
            , fgColor  = "${cfg.colorScheme.foreground}"
-           , position = TopW L 95
+           , position = Top
            , textOffset = 16
            , commands = [ Run Alsa "default" "Master"
                             [ "-t", "<volumestatus>"
@@ -82,6 +82,8 @@ in
                             [ "-t", "<skyConditionS> <tempC>°"
                             ] 9000
                         , Run Date "\xe385 %a %b %-d %H:%M" "date" 10
+                        --trayerpad
+                        , Run Com "${pkgs.bash}/bin/bash" ["${./scripts/systraypad.sh}"] "traypad" 10
                         , Run XMonadLog
   ${optionalString cfg.xmobar.mobile ''
 
@@ -101,6 +103,6 @@ in
                         ]
            , sepChar  = "%"
            , alignSep = "}{"
-           , template = " <fc=${cfg.colorScheme.base}></fc>  %XMonadLog% }{ %alsa:default:Master% ${sep} %alsa:default:Capture% ${sep} %cpu% ${sep} %memory% ${sep} %disku% ${sep} %multicoretemp% ${sep} ${optionalString cfg.xmobar.mobile "%battery% ${sep} "}%LSZB% ${sep} %date% "
+           , template = " <fc=${cfg.colorScheme.base}></fc>  %XMonadLog% }{ %alsa:default:Master% ${sep} %alsa:default:Capture% ${sep} %cpu% ${sep} %memory% ${sep} %disku% ${sep} %multicoretemp% ${sep} ${optionalString cfg.xmobar.mobile "%battery% ${sep} "}%LSZB% ${sep} %date% ${sep} %traypad%"
            }
 ''

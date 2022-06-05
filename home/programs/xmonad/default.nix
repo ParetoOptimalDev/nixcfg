@@ -134,6 +134,7 @@ in
   config = mkIf cfg.enable {
     home = {
       packages = with pkgs; [
+        trayer
         cfg.dmenu.package
         cfg.font.package
         cfg.locker.package
@@ -144,24 +145,6 @@ in
     programs.xmobar = {
       inherit (cfg.xmobar) enable;
       extraConfig = import ./xmobar.hs.nix { inherit lib pkgs cfg; };
-    };
-
-    services = {
-      trayer = {
-        enable = true;
-        settings = {
-          edge = "top";
-          align = "right";
-          SetDockType = true;
-          SetPartialStrut = true;
-          expand = true;
-          width = 5;
-          transparent = true;
-          alpha = 1;
-          tint = "0x${builtins.substring 1 6 cfg.colorScheme.background}";
-          height = 22;
-        };
-      };
     };
 
     xsession.windowManager.xmonad = {
