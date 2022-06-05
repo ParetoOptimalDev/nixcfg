@@ -19,6 +19,7 @@ in
     services.picom = {
       enable = true;
       package = pkgs.unstable.picom;
+      backend = "glx";
       blur = true;
       blurExclude = [
         "name = 'as_toolbar'" # Zoom screen sharing toolbar
@@ -69,6 +70,7 @@ in
         "name ~= 'cpt_frame(_xcb)?_window'" # Zoom screen sharing frame
         "window_type = 'utility'" # Firefox/Thunderbird dropdowns
       ];
+      vSync = true;
     };
   };
 }
