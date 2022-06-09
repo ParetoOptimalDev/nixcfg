@@ -80,6 +80,11 @@ in
             action = "IncreaseFontSize";
           }
           {
+            key = "Plus";
+            mods = "Control|Shift";
+            action = "IncreaseFontSize";
+          }
+          {
             key = "NumpadSubtract";
             mods = "Control";
             action = "DecreaseFontSize";
