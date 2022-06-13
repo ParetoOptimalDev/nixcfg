@@ -33,6 +33,10 @@ in
         User beryllium
         PubkeyAcceptedAlgorithms +ssh-rsa
         HostkeyAlgorithms +ssh-rsa
+      Host mcsi-staging.dev.bluecare.ch
+        User devuser
+        PubkeyAcceptedAlgorithms +ssh-rsa
+        HostkeyAlgorithms +ssh-rsa
       Host *.dev.bluecare.ch
         User ansibleremote
         PubkeyAcceptedAlgorithms +ssh-rsa
