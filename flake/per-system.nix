@@ -25,8 +25,6 @@ let
 
       custom = prev.lib.composeManyExtensions customOverlays final prev;
     })
-
-    inputs.kmonad.overlay
   ];
 
   pkgs = import inputs.nixpkgs {

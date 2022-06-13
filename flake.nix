@@ -59,9 +59,8 @@
     };
 
     kmonad = {
-      url = "github:kmonad/kmonad?dir=nix";
+      url = "github:christianharke/kmonad?dir=nix";
       inputs = {
-        flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
     };

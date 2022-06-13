@@ -408,25 +408,22 @@
     },
     "kmonad": {
       "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
         "dir": "nix",
-        "lastModified": 1653717839,
-        "narHash": "sha256-xxJYrR00tiXE+fNAbp9snvXL3Antkkov9N0+MTkJ5yk=",
-        "owner": "kmonad",
+        "lastModified": 1655105761,
+        "narHash": "sha256-G1htMq3DlLPeNohkCauRUcOWrwV8DVB7OuTuZ8RFjDQ=",
+        "owner": "christianharke",
         "repo": "kmonad",
-        "rev": "58267c854ae6fd6c4ef84f45d176fc4c6cce7d0f",
+        "rev": "329cbd44062b38e432fcdfab52f0432a10d03782",
         "type": "github"
       },
       "original": {
         "dir": "nix",
-        "owner": "kmonad",
+        "owner": "christianharke",
         "repo": "kmonad",
         "type": "github"
       }

@@ -12,7 +12,7 @@ inputs.nixpkgs.lib.nixosSystem {
 
     inputs.agenix.nixosModules.age
     inputs.home-manager.nixosModules.home-manager
-    inputs.kmonad.nixosModule
+    inputs.kmonad.nixosModules.default
 
     {
       custom.base.hostname = name;
