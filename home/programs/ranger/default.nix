@@ -48,7 +48,7 @@ in
     xdg = {
       configFile = {
         "ranger/commands.py".source = ./config/commands.py;
-        "ranger/rc.conf".text = import ./config/rc.conf.nix { inherit config; };
+        "ranger/rc.conf".text = import ./config/rc.conf.nix { inherit config pkgs; };
         "ranger/rifle.conf".source = ./config/rifle.conf;
         "ranger/scope.sh" = {
           executable = true;

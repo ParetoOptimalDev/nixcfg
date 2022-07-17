@@ -83,9 +83,15 @@ handle_extension() {
             exit 1;;
 
         ## OpenDocument
-        odt|ods|odp|ott|sxw)
+        odt|odp|sxw)
             ## Preview as markdown conversion
             pandoc -s -t markdown -- "${FILE_PATH}" && exit 5
+            ## Preview as text conversion
+            odt2txt "${FILE_PATH}" && exit 5
+            exit 1;;
+
+        ## OpenDocument Calc
+        ods)
             ## Preview as text conversion
             odt2txt "${FILE_PATH}" && exit 5
             exit 1;;
@@ -133,9 +139,9 @@ handle_image() {
     # shellcheck disable=SC2249
     case "${mimetype}" in
         ## SVG
-        image/svg+xml|image/svg)
-            convert -- "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 6
-            exit 1;;
+        # image/svg+xml|image/svg)
+        #     convert -- "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 6
+        #     exit 1;;
 
         ## DjVu
         # image/vnd.djvu)
