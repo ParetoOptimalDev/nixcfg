@@ -33,6 +33,8 @@ in
         User beryllium
         PubkeyAcceptedAlgorithms +ssh-rsa
         HostkeyAlgorithms +ssh-rsa
+      Host bcr79-ls85.bluecare.local
+        User beryllium
       Host mcsi-staging.dev.bluecare.ch
         User devuser
         PubkeyAcceptedAlgorithms +ssh-rsa
