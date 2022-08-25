@@ -664,6 +664,21 @@
         "type": "github"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1661444055,
+        "narHash": "sha256-06znTAqeCu4WJGcFhzE8g2r4AlUIynM+ZWzzqs2f+bM=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "60ac7a933c1dfcbb5b8fab8ee508fea8437ffeac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "plenary": {
       "flake": false,
       "locked": {
@@ -723,11 +738,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1643877077,
-        "narHash": "sha256-jv8pIvRFTP919GybOxXE5TfOkrjTbdo9QiCO1TD3ZaY=",
+        "lastModified": 1661416445,
+        "narHash": "sha256-FzSG2VFi3zguwYFSFvCzCG8E5+8sDqOwN86mpdJ8OvU=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "da53397f0b782b0b18deb72ef8e0fb5aa7c98aa3",
+        "rev": "355ab592e7b64d3c4d0718fb08ad4103533ef3ba",
         "type": "github"
       },
       "original": {
@@ -776,6 +791,7 @@
         "neovim": "neovim",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks"
       }
     },

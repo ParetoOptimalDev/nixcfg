@@ -11,6 +11,13 @@ let
     inherit config system;
   };
 
+  nur = import inputs.nur {
+    nurpkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+    pkgs = import inputs.nixpkgs {
+      inherit config system;
+    };
+  };
+
   customOverlays = [
     inputs.i3lock-pixeled.overlay
     (final: prev: {
@@ -20,7 +27,7 @@ let
 
   overlays = [
     (final: prev: {
-      inherit unstable;
+      inherit unstable nur;
       inherit (inputs.agenix-cli.packages."${system}") agenix-cli;
 
       custom = prev.lib.composeManyExtensions customOverlays final prev;
