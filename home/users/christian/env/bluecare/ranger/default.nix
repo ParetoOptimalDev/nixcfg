@@ -17,7 +17,6 @@ in
 
   config = mkIf cfg.enable {
     custom.programs.ranger = {
-      enable = true;
       bookmarks = ''
         # BlueCare
         H:/mnt/bluecare/home

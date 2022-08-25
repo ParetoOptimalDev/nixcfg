@@ -5,6 +5,7 @@ with lib;
 let
 
   bluecareCfg = config.custom.users.christian.env.bluecare;
+  programsCfg = config.custom.programs;
   cfg = bluecareCfg.office.cli;
 
   calendarsPath = "${config.xdg.dataHome}/calendars";
@@ -20,20 +21,6 @@ in
   options = {
     custom.users.christian.env.bluecare.office.cli = {
       enable = mkEnableOption "CLI office config";
-
-      caldav = {
-        host = mkOption {
-          type = types.str;
-          default = "localhost";
-          description = "CalDav server";
-        };
-
-        port = mkOption {
-          type = types.int;
-          default = 1080;
-          description = "CalDav port";
-        };
-      };
     };
   };
 
@@ -79,7 +66,7 @@ in
           [storage bc_calendar_remote]
           type = "caldav"
           read_only = true
-          url = "http://${cfg.caldav.host}:${toString cfg.caldav.port}/users/${bluecareCfg.userEmail}/calendar/"
+          url = "http://localhost:${toString programsCfg.davmail.config.davmail.caldavPort}/users/${bluecareCfg.userEmail}/calendar/"
           username.fetch = ["command", "${pkgs.coreutils}/bin/cat", "${secretsPath}/${secretUsername}"]
           password.fetch = ["command", "${pkgs.coreutils}/bin/cat", "${secretsPath}/${secretPassword}"]
         '';

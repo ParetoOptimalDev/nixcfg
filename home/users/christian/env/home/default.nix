@@ -4,7 +4,10 @@ with lib;
 
 let
 
-  cfg = config.custom.users.christian.env.home;
+  programsCfg = config.custom.programs;
+  rolesCfg = config.custom.roles;
+  userCfg = config.custom.users.christian;
+  cfg = userCfg.env.home;
 
 in
 
@@ -19,10 +22,11 @@ in
 
     custom = {
       users.christian.env.home = {
-        git.enable = true;
-        office.cli.enable = config.custom.roles.office.cli.enable;
-        ranger.enable = true;
-        xmonad.enable = true;
+        firefox.enable = programsCfg.firefox.enable;
+        git.enable = userCfg.git.enable;
+        office.cli.enable = rolesCfg.office.cli.enable;
+        ranger.enable = userCfg.ranger.enable;
+        xmonad.enable = programsCfg.xmonad.enable;
       };
 
       roles = {

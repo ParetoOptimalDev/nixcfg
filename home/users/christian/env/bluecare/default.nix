@@ -4,7 +4,10 @@ with lib;
 
 let
 
-  cfg = config.custom.users.christian.env.bluecare;
+  programsCfg = config.custom.programs;
+  rolesCfg = config.custom.roles;
+  userCfg = config.custom.users.christian;
+  cfg = userCfg.env.bluecare;
 
 in
 
@@ -33,20 +36,15 @@ in
       users.christian.env.bluecare = {
         bin.enable = true;
         davmail.enable = true;
-        git.enable = true;
-        gtk.enable = true;
-        office.cli = {
-          inherit (config.custom.roles.office.cli) enable;
-          caldav = {
-            host = "localhost";
-            port = config.custom.programs.davmail.config.davmail.caldavPort;
-          };
-        };
-        ranger.enable = true;
-        scala.enable = config.custom.roles.dev.scala.enable;
-        ssh.enable = true;
-        tmux.enable = true;
-        xmonad.enable = true;
+        firefox.enable = programsCfg.firefox.enable;
+        git.enable = userCfg.git.enable;
+        gtk.enable = rolesCfg.desktop.enable;
+        office.cli.enable = rolesCfg.office.cli.enable;
+        ranger.enable = userCfg.ranger.enable;
+        scala.enable = rolesCfg.dev.scala.enable;
+        ssh.enable = config.programs.ssh.enable;
+        tmux.enable = programsCfg.tmux.enable;
+        xmonad.enable = programsCfg.xmonad.enable;
         zoomus.enable = true;
       };
 

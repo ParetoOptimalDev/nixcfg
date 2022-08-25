@@ -16,6 +16,15 @@ in
   };
 
   config = mkIf cfg.enable {
+    custom = {
+      programs.firefox = mkIf config.custom.programs.firefox.enable {
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          react-devtools
+          vue-js-devtools
+        ];
+      };
+    };
+
     home.packages = [
       pkgs.spidermonkey_91 # REPL
     ];
